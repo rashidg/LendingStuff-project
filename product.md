@@ -5,8 +5,9 @@ LendingStuff / Team22
 #### Q1: What are you planning to build?
 
 
-LendingStuff is a mobile app where people can share their tools/gear with other people who might not want to buy those, but need them for a short time. (maybe for emergency)
-There are some products that no one uses regularly, but once in a while they need it to get some work done.
+LendingStuff is a mobile app where people can share their tools/gear with other people. 
+You might suddenly need something for a short time like a computer charger. With our app you can find someone who is willing to lend his charger to make some extra money.
+Also, a lot of people don't want to buy things that they need once a year. By renting their gear directly from owners they save some money and they save space in their home. 
 
 
  * Short (1 - 2 min' read)
@@ -24,16 +25,15 @@ There are some products that no one uses regularly, but once in a while they nee
 #### Q2: Who are your target users?
 
 
-Our target users are people who need to use something temporarily whether because they forgot their own at home or because it is something you do not need to own permanently.
+Our target users are people who need to use something temporarily whether because they forgot their own at home or because it is something that they do not need to own permanently.
 
 Examples  of potential users:
 
--Bob wants move to a new apartment. He needs to disassemble his furniture and reassemble them in the new apartment. He doesn’t have to screwdrivers and drill to do this job. So he comes to LendingStuff to rent those tools from Joe who is a family man with all those tools lying around in his garage. Joe makes money, and Bob gets his furniture to his new apartment.
-
 -A student forgot their laptop charger at home and needs to use their laptop to study without going back home. Or preparing for a skype interview
 
--Family just moved home and they realized they need a screwdriver to build their furniture that they just bought from IKEA.
--Janice from Canada goes to Australia for a conference. When she arrives there, she notices that the power plugs have a different shape, and she can’t charge her computer. She doesn’t want to spend money on a plug because she’s only there for a week. She goes to LendingStuff and rents the adapter from a local for a week. (<-- Airport scenario, no local currency, quick buck)
+-Family just moved to their new home and they realized they need a screwdriver to build their furniture that they just bought from IKEA. 
+
+-Janice is travelling to Australia by plane. She has an unexpected layover in London. She wants to spend her time working on the computer but she can't charge her computer because the power plugs have different shape. She goes to LendingStuff and rents a charger/adapter from someone at the airport who happens to have the UK type charger/adapter.
 
  * Short (1 - 2 min' read max)
  * Be specific (e.g. )
@@ -42,8 +42,10 @@ Examples  of potential users:
 
 #### Q3: Why would your users choose your product? What are they using today to solve their problem/need?
 
+We have found that our users could potentially use rentnotbuy.com or zilok.com.
+But they both have a cumbersome and old fashioned user interfaces and they are websites.
 
-Some people are using PeerRenters app, but the key differentiator of our project is that, we are more focused on providing items that people would use one time. 
+We are planning to build an easy to use mobile app, and have more features like showing the results on a map.
 
 
  * Short (1 - 2 min' read max)
