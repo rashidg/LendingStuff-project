@@ -1,13 +1,15 @@
 # YOUR PRODUCT/TEAM NAME
 
+LendingStuff/Team 22
+
  > _Note:_ This document is meant to be written during (or shortly after) your initial planning meeting.     
  > It does not really make sense for you to edit this document much (if at all) while working on the project - Instead, at the end of the planning phase, you can refer back to this document and decide which parts of your plan you are happy with and which parts you would like to change.
 
 
 ## Iteration XX
 
- * Start date: FILL IN THE DATE WHEN YOU HAD YOUR FIRST TEAM PLANNING MEETING
- * End date: FILL IN THE DATE WHEN YOU ARE PLANNING TO HAVE YOUR REVIEW MEETING
+ * Start date: Tuesday, February 6
+ * End date: Friday, February 9
 
 ## Process
 
@@ -42,11 +44,37 @@ _This entire section is mandatory._
 
 #### Goals and tasks
 
- * Describe your goals for this iteration and the tasks that you will have to complete in order to achieve these goals.
+For iteration 1, our goal is to understand the idea inside and out.
+
+One goal is to outline how users use the app:
+
+ * How does a user sign up? (Specifically, what personal information do we demand from users to prevent spam/theft)
+ * How do transactions take place? (Do borrowers post requests, do lenders post items, potentially both)?
+ * How do users navigate the app? (When looking for existing requests/items, do we search, list under categories? Can users filter for location, price, etc)?
+ * How do users confirm a successful/unsuccessful transcation?
+
+We also need to outline how the app tracks and services its users:
+
+ * How do we make the process smooth for both lenders and borrowers? (Since users create the transcations)
+ * What information do we store about users? (Current #/History of transcations, user ratings, personal information, etc)
+ * What information do we need to provide to users? (Information about who they might trade with, best available price, nearby transcations)
+ * Is there information that would be difficult to store securely?
+ * Is there information that would be complicated/expensive to process?
+ * How do we handle spam/theft? (Prevention, and ensuring disputes are settled)
+ 
+Our goals will be considered complete when we have a good idea of our answers to these questions.
+
+* Describe your goals for this iteration and the tasks that you will have to complete in order to achieve these goals.
  * Order the items from most to least important.
  * Feel free (but not obligated) to specify some/all tasks as user stories.
 
 #### Artifacts
+
+In line with our goals and tasks, one artifact would be a sketch of user workflow (signup process -> initiating a transcation -> performing the transcation in person -> confirming the transcation -> rating the transcation partner -> repeating the process)
+
+Once this is complete, we will have a good idea of how to set up the user interface.
+
+Similarly, another artifact would be a sketch outline of the back-end (how the app tracks and services its users): in particular, this will help us determine what model we want to use to store our data.
 
 List/describe the artifacts you will produce in order to present your project idea.
 
