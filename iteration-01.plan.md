@@ -8,7 +8,7 @@ LendingStuff/Team 22
 
 ## Iteration XX
 
- * Start date: Tuesday, February 6~
+ * Start date: Tuesday, February 6
  * End date: Friday, February 9
 
 ## Process
