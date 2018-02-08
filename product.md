@@ -6,20 +6,14 @@ LendingStuff / Team22
 
 
 LendingStuff is a mobile app where people can share their tools/gear with other people. 
-You might suddenly need something for a short time like a computer charger. With our app you can find someone who is willing to lend his charger to make some extra money.
-Also, a lot of people don't want to buy things that they need once a year. By renting their gear directly from owners they save some money and they save space in their home. 
+You might suddenly need something for a short time like a computer charger. Or you might simply want to earn money with the things you own. With our app you can find someone who is willing to lend his charger to make some extra money.
+Also, a lot of people don't want to buy things that they need once a year. By renting their gear directly from owners they save some money and they save space in their home.
+Some of the initial features we're planning to build are:
+• Searching for items based on the user's location
+• Posting requests for items
+• Contacting the lender/renter to arrange a meeting (messaging)
+• Rating users based on their previous experiences.
 
-
- * Short (1 - 2 min' read)
- * Start with a single sentence, high-level description of the product.
- * Be clear - Describe the problem you are solving in simple terms.
- * Be concrete. For example:
-    * What are you planning to build? Is it a website, mobile app,
-   browser extension, command-line app, etc.?      
-    * When describing the problem/need, give concrete examples of common use cases.
- * Focus on *what* your product does, and avoid discussing *how* you're going to implement it.      
-   For example: This is not the time or the place to talk about which programming language and/or framework you are planning to use.
- * **Feel free (and very much encouraged) to include useful diagrams, mock-ups and/or links**.
 
 
 #### Q2: Who are your target users?
@@ -34,6 +28,8 @@ Examples  of potential users:
 -Family just moved to their new home and they realized they need a screwdriver to build their furniture that they just bought from IKEA. 
 
 -Janice is travelling to Australia by plane. She has an unexpected layover in London. She wants to spend her time working on the computer but she can't charge her computer because the power plugs have different shape. She goes to LendingStuff and rents a charger/adapter from someone at the airport who happens to have the UK type charger/adapter.
+
+-Bob is waiting for his plane in the airport and has forgotten his computer charager. He was to find someone in the airport whom he can rent the charger from. 
 
  * Short (1 - 2 min' read max)
  * Be specific (e.g. )
