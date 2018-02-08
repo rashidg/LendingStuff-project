@@ -47,6 +47,19 @@ _This entire section is mandatory._
 
 #### Goals and/or tasks that were met/completed:
 
+We determined how users would make use of the app:
+
+ * To sign up, a user will need to provide their credit card information and a valid email account- name, phone, and credit card information. (This sets up for transactions and provides enough information to track malicious users).
+ * Borrowers and lenders may both set up requests, and search for requests: items will be filtered into categories with options for price and distance.
+ being used by spammers.
+ * In our search function, we will provide a checklist to sort out lenders fulfilling/not fulfilling various requirements.
+ * Both parties must hit a "confirm" button to state that the transaction was successful: both the lender and the borrower agree on fair play.
+ 
+Similarly, we determined how the app would track and service users:
+ 
+ * Once theft has been confirmed, we charge users who have stolen items a significantly increased price (proportionally smaller for larger items, so that the penalty remains reasonable).
+ * Location tracking is optional- items may be posted within a region (downtown toronto, etc): users can provide preferred meeting locations, or choose to provide their location at the point in time when the app is turned on.
+ 
  * From most to least important.
  * Refer/link to artifact(s) that show that a goal/task was met/completed.
  * If a goal/task was not part of the original iteration plan, please mention it.
