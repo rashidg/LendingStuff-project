@@ -6,11 +6,12 @@ LendingStuff / Team22
 
 
 LendingStuff is a mobile app where people can share their tools/gear with other people. 
-You might suddenly need something for a short time like a computer charger. With our app you can find someone who is willing to lend his charger to make some extra money.
+You might suddenly need something for a short time like a computer charger. Or you might simply want to earn money with the things you own. With our app you can find someone who is willing to lend his charger to make some extra money.
 Also, a lot of people don't want to buy things that they need once a year. By renting their gear directly from owners they save some money and they save space in their home.
-Some of the feature we're planning to build are:
-• Searching for items on a map
-• Contacting the lender to arrange a meeting (messaging)
+Some of the initial features we're planning to build are:
+• Searching for items based on the user's location
+• Posting requests for items
+• Contacting the lender/renter to arrange a meeting (messaging)
 • Rating users based on their previous experiences.
 
 
@@ -27,6 +28,8 @@ Examples  of potential users:
 -Family just moved to their new home and they realized they need a screwdriver to build their furniture that they just bought from IKEA. 
 
 -Janice is travelling to Australia by plane. She has an unexpected layover in London. She wants to spend her time working on the computer but she can't charge her computer because the power plugs have different shape. She goes to LendingStuff and rents a charger/adapter from someone at the airport who happens to have the UK type charger/adapter.
+
+-Bob is waiting for his plane in the airport and has forgotten his computer charager. He was to find someone in the airport whom he can rent the charger from. 
 
  * Short (1 - 2 min' read max)
  * Be specific (e.g. )
