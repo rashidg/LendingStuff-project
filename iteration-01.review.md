@@ -6,7 +6,8 @@ LendingStuff/Team22
 
  * When: Thursday, February 8th
  * Where: BA 2270
- * [Trello](https://github.com/csc301-winter-2018/project-team-22/blob/master/Iteration%201%20Review.png)
+ * [Trello screenshot](https://github.com/csc301-winter-2018/project-team-22/blob/master/Iteration%201%20Review.png)
+ * [Trello board](https://trello.com/b/wgqXn3yi/lendingstuff)
 
 
 ## Product - Review
