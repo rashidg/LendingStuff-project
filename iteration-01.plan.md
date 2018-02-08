@@ -4,6 +4,7 @@ LendingStuff/Team 22
 
  * Start date: Tuesday, February 6
  * End date: Friday, February 9
+ * [Trello screenshot](https://github.com/csc301-winter-2018/project-team-22/blob/master/Iteration%201%20Planning.png)
 
 ## Product
 
