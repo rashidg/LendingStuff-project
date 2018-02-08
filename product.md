@@ -7,19 +7,12 @@ LendingStuff / Team22
 
 LendingStuff is a mobile app where people can share their tools/gear with other people. 
 You might suddenly need something for a short time like a computer charger. With our app you can find someone who is willing to lend his charger to make some extra money.
-Also, a lot of people don't want to buy things that they need once a year. By renting their gear directly from owners they save some money and they save space in their home. 
+Also, a lot of people don't want to buy things that they need once a year. By renting their gear directly from owners they save some money and they save space in their home.
+Some of the feature we're planning to build are:
+• Searching for items on a map
+• Contacting the lender to arrange a meeting (messaging)
+• Rating users based on their previous experiences.
 
-
- * Short (1 - 2 min' read)
- * Start with a single sentence, high-level description of the product.
- * Be clear - Describe the problem you are solving in simple terms.
- * Be concrete. For example:
-    * What are you planning to build? Is it a website, mobile app,
-   browser extension, command-line app, etc.?      
-    * When describing the problem/need, give concrete examples of common use cases.
- * Focus on *what* your product does, and avoid discussing *how* you're going to implement it.      
-   For example: This is not the time or the place to talk about which programming language and/or framework you are planning to use.
- * **Feel free (and very much encouraged) to include useful diagrams, mock-ups and/or links**.
 
 
 #### Q2: Who are your target users?
