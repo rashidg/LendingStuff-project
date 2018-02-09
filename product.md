@@ -54,8 +54,11 @@ There are applications that our potential users can use, such as rentnotbuy.com,
     * Difficult sign up and user-interface is not friendly.
     * Link: http://rentnotbuy.com
  * Zilok.com: 
-    * Only supports french language. We could not understand anything on the website and thus we cannot use it/nor describe it.
-    * Link: https://fr.zilok.com
+    * Zilok is not available for Canada.
+    * Web-based: no phone applications
+    * The website is very buggy, the tabs on the item detail page don't do anything.
+    * Items can be rented for a minimum of 24 hours.
+    * Link: https://us.zilok.com
  * PeerRenters:
     * Renters pay at least $2 every time they rent an item.
     * Items can be rented for a minimum of 12 hours. This will not work in case of a student who is only staying at the library or in general cases, people who are leaving in less than 12 hours.

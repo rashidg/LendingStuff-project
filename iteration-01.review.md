@@ -18,7 +18,6 @@ We determined how users will interact with the app:
 
  * To sign up, a user will need to provide their credit card information and a valid email account- name, phone, address and credit card information. (This sets up for transactions and provides enough information to track malicious users).
  * Borrowers and lenders may both set up requests, and search for requests: items will be filtered into categories with options for price and distance.
- being used by spammers.
  * In our search function, we will provide a checklist to sort out lenders fulfilling/not fulfilling various requirements.
  * Both parties must hit a "confirm" button to state that the transaction was successful: both the lender and the borrower agree on fair play.
  
