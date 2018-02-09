@@ -41,7 +41,7 @@ We created the website on which we will host the app:
 #### Goals and/or tasks that were planned but not met/completed:
 
  * We did not choose the language for backend - We decided to leave this out until the features for the product are finalized. We will choose based on which is most convenient for the members and the features to be implemented.
- * We did not decide how to deal with spammers (for lack of time).
+ * We did not decide how to deal with spammers (an issue to deal with in a version which is more advanced than the MVP).
  * It was difficult to decide what information would be (computationally) difficult to store without beginning work on the back end.
  * We did not make significant progress on the code (but this was expected- the purpose of iteration 1 was ideating)
 
@@ -51,7 +51,7 @@ We created the website on which we will host the app:
 Going into the next iteration, our main insights are:
  * It would help to organize meeting dates ahead of time (which work for the schedules of all attending members)
  * Moving forward, it will help to assign roles to the various team members (product owner, scrum master, etc) so we can better organize the code.
- * We decided to shift our focus from developing a web app to developing an android app (since our group members are more familiar with frameworks implemented in android).  
+ * We decided to shift our focus from developing a web app to developing an android app (since our group members are more familiar with frameworks supported in android).  
 
 
 
