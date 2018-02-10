@@ -6,7 +6,7 @@ LendingStuff/Team22
 
  * When: Thursday, February 8th
  * Where: BA 2270
- * [Trello screenshot](https://github.com/csc301-winter-2018/project-team-22/blob/master/Iteration%201%20Review.png)
+ * [Trello screenshot](https://github.com/csc301-winter-2018/project-team-22/blob/master/Deliverables/Iteration%201%20Review.png)
 
 
 ## Product - Review
@@ -28,8 +28,8 @@ We determined how the app would track and service users:
  * Private information will be password protected: time providing, we may add the option for two-factor authentication.
  
 We came up with personas to decribe possible users:
- * [Product.md](https://github.com/csc301-winter-2018/project-team-22/blob/master/product.md)
- * [User personas](https://github.com/csc301-winter-2018/project-team-22/tree/master/Stories)
+ * [Product.md](https://github.com/csc301-winter-2018/project-team-22/blob/master/Deliverables/product.md)
+ * [User personas](https://github.com/csc301-winter-2018/project-team-22/tree/master/Deliverables/Stories)
 
 We created the website on which we will host the app:
  * Lendingstuff.wordpress.com
