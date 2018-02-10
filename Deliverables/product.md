@@ -42,7 +42,6 @@ Examples  of potential users:
 
  * Sam is a bookworm, he reads a different book everyday. He usually orders books online from Amazon and he keeps them on the shelves untouched for months. Now that Sam knows LendingStuff exists, he can easily rent his old books to neighbors around him and make money without having to move far from his place.
 
-
 #### Q3: Why would your users choose your product? What are they using today to solve their problem/need?
 
 There are applications that our potential users can use, such as rentnotbuy.com, zilok.com, and PeerRenters. However, these applications have limitations as follows: 
