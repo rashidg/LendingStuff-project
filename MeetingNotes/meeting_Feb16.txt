@@ -1,0 +1,57 @@
+Fri, February 16, 2018
+3:00pm - 4:15pm
+@OISE C130
+In-person (Donna online)
+
+
+Item 1: React Native
+ * decided to use React Native for front-end
+ * Rashid gave everyone a quick tutorial about what it is & how to use it
+ 	- structure of React Native app (App.js, importing react, how to use React.Component, render function)
+ 	- using Expo for build (use desktop application to import project & generate QR code => mobile app)
+ 	- explained App.js & src/itemList.js on in react_native_firebase_skeleton on github
+ * check documentation to learn about what React.Component provides and other modules(?) you can import through React Native
+ 	- ex. StyleSheet (very similar to CSS)
+
+Item 2: Firebase
+ * decided to use Firebase for back-end & storing database
+ * Rashid gave everyone a quick tutorial about how to use it in js code
+ 	- import firebase
+ 	- connect to database
+ 	- use functions like set, once, listen, etc. to make requests to the api
+ * check documentation to learn about how to use them in detail
+
+Item 3: Git/GitHub workflow
+ * seems everyone is familiar with how to use it?
+
+Item 4: Mockups & Features
+ * decided to use shared Figma file to build mockup in more detail
+ * went over each page/view and discussed what needs to be added on (or removed from)
+ 	- put in details for Items
+ 	- restructure Post page for easier interface
+ 	- fix sort-by interface for Result page
+ 	- place radio-buttons (or something like it) for choosing categories
+ 	- My Items & Rented Items should have buttons for confirming rented & returned status
+ * discussed what other pages are needed
+ 	- Log in, Sign up, Profile
+ 	- Rented Items (rough sketch done during meeting)
+ 	- Review? Map View?
+ * features that need to be discussed in more detail in the future
+ 	- tracking
+ 	- meeting point
+ 	- distance
+ 	- late penalties
+
+
+TODO:
+ * finish mockups by Sunday
+ 	- Rashid: Profile, Login, Sign up
+ 	- Amr: Post, Item Detail
+ 	- Jason: My Items, Rented Items, Result
+ 	- Alec: Search
+ 	- Donna: review
+ * try to get familiar with React Native and Firebase
+ 	- maybe run the sample code from Rashid using Expo?
+
+
+NEXT MEETING: Sun, February 18, 2018, @3pm, on-line
