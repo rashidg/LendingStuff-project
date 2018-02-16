@@ -2,6 +2,8 @@ import React from 'react';
 import * as firebase from 'firebase';
 import { StyleSheet, Text, View } from 'react-native';
 
+import ItemList from './src/itemList';
+
 export default class App extends React.Component {
   render() {
       var database = firebase.database();
@@ -17,12 +19,12 @@ export default class App extends React.Component {
       var itemList = [];
       database.ref("db/").once("value", (res) => {
           console.log(res.val().items);
-          itemList = res.val().items.map((item) => (<Text>{item}</Text>));
+          itemList = res.val().items;
       });
 
     return (
       <View style={styles.container}>
-          {itemList}
+          <ItemList items={itemList} />
       </View>
     );
   }
