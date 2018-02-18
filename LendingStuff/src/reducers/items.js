@@ -1,10 +1,25 @@
 import { createReducer } from 'redux-act';
 
-import { fetchItems } from '../actions';
+import { getDataSuccess, getData } from '../actions';
+
+
+const initialState = {
+  data: [
+    "init1",
+    "init2"
+  ],
+  dataFetched: false,
+  isFetching: false,
+  error: false
+};
 
 export const itemsReducer = createReducer({
-  [fetchItems]: (state) => {
-    console.log("asd");
-    return state;
-  }
-}, { items: ["init1", "init2"] });
+  [getData]: (state) => ({ ...state, isFetching: true }),
+
+  [getDataSuccess]: (state, payload) => ({
+    ...state,
+    data: payload.items,
+    isFetching: false,
+    dataFetched: true
+  })
+}, initialState);

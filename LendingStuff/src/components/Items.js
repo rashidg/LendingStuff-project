@@ -1,10 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Text, View, TextInput } from 'react-native';
+import { Text, View, Button, TextInput } from 'react-native';
 
 import ItemList from './ItemList';
+import { fetchData } from '../actions';
 
-export default class Items extends React.Component {
+class Items extends React.Component {
 
   constructor(props) {
     super(props);
@@ -16,26 +17,18 @@ export default class Items extends React.Component {
 
   componentDidMount() {
     this.setState({
-      items: [
-        "Macbook Charger",
-        "Iphone Charger",
-        "Android Charger"
-      ],
       filteredItems: []
     });
   }
 
   handleSearch(text) {
-    const filtered = this.state.items.filter((item) => {
-      return item.includes(text);
-    });
-    this.setState({
-      ...this.state,
-      filteredItems: filtered
-    });
+    const filtered = this.props.items.filter(item => item.includes(text));
+    this.setState({ filteredItems: filtered });
   }
 
   render() {
+    const { dispatch, items } = this.props;
+
     const style = {
       flex: 1,
       backgroundColor: '#fff',
@@ -43,7 +36,9 @@ export default class Items extends React.Component {
     };
     return (
       <View style={style}>
-        <ItemList items={this.state.items} />
+        <Button title="Fetch Data From DB"
+                onPress={() => { dispatch(fetchData()); }} />
+        <ItemList items={items} />
         <Text>Search:</Text>
         <TextInput
           style={{height: 40}}
@@ -55,3 +50,14 @@ export default class Items extends React.Component {
     );
   }
 }
+
+
+const mapStateToProps = (state) => {
+  return {
+    items: state.items.data
+  };
+};
+
+export default connect(
+  mapStateToProps
+)(Items);

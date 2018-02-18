@@ -17,7 +17,7 @@ class Home extends React.Component {
       <View style={style}>
         <Button
           title="Go to Items"
-          onPress={() => {Actions.items();}}
+          onPress={ () => {Actions.items();} }
         />
       </View>
     );
