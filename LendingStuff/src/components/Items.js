@@ -1,4 +1,5 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import { Text, View, TextInput } from 'react-native';
 
 import ItemList from './ItemList';
@@ -35,8 +36,13 @@ export default class Items extends React.Component {
   }
 
   render() {
+    const style = {
+      flex: 1,
+      backgroundColor: '#fff',
+      alignItems: 'center'
+    };
     return (
-      <View>
+      <View style={style}>
         <ItemList items={this.state.items} />
         <Text>Search:</Text>
         <TextInput
@@ -49,5 +55,3 @@ export default class Items extends React.Component {
     );
   }
 }
-
-

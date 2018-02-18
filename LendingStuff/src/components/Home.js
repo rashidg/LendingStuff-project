@@ -1,11 +1,12 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import { View, Button } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 
 
-export default class Home extends React.Component {
-
+class Home extends React.Component {
   render() {
+
     const style = {
       flex: 1,
       backgroundColor: '#fff',
@@ -22,3 +23,10 @@ export default class Home extends React.Component {
     );
   }
 }
+
+export default connect(
+  (state) => ({
+    ...state,
+    list: state.items.items
+  })
+)(Home);

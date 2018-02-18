@@ -1,8 +1,9 @@
 import React from 'react';
+import { connect, Provider } from 'react-redux';
 import { StyleSheet, Text, View, Button } from 'react-native';
 import * as firebase from 'firebase';
-import { createStore, Provider } from 'redux';
-import { Scene, Router, Stack, Actions } from 'react-native-router-flux';
+import { createStore } from 'redux';
+import { Scene, Router, Stack } from 'react-native-router-flux';
 
 import Items from './src/components/Items';
 import Home from './src/components/Home';
@@ -12,12 +13,14 @@ const reduxStore = createStore(indexReducer);
 
 
 export default () => (
-  <Router>
-    <Stack key="root">
-      <Scene key="home" component={Home} title="Home"/>
-      <Scene key="items" component={Items} title="Register"/>
-    </Stack>
-  </Router>
+  <Provider store={reduxStore}>
+    <Router>
+      <Stack key="root">
+        <Scene key="home" component={Home} title="Home"/>
+        <Scene key="items" component={Items} title="Register"/>
+      </Stack>
+    </Router>
+  </Provider>
 );
 
 

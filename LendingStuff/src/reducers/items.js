@@ -7,4 +7,4 @@ export const itemsReducer = createReducer({
     console.log("asd");
     return state;
   }
-}, { items: [] });
+}, { items: ["init1", "init2"] });
