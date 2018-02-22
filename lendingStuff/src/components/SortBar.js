@@ -6,75 +6,76 @@ import { Text, View, Switch, Button, Alert} from 'react-native';
 
 class SortBar extends React.Component {
 
-	state = {
+  state = {
 
-		switchValue: true
+    switchValue: true
 
-	};
-
-
-
-	_handleToggleSwitch = () => this.setState(state => ({
-
-		switchValue: !state.switchValue
-
-	}));
+  };
 
 
 
-	_handleButtonPress = () => {
+  _handleToggleSwitch = () => this.setState(state => ({
 
-		Alert.alert(
+    switchValue: !state.switchValue
+
+  }));
+
+
+
+  _handleButtonPress = () => {
+
+    Alert.alert(
 'Map View');
 
-	};
+  };
 
-	render() {
+  render() {
 
-		const style = {
+    const style = {
 
-			flex: 1,
+      flex: 1,
 
-			backgroundColor: '#fff',
+      flexDirection: 'row',
+      backgroundColor: '#fff',
 
-			alignItems: 'Center'
+      alignItems: 'Center'
 
-		};
-
-
-		return (
-
-			<View style={style}>
-
-				<Text>Sort By</Text>
-
-				<Text>Distance</Text>
+    };
 
 
-				<Switch
+    return (
 
-					onValueChange={this._handleToggleSwitch}
+      <View style={style}>
 
-					value={this.state.switchValue}
+          <Text>Sort By     </Text>
 
-				/>
-
-
-				<Text>Price</Text>
+          <Text>Distance</Text>
 
 
-				<Button
+          <Switch
 
-					title="Map View"
+            onValueChange={this._handleToggleSwitch}
 
-					onPress={this._handleButtonPress}
+            value={this.state.switchValue}
 
-				/>
+          />
+
+
+          <Text>Price          </Text>
+
+
+          <Button
+
+            title="Map View"
+
+            onPress={this._handleButtonPress}
+
+          />
     
-			</View>
+      </View>
 
-		);
+    );
 
-	}
+  }
 
 }
