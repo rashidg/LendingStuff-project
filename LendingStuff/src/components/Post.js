@@ -6,18 +6,22 @@ class Post extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      /* Source of the image associated with this post */
       pic_src: "../stock_image.png",
 
+      /* Text fields for description, duration, location and rate */
       desc: "",
       dur: 0,
       meetLoc: "",
       rate: 0,
 
+      /* Item categories, and the index of the one selected */
       categories: ["Phone Chargers", "Textbooks", "Yachts", "Chihuahuas"],
       categoryIdx: 0
     };
   }
 
+  /* Placeholder: need to implement image uploading */
   replaceImage() {
   }
 
@@ -30,10 +34,14 @@ class Post extends React.Component {
 
     return (
       <View style={style}>
+        {/* Current image, and option to upload a new one */}
         <Image source={{ uri: this.state.pic_src }}
                style={width=50, height=50}/>
         <Button title="Upload a new image"
                 onPress={() => {this.replaceImage();}}/>
+
+        {/* For each category (and its index in the list), create a Button
+            to select category. The current category is highlighted with ~.*/}
         {
         this.state.categories.map(
           (key, index) =>
@@ -50,6 +58,7 @@ class Post extends React.Component {
         )
         }
 
+        {/* Text boxes to input (and read) desc, dur, loc, and rate */}
         <Text>Description:</Text>
         <TextInput
           style={{height: 50, width: 200}}
@@ -86,6 +95,7 @@ class Post extends React.Component {
   }
 }
 
+/* Export props associated with a Post */
 export default connect(
   (state) => {
     return {
