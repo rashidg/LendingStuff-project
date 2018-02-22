@@ -21,10 +21,6 @@ class Post extends React.Component {
   replaceImage() {
   }
 
-  updateKey(key) {
-    this.state.categoryKey = key;
-  }
-
   render() {
     const style = {
       flex: 1,
@@ -44,11 +40,11 @@ class Post extends React.Component {
           {
             if (key === this.state.categoryKey) {
               return <Button title={"~" + String(key).toUpperCase() + "~"}
-                      onPress={(index) => this.updateKey(key)} />
+                      onPress={key => {this.state.categoryKey = key;}} />
             }
             else {
               return <Button title={String(key).toLowerCase()}
-                      onPress={(index) => this.updateKey(key)} />
+                      onPress={key => {this.state.categoryKey = key;}} />
             }
           }
         )
@@ -99,7 +95,7 @@ export default connect(
       meetLoc: state.meetLoc,
       rate: state.rate,
       categories: state.categories,
-      categoryIdx: state.categoryIdx
+      categoryKey: state.categoryKey
     };
   }
 )(Post);
