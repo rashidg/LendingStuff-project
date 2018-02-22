@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { View, Button } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 
+import SortBar from './SortBar';
 
 class Home extends React.Component {
   render() {
@@ -15,6 +16,7 @@ class Home extends React.Component {
     };
     return (
       <View style={style}>
+        <SortBar />
         <Button
           title="Go to Items"
           onPress={ () => {Actions.items();} }
