@@ -19,6 +19,10 @@ class Home extends React.Component {
           title="Go to Items"
           onPress={ () => {Actions.items();} }
         />
+        <Button
+          title="Search for items"
+          onPress={ () => {Actions.search();} }
+        />
       </View>
     );
   }
