@@ -2,6 +2,8 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Text, View, Button, TextInput, Image } from 'react-native';
 
+import Categories from './Categories';
+
 class Post extends React.Component {
   constructor(props) {
     super(props);
@@ -40,23 +42,9 @@ class Post extends React.Component {
         <Button title="Upload a new image"
                 onPress={() => {this.replaceImage();}}/>
 
-        {/* For each category (and its index in the list), create a Button
-            to select category. The current category is highlighted with ~.*/}
-        {
-        this.state.categories.map(
-          (key, index) =>
-          {
-            if (index === this.state.categoryIdx) {
-              return <Button title={"~" + String(key) + "~"}
-                      onPress={() => this.setState({categoryIdx: index})} />
-            }
-            else {
-              return <Button title={String(key)}
-                      onPress={() => this.setState({categoryIdx: index})} />
-            }
-          }
-        )
-        }
+        <Categories categories={this.state.categories}
+                    categoryIdx={this.state.categoryIdx}
+                    onPress={(index) => this.setState({categoryIdx: index})} />
 
         {/* Text boxes to input (and read) desc, dur, loc, and rate */}
         <Text>Description:</Text>
