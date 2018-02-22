@@ -14,15 +14,15 @@ class Post extends React.Component {
       rate: 0,
 
       categories: ["Phone Chargers", "Textbooks", "Yachts", "Chihuahuas"],
-      categoryIdx: 0
+      categoryKey: "Phone Chargers"
     };
   }
 
   replaceImage() {
   }
 
-  updateIndex(index) {
-    this.state.categoryIdx = index;
+  updateKey(key) {
+    this.state.categoryKey = key;
   }
 
   render() {
@@ -39,19 +39,19 @@ class Post extends React.Component {
         <Button title="Upload a new image"
                 onPress={() => {this.replaceImage();}}/>
         {
-          this.state.categories.map(
-            (key, index) =>
-            {
-              if (index == this.state.categoryIdx) {
-                <Button title={String(key).toUpperCase()}
-                        onPress={(index) => updateIndex(index)} />
-              }
-              else {
-                <Button title={String(key).toLowerCase()}
-                        onPress={(index) => updateIndex(index)} />
-              }
+        this.state.categories.map(
+          key =>
+          {
+            if (key === this.state.categoryKey) {
+              return <Button title={"~" + String(key).toUpperCase() + "~"}
+                      onPress={(index) => this.updateKey(key)} />
             }
-          )
+            else {
+              return <Button title={String(key).toLowerCase()}
+                      onPress={(index) => this.updateKey(key)} />
+            }
+          }
+        )
         }
 
         <Text>Description:</Text>
