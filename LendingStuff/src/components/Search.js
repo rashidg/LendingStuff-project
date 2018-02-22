@@ -20,9 +20,11 @@ const categories = [
 	];
 
 export default class Search extends React.Component{
+
+
 	constructor(props){
 		super(props);
-		this.state = {text: '', distance: 5, duration: 12, category: ''};
+		this.state = {text: '', distance: 5, duration: 12, category: 'adapters'};
 	}
 
 	render() {
@@ -34,60 +36,60 @@ export default class Search extends React.Component{
       justifyContent: 'center'
     };
     return (
-      <View style={style}>
-      	<TextInput
-          style={{height: 50, width: 300}}
-          placeholder="Input your search"
-          onChangeText={(text) => this.setState({text})}
-        />
-        <RadioForm
-              style={{ width: 350 - 30 }}
-              dataSource={categories}
-              itemShowKey="label"
-              itemRealKey="label"
-              circleSize={16}
-              initial={1}
-              formVertical={true}
-              labelHorizontal={true}
-              onPress={(item) => this.setState({category: item.label})}
-        />
-        <Text>
-        Distance: {this.state.distance} KM
-        </Text>
-        <Slider
-        	style={{ width: 300 }}
-         	step={1}
-        	minimumValue={0}
-         	maximumValue={10}
-         	value={this.state.distance}
-         	onValueChange={(result) => this.setState({distance: result})}
-        />
-        <Text>
-        Duration: {this.state.duration} hours
-        </Text>
-        <Slider
-        	style={{ width: 300 }}
-         	step={0.5}
-        	minimumValue={0}
-         	maximumValue={24}
-         	value={this.state.duration}
-         	onValueChange={(result) => this.setState({duration: result})}
-        />
-        <Button
-          title="Submit search"
-          onPress={ () => Alert.alert(
-  				'Confirmation',
-  				'Here is your submission:\n'
-  				 + 'Name: ' + this.state.text + '\n'
-  				 + 'Duration: ' + this.state.duration + '\n'
-  				 + 'Distance: ' + this.state.distance + '\n'
-  				 + 'Category: ' + this.state.category + '\n',
-  			[
-    			{text: 'OK', onPress: () => console.log('OK Pressed')},
-  			],
-  			{ cancelable: false }
-		) }
-        />
+      	<View style={style}>
+      		<TextInput
+          		style={{height: 50, width: 300}}
+          		placeholder="Input your search"
+          		onChangeText={(text) => this.setState({text})}
+        	/>
+        	<Text>
+        		Distance: {this.state.distance} KM
+        	</Text>
+        	<Slider
+        		style={{ width: 300 }}
+         		step={1}
+        		minimumValue={0}
+         		maximumValue={10}
+         		value={this.state.distance}
+         		onValueChange={(result) => this.setState({distance: result})}
+        	/>
+        	<Text>
+        		Duration: {this.state.duration} hours
+        	</Text>
+        	<Slider
+        		style={{ width: 300 }}
+         		step={0.5}
+        		minimumValue={0}
+         		maximumValue={24}
+         		value={this.state.duration}
+         		onValueChange={(result) => this.setState({duration: result})}
+        	/>
+        	<RadioForm
+             	style={{ width: 300, height:70 }}
+              	dataSource={categories}
+              	itemShowKey="label"
+              	itemRealKey="label"
+              	circleSize={16}
+              	initial={1}
+              	formHorizontal={true}
+              	labelHorizontal={true}
+              	onPress={(item) => this.setState({category: item.label})}
+        	/>
+        	<Button
+          		title="Submit search"
+          		onPress={ () => Alert.alert(
+  					'Confirmation',
+  					'Here is your submission:\n'
+  				 	+ 'Name: ' + this.state.text + '\n'
+  				 	+ 'Duration: ' + this.state.duration + '\n'
+  				 	+ 'Distance: ' + this.state.distance + '\n'
+  				 	+ 'Category: ' + this.state.category + '\n',
+  				[
+    				{text: 'OK', onPress: () => console.log('OK Pressed')},
+  				],
+  				{ cancelable: false }
+				)}
+        	/>
       </View>
     );
   }
