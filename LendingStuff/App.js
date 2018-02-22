@@ -7,6 +7,7 @@ import { Scene, Router, Stack } from 'react-native-router-flux';
 
 import Items from './src/components/Items';
 import Home from './src/components/Home';
+import Post from './src/components/Post';
 import indexReducer from './src/reducers/index';
 
 const reduxStore = createStore(indexReducer, applyMiddleware(thunk));
@@ -17,6 +18,7 @@ export default () => (
       <Stack key="root">
         <Scene key="home" component={Home} title="Home"/>
         <Scene key="items" component={Items} title="Register"/>
+        <Scene key="post" component={Post} title="Post an Item"/>
       </Stack>
     </Router>
   </Provider>

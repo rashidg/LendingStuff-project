@@ -17,6 +17,7 @@ class Items extends React.Component {
 
   componentDidMount() {
     this.setState({
+      items: [],
       filteredItems: []
     });
   }
@@ -51,13 +52,10 @@ class Items extends React.Component {
   }
 }
 
-
-const mapStateToProps = (state) => {
-  return {
-    items: state.items.data
-  };
-};
-
 export default connect(
-  mapStateToProps
+  (state) => {
+    return {
+      items: state.items.data
+    };
+  }
 )(Items);
