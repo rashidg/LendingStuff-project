@@ -24,7 +24,7 @@ export default class Search extends React.Component{
 
 	constructor(props){
 		super(props);
-		this.state = {text: '', distance: 5, duration: 12, category: 'adapters'};
+		this.state = {text: '', distance: 5, duration: 12, category: 'adapters', price: 5};
 	}
 
 	render() {
@@ -64,6 +64,17 @@ export default class Search extends React.Component{
          		value={this.state.duration}
          		onValueChange={(result) => this.setState({duration: result})}
         	/>
+          <Text>
+            Rate: {this.state.price} per {this.state.duration}
+          </Text>
+          <Slider
+            style={{ width: 300 }}
+            step={5}
+            minimumValue={0}
+            maximumValue={500}
+            value={this.state.price}
+            onValueChange={(result) => this.setState({price: result})}
+          />
         	<RadioForm
              	style={{ width: 300, height:70 }}
               	dataSource={categories}
