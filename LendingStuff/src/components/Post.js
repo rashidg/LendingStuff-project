@@ -14,7 +14,7 @@ class Post extends React.Component {
       rate: 0,
 
       categories: ["Phone Chargers", "Textbooks", "Yachts", "Chihuahuas"],
-      categoryKey: "Phone Chargers"
+      categoryIdx: 0
     };
   }
 
@@ -36,15 +36,15 @@ class Post extends React.Component {
                 onPress={() => {this.replaceImage();}}/>
         {
         this.state.categories.map(
-          key =>
+          (key, index) =>
           {
-            if (key === this.state.categoryKey) {
-              return <Button title={"~" + String(key).toUpperCase() + "~"}
-                      onPress={key => {this.state.categoryKey = key;}} />
+            if (index === this.state.categoryIdx) {
+              return <Button title={"~" + String(key) + "~"}
+                      onPress={() => this.setState({categoryIdx: index})} />
             }
             else {
-              return <Button title={String(key).toLowerCase()}
-                      onPress={key => {this.state.categoryKey = key;}} />
+              return <Button title={String(key)}
+                      onPress={() => this.setState({categoryIdx: index})} />
             }
           }
         )
@@ -54,7 +54,7 @@ class Post extends React.Component {
         <TextInput
           style={{height: 50, width: 200}}
           placeholder="Write an item description:"
-          onChangeText={(text) => {this.state.desc = text;}} />
+          onChangeText={(text) => this.setState({desc: text})} />
 
         <Text>Duration:</Text>
         <TextInput
@@ -62,7 +62,7 @@ class Post extends React.Component {
           placeholder="Enter the duration (in hours):"
           onChangeText={(text) => {
             if (parseInt(text) != NaN) {
-              this.state.dur = parseInt(text);
+              this.setState({dur: parseInt(text)});
             }
           }}/>
 
@@ -70,7 +70,7 @@ class Post extends React.Component {
         <TextInput
           style={{height: 50, width: 200}}
           placeholder="Enter the meeting location:"
-          onChangeText={(text) => {this.state.meetLoc = text;}} />
+          onChangeText={(text) => this.setState({meetLoc: text})} />
 
         <Text>Hourly_rate:</Text>
         <TextInput
@@ -78,7 +78,7 @@ class Post extends React.Component {
           placeholder="Enter the the hourly rate (in $):"
           onChangeText={(text) => {
             if (parseInt(text) != NaN) {
-              this.state.rate = parseInt(text);
+              this.setState({rate: parseInt(text)});
             }
           }}/>
       </View>
@@ -95,7 +95,7 @@ export default connect(
       meetLoc: state.meetLoc,
       rate: state.rate,
       categories: state.categories,
-      categoryKey: state.categoryKey
+      categoryIdx: state.categoryIdx
     };
   }
 )(Post);
