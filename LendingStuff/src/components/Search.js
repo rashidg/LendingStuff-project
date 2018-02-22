@@ -1,28 +1,28 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { View, Button, TextInput, Slider, Text } from 'react-native';
+import { View, Button, TextInput, Slider, Text, Alert } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import RadioForm from 'react-native-radio-form';
 
 const mockData = [
     {
         label: 'chargers',
-        value: 'chargers'
+        value: 'charger'
     },
     {
         label: 'adapters',
-        value: 'adapters'
+        value: 'adapter'
     },
     {
-        label: 'LOL',
-        value: 'LOL'
+        label: 'home products',
+        value: 'home product'
     }
 	];
 
 export default class Search extends React.Component{
 	constructor(props){
 		super(props);
-		this.state = {text: '', distance: 5, duration: 12, value: 0};
+		this.state = {text: '', distance: 5, duration: 12, value: 0, category: ''};
 	}
 	_onSelect = ( item ) => {
       console.log(item);
@@ -76,11 +76,22 @@ export default class Search extends React.Component{
               initial={1}
               formVertical={true}
               labelHorizontal={true}
-              onPress={(item) => this._onSelect(item.value)}
+              onPress={(item) => this.setState({category: item.value})}
         />
         <Button
           title="Submit search"
-          onPress={ () => this._onSubmit() }
+          onPress={ () => Alert.alert(
+  				'Confirmation',
+  				'Here is your submission:\n'
+  				 + 'Name: ' + this.state.text + '\n'
+  				 + 'Duration: ' + this.state.duration + '\n'
+  				 + 'Distance: ' + this.state.distance + '\n'
+  				 + 'Category: ' + this.state.category + '\n',
+  			[
+    			{text: 'OK', onPress: () => console.log('OK Pressed')},
+  			],
+  			{ cancelable: false }
+		) }
         />
       </View>
     );
