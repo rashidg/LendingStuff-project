@@ -4,32 +4,27 @@ import { View, Button, TextInput, Slider, Text, Alert } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import RadioForm from 'react-native-radio-form';
 
-const mockData = [
+//Ideally this list will be populated from the Database
+//Or we will make use of the components created by the others (ROW specifically)
+//Or we can hardcode the categories here since it is an MVP
+const categories = [
     {
-        label: 'chargers',
-        value: 'charger'
+        label: 'chargers'
     },
     {
         label: 'adapters',
-        value: 'adapter'
     },
     {
         label: 'home products',
-        value: 'home product'
     }
 	];
 
 export default class Search extends React.Component{
 	constructor(props){
 		super(props);
-		this.state = {text: '', distance: 5, duration: 12, value: 0, category: ''};
+		this.state = {text: '', distance: 5, duration: 12, category: ''};
 	}
-	_onSelect = ( item ) => {
-      console.log(item);
-    };
-    _onSubmit = ( ) => {
-    	console.log(this.state.duration);
-    }
+
 	render() {
 
     const style = {
@@ -41,9 +36,20 @@ export default class Search extends React.Component{
     return (
       <View style={style}>
       	<TextInput
-          style={{height: 40}}
+          style={{height: 50, width: 300}}
           placeholder="Input your search"
           onChangeText={(text) => this.setState({text})}
+        />
+        <RadioForm
+              style={{ width: 350 - 30 }}
+              dataSource={categories}
+              itemShowKey="label"
+              itemRealKey="label"
+              circleSize={16}
+              initial={1}
+              formVertical={true}
+              labelHorizontal={true}
+              onPress={(item) => this.setState({category: item.label})}
         />
         <Text>
         Distance: {this.state.distance} KM
@@ -66,17 +72,6 @@ export default class Search extends React.Component{
          	maximumValue={24}
          	value={this.state.duration}
          	onValueChange={(result) => this.setState({duration: result})}
-        />
-        <RadioForm
-              style={{ width: 350 - 30 }}
-              dataSource={mockData}
-              itemShowKey="label"
-              itemRealKey="value"
-              circleSize={16}
-              initial={1}
-              formVertical={true}
-              labelHorizontal={true}
-              onPress={(item) => this.setState({category: item.value})}
         />
         <Button
           title="Submit search"
