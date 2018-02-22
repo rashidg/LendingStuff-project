@@ -65,7 +65,7 @@ export default class Search extends React.Component{
          		onValueChange={(result) => this.setState({duration: result})}
         	/>
           <Text>
-            Rate: {this.state.price} per {this.state.duration}
+            Rate: {this.state.price} per {this.state.duration} hours
           </Text>
           <Slider
             style={{ width: 300 }}
@@ -92,8 +92,8 @@ export default class Search extends React.Component{
   					'Confirmation',
   					'Here is your submission:\n'
   				 	+ 'Name: ' + this.state.text + '\n'
-  				 	+ 'Duration: ' + this.state.duration + '\n'
-  				 	+ 'Distance: ' + this.state.distance + '\n'
+  				 	+ 'Duration: ' + this.state.duration + ' hours \n'
+  				 	+ 'Distance: ' + this.state.distance + ' KM \n'
   				 	+ 'Category: ' + this.state.category + '\n',
   				[
     				{text: 'OK', onPress: () => console.log('OK Pressed')},
