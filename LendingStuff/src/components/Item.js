@@ -21,6 +21,7 @@ import {
   View,
   Image,
   Text,
+  TouchableOpacity,
   StyleSheet,
 } from 'react-native';
 
@@ -156,18 +157,21 @@ export default class Item extends React.Component {
             <Text numberOfLines={1} style={styles.item__name}>
               {this.state.item.name}
             </Text>
-            <Text numberOfLines={3} style={{flex: 1, color: "#404040"}}>
+            <Text numberOfLines={3} style={{flex: 1, color: "#5f5f5f"}}>
               {this.getDesc(this.state.view)}
             </Text>
           </View>
           <View style={styles.info__bottom}>
             {this.getDistance(this.state.item.location)}
             {this.priceOrTimeLeft()}
-            <View style={[styles.badge, {width: '40%', backgroundColor: '#7b37ba'}]}>
+            <TouchableOpacity
+              style={[styles.badge, {width: '40%', backgroundColor: '#7b37ba'}]}
+              onPress={() => { alert("hello") }}
+            >
               <Text style={styles.badge__text}>
                 {this.state.item.status.toUpperCase()}
               </Text>
-            </View>
+            </TouchableOpacity>
           </View>
         </View>
       </View>
