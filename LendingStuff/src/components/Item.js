@@ -73,6 +73,41 @@ export default class Item extends React.Component {
   }
 
 
+  render() {
+    return (
+
+      <View style={styles.container}>
+        <Image
+          style={styles.image}
+          source={require("./boo.png")}
+        />
+        <View style={styles.info}>
+          <View style={styles.info__text}>
+            <Text numberOfLines={1} style={styles.item__name}>
+              {this.state.item.name}
+            </Text>
+            <Text numberOfLines={3} style={{flex: 1, color: "#5f5f5f"}}>
+              {this.getDesc(this.state.view)}
+            </Text>
+          </View>
+          <View style={styles.info__bottom}>
+            {this.getDistance(this.state.item.location)}
+            {this.priceOrTimeLeft()}
+            <TouchableOpacity
+              style={[styles.badge, {width: '40%', backgroundColor: '#7b37ba'}]}
+              onPress={() => { alert("hello") }}
+            >
+              <Text style={styles.badge__text}>
+                {this.state.item.status.toUpperCase()}
+              </Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+      </View>
+    )
+  }
+
+
   /*
    * Build relevant description for the item
    * desc: description below item name
@@ -141,41 +176,6 @@ export default class Item extends React.Component {
         </View>
       )
     }
-  }
-
-
-  render() {
-    return (
-
-      <View style={styles.container}>
-        <Image
-          style={styles.image}
-          source={require("./boo.png")}
-        />
-        <View style={styles.info}>
-          <View style={styles.info__text}>
-            <Text numberOfLines={1} style={styles.item__name}>
-              {this.state.item.name}
-            </Text>
-            <Text numberOfLines={3} style={{flex: 1, color: "#5f5f5f"}}>
-              {this.getDesc(this.state.view)}
-            </Text>
-          </View>
-          <View style={styles.info__bottom}>
-            {this.getDistance(this.state.item.location)}
-            {this.priceOrTimeLeft()}
-            <TouchableOpacity
-              style={[styles.badge, {width: '40%', backgroundColor: '#7b37ba'}]}
-              onPress={() => { alert("hello") }}
-            >
-              <Text style={styles.badge__text}>
-                {this.state.item.status.toUpperCase()}
-              </Text>
-            </TouchableOpacity>
-          </View>
-        </View>
-      </View>
-    )
   }
 }
 
