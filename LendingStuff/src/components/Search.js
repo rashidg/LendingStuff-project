@@ -64,27 +64,27 @@ export default class Search extends React.Component{
          		value={this.state.duration}
          		onValueChange={(result) => this.setState({duration: result})}
         	/>
-          <Text>
-            Rate: {this.state.price} per {this.state.duration} hours
-          </Text>
-          <Slider
-            style={{ width: 300 }}
-            step={5}
-            minimumValue={0}
-            maximumValue={500}
-            value={this.state.price}
-            onValueChange={(result) => this.setState({price: result})}
-          />
-        	<RadioForm
-             	style={{ width: 300, height:70 }}
-              	dataSource={categories}
-              	itemShowKey="label"
-              	itemRealKey="label"
-              	circleSize={16}
-              	initial={1}
-              	formHorizontal={true}
-              	labelHorizontal={true}
-              	onPress={(item) => this.setState({category: item.label})}
+          	<Text>
+	        	Rate: {this.state.price} per {this.state.duration} hours
+          	</Text>
+          	<Slider
+            		style={{ width: 300 }}
+	        	step={5}
+        		minimumValue={0}
+          		maximumValue={500}
+	        	value={this.state.price}
+        		onValueChange={(result) => this.setState({price: result})}
+          	/>
+          	<RadioForm
+           		style={{ width: 300, height:70 }}
+	            	dataSource={categories}
+              		itemShowKey="label"
+              		itemRealKey="label"
+              		circleSize={16}
+              		initial={1}
+              		formHorizontal={true}
+              		labelHorizontal={true}
+              		onPress={(item) => this.setState({category: item.label})}
         	/>
         	<Button
           		title="Submit search"
@@ -99,7 +99,7 @@ export default class Search extends React.Component{
     				{text: 'OK', onPress: () => console.log('OK Pressed')},
   				],
   				{ cancelable: false }
-				)}
+			)}
         	/>
       </View>
     );
