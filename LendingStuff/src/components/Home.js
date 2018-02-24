@@ -16,6 +16,10 @@ class Home extends React.Component {
     return (
       <View style={style}>
         <Button
+          title="Post a new Item"
+          onPress={ () => {Actions.post();}}
+        />
+        <Button
           title="Go to Items"
           onPress={ () => {Actions.items();} }
         />
