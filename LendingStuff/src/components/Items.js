@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Text, View, Button, TextInput } from 'react-native';
 
+import Item from './Item';
 import ItemList from './ItemList';
 import { fetchData } from '../actions';
 
@@ -36,6 +37,7 @@ class Items extends React.Component {
     };
     return (
       <View style={style}>
+        <Item />
         <Button title="Fetch Data From DB"
                 onPress={() => { dispatch(fetchData()); }} />
         <ItemList items={items} />
