@@ -25,16 +25,15 @@ import {
   StyleSheet,
 } from 'react-native';
 
-/* View constants */
-const ResultView = "ResultView";
-const MyItems = "MyItems";
-const RentedItems = "RentedItems";
-/* Item status constants */
-const rented = "rented";
-const forRent = "forRent";
+import {
+  ResultView,
+  MyItems,
+  RentedItems,
+  rented,
+  forRent
+} from '../constants';
 
-
-/* Dummy data: This is set as state for now, should be updated such that
+/* Dummy data: This is set as default for now, should be updated such that
  * these data are received as props from parent in the future.
  */
 const dummyItem = {
@@ -59,49 +58,38 @@ export default class Item extends React.Component {
    * timeLeft: time left until this item needs to be returned. This should be calculated
    *        and set/updated, not set to default like here.
    */
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      item: dummyItem,
-      view: dummyView,
-      timeLeft: {
-        hour: 3,
-        min: 30,
-      }
-    }
-  }
-
 
   render() {
-    return (
+    const { item, view } = this.props;
 
+    return (
       <View style={styles.container}>
-        <Image
-          style={styles.image}
-          source={require("./boo.png")}
-        />
+        <Image style={styles.image}
+               source={require("./boo.png")} />
         <View style={styles.info}>
+
           <View style={styles.info__text}>
-            <Text numberOfLines={1} style={styles.item__name}>
-              {this.state.item.name}
+            <Text numberOfLines={1}
+                  style={styles.item__name}>
+              {item.name}
             </Text>
-            <Text numberOfLines={3} style={{flex: 1, color: "#5f5f5f"}}>
-              {this.getDesc(this.state.view)}
+            <Text numberOfLines={3}
+                  style={{flex: 1, color: "#5f5f5f"}}>
+              {this.getDesc(view)}
             </Text>
           </View>
+
           <View style={styles.info__bottom}>
-            {this.getDistance(this.state.item.location)}
+            {this.getDistance(item.location)}
             {this.priceOrTimeLeft()}
-            <TouchableOpacity
-              style={[styles.badge, {width: '40%', backgroundColor: '#7b37ba'}]}
-              onPress={() => { alert("hello") }}
-            >
+            <TouchableOpacity style={[styles.badge, {width: '40%', backgroundColor: '#7b37ba'}]}
+                              onPress={() => { alert("hello") }} >
               <Text style={styles.badge__text}>
-                {this.state.item.status.toUpperCase()}
+                {item.status.toUpperCase()}
               </Text>
             </TouchableOpacity>
           </View>
+
         </View>
       </View>
     )
@@ -116,15 +104,16 @@ export default class Item extends React.Component {
    *    - "RentedItems" (renter view): return by, meeting location?
    */
   getDesc(view) {
+    const { item } = this.props;
 
-    if (this.state.view === ResultView) {
-      return this.state.item.desc
+    if (view === ResultView) {
+      return item.desc
 
-    } else if (this.state.view === MyItems) {
-      return "Post: " + this.state.item.startDate + "~" + this.state.item.endDate + "\n"
+    } else if (view === MyItems) {
+      return "Post: " + item.startDate + "~" + item.endDate + "\n"
 
-    } else if (this.state.view === RentedItems) {
-      return "Return by: " + this.state.item.returnTime + "\n"
+    } else if (view === RentedItems) {
+      return "Return by: " + item.returnTime + "\n"
     }
   }
 
@@ -136,7 +125,7 @@ export default class Item extends React.Component {
    */
   getDistance(location) {
 
-    if (this.state.view === ResultView) {
+    if (this.props.view === ResultView) {
       return (
         <View style={styles.badge}>
           <Text style={styles.badge__text}>5km</Text>
@@ -159,16 +148,17 @@ export default class Item extends React.Component {
    *    - "RentedItems": show how much time is left until return time (status=RENTED)
    */
   priceOrTimeLeft() {
+    const { item, view, timeLeft } = this.props;
 
-    if (this.state.view === ResultView) {
+    if (view === ResultView) {
       return (
         <View style={styles.badge}>
           <Text style={styles.badge__text}>$20</Text>
         </View>
       )
 
-    } else if (this.state.item.status === rented) {
-      let timeStr = this.state.timeLeft.hour + ":" + this.state.timeLeft.min;
+    } else if (item.status === rented) {
+      let timeStr = timeLeft.hour + ":" + timeLeft.min;
 
       return (
         <View style={styles.badge}>
@@ -179,6 +169,14 @@ export default class Item extends React.Component {
   }
 }
 
+Item.defaultProps = {
+  item: dummyItem,
+  view: dummyView,
+  timeLeft: {
+    hour: 3,
+    min: 30
+  }
+};
 
 
 const styles = StyleSheet.create({
