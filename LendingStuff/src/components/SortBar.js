@@ -23,7 +23,7 @@ export default class SortBar extends React.Component {
       flex: 1,
       flexDirection: 'row',
       backgroundColor: '#fff',
-      alignItems: 'Center'
+      alignItems: 'center'
     };
 
     return (
