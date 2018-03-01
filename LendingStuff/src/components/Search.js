@@ -62,7 +62,7 @@ export default class Search extends React.Component {
          				value={this.state.duration}
          				onValueChange={(result) => this.setState({duration: result})} />
 				<Text>
-					Rate: {this.state.price} per {this.state.duration} hours
+					Rate: {this.state.price} per hour
 				</Text>
 				<Slider style={{ width: 300 }}
 	        			step={5}
