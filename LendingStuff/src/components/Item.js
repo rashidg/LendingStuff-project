@@ -33,13 +33,14 @@ import {
   forRent
 } from '../constants';
 
+
 /* Dummy data: This is set as default for now, should be updated such that
  * these data are received as props from parent in the future.
  */
 const dummyItem = {
   name: "USB-C to Lightning Cable Lightning Lightning",
   desc: "used for charging/connecting iPhones, good condition! more random text to fill up space! more random text to fill up space! more random text to fill up space! ",
-  image: "resource/boo.png",
+  image: "image/boo.png",
   status: "rented",
   location: "Toronto, ON",
   startDate: "2017-12-20",
@@ -65,7 +66,7 @@ export default class Item extends React.Component {
     return (
       <View style={styles.container}>
         <Image style={styles.image}
-               source={require("./boo.png")} />
+               source={require('../image/boo.png')} />
         <View style={styles.info}>
 
           <View style={styles.info__text}>
