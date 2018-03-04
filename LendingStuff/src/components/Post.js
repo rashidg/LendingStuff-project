@@ -29,7 +29,7 @@ export default class Post extends React.Component {
       <View style={style}>
 
         <Image source={{ uri: this.state.pic_src }}
-               style={width=50, height=50}/>
+               style={width=20, height=20}/>
         <Button title="Upload a new image"
                 onPress={() => {alert("Upload new image")}}/>
 
@@ -64,6 +64,9 @@ export default class Post extends React.Component {
                        this.setState({rate: parseInt(text)});
                      }
                    }}/>
+
+         <Button title="Post this item!"
+                 onPress={() => {alert("Post this item!")}}/>
       </View>
     );
   }
