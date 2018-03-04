@@ -10,7 +10,7 @@ import Home from './src/components/Home';
 import Post from './src/components/Post';
 import indexReducer from './src/reducers/index';
 import Search from './src/components/Search'
-import ItemDetail from '.src/components/ItemDetail'
+import ItemDetail from './src/components/ItemDetail'
 
 const reduxStore = createStore(indexReducer, applyMiddleware(thunk));
 
