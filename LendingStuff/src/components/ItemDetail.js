@@ -10,9 +10,10 @@ export default class Post extends React.Component {
       desc: "This item describes an item, which can be used for items and various item-related accessories",
       status: "Rented",
       posted: "21/10/2016",
-      expires: "21/10/2017",
-      category: "Bread",
+      expiration: "21/10/2017",
+      category: "Baked Goods",
       owner: "Greg",
+      location: "Bob's Pizzeria",
       rate: 3.09
     }
   }
@@ -26,38 +27,38 @@ export default class Post extends React.Component {
 
     let statusText = null;
     if (this.state.status === "Rented") {
-      status = "This item has already been rented out.";
+      statusText = "This item has already been rented out.";
     }
     else if (this.state.status === "Available") {
-      status = "This item is still available to be rented.";
+      statusText = "This item is still available to be rented.";
     }
     else {
-      status = "The status of this item could not be determined.";
+      statusText = "The status of this item could not be determined.";
     }
 
-    let duration =
-      moment.duration(
-        moment(posted,"DD/MM/YYYY").diff(moment(expires,"DD/MM/YYYY"));
-      ).format("hh:mm:ss");
+    //Placeholder: will change once we know format of stored dates
+    let duration = 0;
+    let itemTitle = "Rent this item: $" + this.state.rate + "hour";
 
     return (
       <View style={style}>
         <Image source={{ uri: this.state.pic_src }}
                style={width=20, height=20}/>
 
-        <Text style={fontWeight: 'bold'}>Description:</Text>
-        <Text>{`${this.state.desc}`}</Text>
-        <Text>{`(Posted under ${this.state.category})`}</Text>
+        <Text style={{fontWeight: "bold"}}>Description:</Text>
+        <Text>{this.state.desc}</Text>
+        <Text>Posted under {this.state.category}</Text>
 
-        <Text style={fontWeight: 'bold'}Status:</Text>
-        <Text>{`${this.statusText}`}</Text>
+        <Text style={{fontWeight: "bold"}}>Status:</Text>
+        <Text>{statusText}</Text>
 
-        <Text>{`Remaining duration for this item: ${this.duration}`}</Text>
-        <Text>{`(Posted on ${this.state.posted}, by ${this.state.owner}: expires ${this.state.expiration})`}</Text>
+        <Text style={{fontWeight: "bold"}}>Remaining duration for this item: {duration}</Text>
+        <Text>Posted on {this.state.posted} by {this.state.owner}: </Text>
+        <Text>Expires on {this.state.expiration}</Text>
 
-        <Text>{`Location: ${this.state.location}`}</Text>
+        <Text><Text style={{fontWeight: "bold"}}>Location:</Text> {this.state.location}</Text>
 
-        <Button title=`Rent this item: $${this.state.rate}/hour`,
+        <Button title={itemTitle}
                 onPress={() => {
                   alert("Are you sure you want to rent this item?")
                 }
