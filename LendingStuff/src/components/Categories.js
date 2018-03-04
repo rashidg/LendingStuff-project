@@ -1,5 +1,6 @@
 import React from 'react';
-import { View, Button } from 'react-native';
+import { Text, View, Button } from 'react-native';
+import {RadioGroup, RadioButton} from 'react-native-flexi-radio-button'
 
 /*
 For each category (and its index in the list), create a Button
@@ -11,17 +12,16 @@ export default (props) => {
 
   const renderedCats = categories.map((key, index) => {
     let title = String(key);
-    if (index === categoryIdx)
-      title = "~" + String(key) + "~";
 
-    return <Button key={key}
-                   title={title}
-                   onPress={() => {onPress(index);}} />
+    return <RadioButton><Text>{title}</Text></RadioButton>
   });
 
   return (
     <View>
-      {renderedCats}
+      <RadioGroup onSelect = {(index, value) => onPress(index)}>
+        {renderedCats}
+      </RadioGroup>
     </View>
   )
+
 };
