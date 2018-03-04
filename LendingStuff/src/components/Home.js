@@ -16,7 +16,6 @@ class Home extends React.Component {
     };
     return (
       <View style={style}>
-        <SortBar />
         <Button
           title="Post a new Item"
           onPress={ () => {Actions.post();}}
@@ -28,6 +27,10 @@ class Home extends React.Component {
         <Button
           title="Search for items"
           onPress={ () => {Actions.search();} }
+        />
+        <Button
+          title="Item detail test placeholder"
+          onPress={ () => {Actions.itemDetail();} }
         />
       </View>
     );
