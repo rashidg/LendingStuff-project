@@ -68,8 +68,9 @@ export default class Item extends React.Component {
 }
 
 Item.defaultProps = {
-  title: dummyItem.name,
-  description: dummyItem.desc,
+  //Should be dummyItem.name and dummyItem.desc: not imported
+  title: "Appliance",
+  description: "For kitchen use",
   onPress: () => { alert("hello") }
 };
 
