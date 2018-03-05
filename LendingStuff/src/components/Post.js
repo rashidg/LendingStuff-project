@@ -12,7 +12,17 @@ export default class Post extends React.Component {
       dur: 0,
       meetLoc: "",
       rate: 0,
-      categories: ["Phone Chargers", "Textbooks", "Yachts", "Chihuahuas"],
+      categories: [
+      	{
+      		label: 'chargers'
+      	},
+      	{
+      		label: 'adapters',
+      	},
+      	{
+      		label: 'home products',
+      	}
+      ],
       categoryIdx: 0
     };
   }
@@ -29,7 +39,7 @@ export default class Post extends React.Component {
       <View style={style}>
 
         <Image source={{ uri: this.state.pic_src }}
-               style={width=50, height=50}/>
+               style={width=20, height=20}/>
         <Button title="Upload a new image"
                 onPress={() => {alert("Upload new image")}}/>
 
@@ -37,12 +47,12 @@ export default class Post extends React.Component {
                     categoryIdx={this.state.categoryIdx}
                     onPress={(index) => this.setState({categoryIdx: index})} />
 
-        <Text>Description:</Text>
+        <Text>Description: </Text>
         <TextInput  style={{height: 50, width: 200}}
                     placeholder="Write an item description:"
                     onChangeText={(text) => this.setState({desc: text})} />
 
-        <Text>Duration:</Text>
+        <Text>Duration: </Text>
         <TextInput style={{height: 50, width: 200}}
                    placeholder="Enter the duration (in hours):"
                    onChangeText={(text) => {
@@ -51,12 +61,12 @@ export default class Post extends React.Component {
                      }
                    }}/>
 
-        <Text>Meeting_location:</Text>
+        <Text>Meeting location: </Text>
         <TextInput style={{height: 50, width: 200}}
                    placeholder="Enter the meeting location:"
                    onChangeText={(text) => this.setState({meetLoc: text})} />
 
-        <Text>Hourly_rate:</Text>
+        <Text>Hourly rate:</Text>
         <TextInput style={{height: 50, width: 200}}
                    placeholder="Enter the the hourly rate (in $):"
                    onChangeText={(text) => {
@@ -64,6 +74,9 @@ export default class Post extends React.Component {
                        this.setState({rate: parseInt(text)});
                      }
                    }}/>
+
+         <Button title="Post this item!"
+                 onPress={() => {alert("Post this item!")}}/>
       </View>
     );
   }

@@ -23,6 +23,8 @@ export default class Home extends React.Component {
                 onPress={ () => {Actions.search();} } />
         <Button title="items"
                 onPress={ () => {Actions.items();}} />
+        <Button title="item detail (test)"
+                onPress={ () => {Actions.itemDetail();}} />
       </View>
     );
   }
