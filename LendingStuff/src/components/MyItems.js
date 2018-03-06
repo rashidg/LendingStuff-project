@@ -5,7 +5,7 @@ import { Text, View, ScrollView, ActivityIndicator } from 'react-native';
 import Item from './Item';
 import { myItems } from '../actions';
 
-const username = 'lendur';
+const username = 'lender';
 
 class MyItems extends React.Component {
   componentDidMount(){

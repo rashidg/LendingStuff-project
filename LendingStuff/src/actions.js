@@ -33,6 +33,16 @@ export function rentedItems(renter) {
   };
 }
 
+export function searchItems(criteria) {
+  return (dispatch) => {
+    dispatch(fetchItemsRequest());
+
+    searchItemsService(criteria)
+      .then((payload) => dispatch(fetchItemsSuccess(payload)))
+      .catch((err) => dispatch(fetchItemsError(err)))
+  };
+}
+
 export const fetchItemsRequest = createAction('FETCH_ITEMS_REQUEST');
 export const fetchItemsSuccess = createAction('FETCH_ITEMS_SUCCESS');
 export const fetchItemsError = createAction('FETCH_ITEMS_ERROR');
