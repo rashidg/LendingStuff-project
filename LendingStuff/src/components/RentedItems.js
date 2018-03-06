@@ -11,7 +11,7 @@ const username = 'lender';
 class RentedItems extends React.Component {
   componentDidMount(){
     const { dispatch } = this.props;
-    dispatch(rentedItems(username));
+    dispatch(rentedItems(this.props.username));
   }
 
   renderItem(item, idx){

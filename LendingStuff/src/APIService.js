@@ -46,4 +46,4 @@ const searchItemsService = (criteria) => {
 };
 */
 
-export {fetchItemsService, myItemsService, rentedItemsService, searchItemsService};
+export {fetchItemsService, myItemsService, rentedItemsService};

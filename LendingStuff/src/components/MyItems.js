@@ -11,7 +11,7 @@ const username = 'lender';
 class MyItems extends React.Component {
   componentDidMount(){
     const { dispatch } = this.props;
-    dispatch(myItems(username));
+    dispatch(myItems(this.props.username));
   }
 
   renderItem(item, idx){
