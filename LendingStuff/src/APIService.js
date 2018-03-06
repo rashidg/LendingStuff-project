@@ -26,6 +26,7 @@ const rentedItemsService = (username) => {
   })
 };
 
+/* UNTESTED
 const searchItemsService = (criteria) => {
   //Search criteria gives us criteria.distance, criteria.duration,
   //criteria.rate, and criteria.name.
@@ -43,5 +44,6 @@ const searchItemsService = (criteria) => {
     });
   })
 };
+*/
 
 export {fetchItemsService, myItemsService, rentedItemsService, searchItemsService};

@@ -33,6 +33,7 @@ export function rentedItems(renter) {
   };
 }
 
+/* UNTESTED
 export function searchItems(criteria) {
   return (dispatch) => {
     dispatch(fetchItemsRequest());
@@ -42,6 +43,7 @@ export function searchItems(criteria) {
       .catch((err) => dispatch(fetchItemsError(err)))
   };
 }
+*/
 
 export const fetchItemsRequest = createAction('FETCH_ITEMS_REQUEST');
 export const fetchItemsSuccess = createAction('FETCH_ITEMS_SUCCESS');
