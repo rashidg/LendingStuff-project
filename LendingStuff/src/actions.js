@@ -1,21 +1,18 @@
 import { createAction } from 'redux-act';
 
-import { getDBItems } from './APIService';
+import { fetchItemsService } from './APIService';
 
 
-export const getData = createAction('FETCHING_DATA');
-
-export const getDataSuccess = createAction('FETCHING_DATA_SUCCESS');
-
-export const getDataFailure = createAction('FETCHING_DATA_FAILURE');
-
-export function fetchData() {
+export function fetchItems() {
   return (dispatch) => {
-    dispatch(getData());
-    getDBItems()
-      .then((data) => {
-        dispatch(getDataSuccess(data))
-      })
-      .catch((err) => console.log('err:', err))
+    dispatch(fetchItemsRequest());
+
+    fetchItemsService()
+      .then((payload) => dispatch(fetchItemsSuccess(payload)))
+      .catch((err) => dispatch(fetchItemsError(err)))
   };
 }
+
+export const fetchItemsRequest = createAction('FETCH_ITEMS_REQUEST');
+export const fetchItemsSuccess = createAction('FETCH_ITEMS_SUCCESS');
+export const fetchItemsError = createAction('FETCH_ITEMS_ERROR');
