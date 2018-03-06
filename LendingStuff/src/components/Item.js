@@ -7,6 +7,7 @@ import {
   StyleSheet,
 } from 'react-native';
 
+
 export default class Item extends React.Component {
 
   render() {
@@ -25,7 +26,7 @@ export default class Item extends React.Component {
       <TouchableOpacity style={styles.container}
                         onPress={onPress}>
         <Image style={styles.image}
-               source={require("./boo.png")} />
+               source={require('../image/boo.png')} />
         <View style={styles.info}>
 
           <View style={styles.info__text}>
