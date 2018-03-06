@@ -6,15 +6,16 @@ export default class Post extends React.Component {
     super(props);
     //PLACEHOLDER: Want to pull this information from the database
     this.state = {
-      pic_src: "../stock_image.png",
-      desc: "This item describes an item, which can be used for items and various item-related accessories",
-      status: "Rented",
-      posted: "21/10/2016",
-      expiration: "21/10/2017",
-      category: "Baked Goods",
-      owner: "Greg",
-      location: "Bob's Pizzeria",
-      rate: 3.09
+      category: "chargers",
+      name: "Macbook 85W Charger",
+      desc: "It is compatible with 15 inch Macbooks",
+      rented: true,
+      location: "Toronto, ON",
+      postedOn: "2018-03-02",
+      expiresOn: "2018-03-22",
+      rate: 15,
+      owner: "lender",
+      image: "resource/boo.png"
     }
   }
 
@@ -26,14 +27,11 @@ export default class Post extends React.Component {
     };
 
     let statusText = null;
-    if (this.state.status === "Rented") {
+    if (this.state.rented) {
       statusText = "This item has already been rented out.";
     }
-    else if (this.state.status === "Available") {
-      statusText = "This item is still available to be rented.";
-    }
     else {
-      statusText = "The status of this item could not be determined.";
+      statusText = "This item is still available to be rented.";
     }
 
     //Placeholder: will change once we know format of stored dates
@@ -42,10 +40,10 @@ export default class Post extends React.Component {
 
     return (
       <View style={style}>
-        <Image source={{ uri: this.state.pic_src }}
+        <Image source={{ uri: this.state.image }}
                style={width=20, height=20}/>
 
-        <Text style={{fontWeight: "bold"}}>Description:</Text>
+        <Text style={{fontWeight: "bold"}}>Description of {this.state.name}:</Text>
         <Text>{this.state.desc}</Text>
         <Text>Posted under {this.state.category}</Text>
 
@@ -53,8 +51,8 @@ export default class Post extends React.Component {
         <Text>{statusText}</Text>
 
         <Text style={{fontWeight: "bold"}}>Remaining duration for this item: {duration}</Text>
-        <Text>Posted on {this.state.posted} by {this.state.owner}: </Text>
-        <Text>Expires on {this.state.expiration}</Text>
+        <Text>Posted on {this.state.postedOn} by {this.state.owner}: </Text>
+        <Text>Expires on {this.state.expiresOn}</Text>
 
         <Text><Text style={{fontWeight: "bold"}}>Location:</Text> {this.state.location}</Text>
 

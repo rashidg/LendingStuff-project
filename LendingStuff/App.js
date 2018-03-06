@@ -10,9 +10,12 @@ import Home from './src/components/Home';
 import Post from './src/components/Post';
 import indexReducer from './src/reducers/index';
 
-import Search from './src/components/Search'
-import ItemDetail from './src/components/ItemDetail'
+import Search from './src/components/Search';
+import ItemDetail from './src/components/ItemDetail';
 import SearchResults from './src/components/SearchResults';
+
+import MyItems from './src/components/MyItems.js';
+import RentedItems from './src/components/RentedItems.js';
 
 const reduxStore = createStore(indexReducer, applyMiddleware(thunk));
 
@@ -26,6 +29,8 @@ export default () => (
         <Scene key="search" component={Search} title="Search"/>
         <Scene key="itemDetail" component={ItemDetail} title="Item Detail"/>
         <Scene key="search_results" component={SearchResults} title="Search Results"/>
+        <Scene key="myItems" component={MyItems} title="My Items"/>
+        <Scene key="rentedItems" component={RentedItems} title="Rented Items"/>
       </Stack>
     </Router>
   </Provider>
