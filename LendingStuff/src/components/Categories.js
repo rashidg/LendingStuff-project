@@ -1,25 +1,18 @@
 import React from 'react';
-import { Text, View, Button } from 'react-native';
-import RadioForm from 'react-native-radio-form';
+import { Picker } from 'react-native';
 
-/*
-For each category (and its index in the list), create a Button
-to select category. The current category is highlighted with ~.
-*/
 
 export default (props) => {
   const { categories, categoryIdx, onPress } = props;
 
+  const items = categories.map((category, idx) => <Picker.Item key={idx + category}
+                                                               label={category}
+                                                               value={category} />);
   return (
-    <RadioForm style={{ width: 300, height:40 }}
-               dataSource={categories}
-               itemShowKey="label"
-               itemRealKey="label"
-               circleSize={16}
-               initial={1}
-               formHorizontal={true}
-               labelHorizontal={true}
-               onPress={(index) => onPress(index)} />
-  )
-
+    <Picker style={{position: 'relative'}}
+            selectedValue={categories[categoryIdx]}
+            onValueChange={(itemValue, itemIndex) => onPress(itemIndex)}>
+      {items}
+    </Picker>
+  );
 };
