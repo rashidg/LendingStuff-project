@@ -25,8 +25,11 @@ export default class Home extends React.Component {
                 onPress={ () => {Actions.items();}} />
         <Button title="item detail (test)"
                 onPress={ () => {Actions.itemDetail();}} />
+        <Button title="My Items:"
+                onPress={ () => {Actions.myItems();}} />
+        <Button title="Rented Items:"
+                onPress={ () => {Actions.rentedItems();}} />
       </View>
     );
   }
 }
-
