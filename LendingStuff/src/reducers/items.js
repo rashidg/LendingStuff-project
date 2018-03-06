@@ -1,23 +1,28 @@
 import { createReducer } from 'redux-act';
 
-import { getDataSuccess, getData } from '../actions';
-
-import { itemList } from '../dummyData';
+import { fetchItemsRequest, fetchItemsSuccess, fetchItemsError } from '../actions';
 
 const initialState = {
-  data: itemList,
+  data: [],
   dataFetched: false,
   isFetching: false,
-  error: false
+  error: false,
+  errorMessage: ''
 };
 
 export const itemsReducer = createReducer({
-  [getData]: (state) => ({ ...state, isFetching: true }),
+  [fetchItemsRequest]: (state) => ({ ...state, isFetching: true }),
 
-  [getDataSuccess]: (state, payload) => ({
+  [fetchItemsSuccess]: (state, payload) => ({
     ...state,
-    data: payload.items,
+    data: payload,
     isFetching: false,
     dataFetched: true
+  }),
+
+  [fetchItemsError]: (state, error) => ({
+    ...state,
+    isFetching: false,
+    errorMessage: error
   })
 }, initialState);

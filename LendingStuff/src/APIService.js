@@ -1,9 +1,9 @@
 import firebase from './firebase';
 
-export const getDBItems = () => {
+export const fetchItemsService = () => {
   return new Promise((resolve, reject) => {
-    firebase.database().ref("db/").once("value", (response) => {
-      return resolve(response.val());
+    firebase.database().ref('items').once('value').then(snapshot => {
+      return resolve(snapshot.val());
     });
   })
 };
