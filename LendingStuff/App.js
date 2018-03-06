@@ -24,12 +24,12 @@ const reduxStore = createStore(indexReducer, applyMiddleware(thunk));
 export default () => (
   <Provider store={reduxStore}>
     <Router>
-      <Stack key="root">
-        <Drawer hideNavBar
-                key="drawer"
-                contentComponent={SideBar}
-                drawerWidth={280}
-                drawerPosition="right" >
+      <Drawer hideNavBar
+              key="drawer"
+              contentComponent={SideBar}
+              drawerWidth={280}
+              drawerPosition="right" >
+        <Stack key="root">
           <Scene key="home" component={Home} title="Home"/>
           <Scene key="items" component={Items} title="Register"/>
           <Scene key="post" component={Post} title="Post an Item"/>
@@ -38,8 +38,8 @@ export default () => (
           <Scene key="search_results" component={SearchResults} title="Search Results"/>
           <Scene key="myItems" component={MyItems} title="My Items"/>
           <Scene key="rentedItems" component={RentedItems} title="Rented Items"/>
-        </Drawer>
-      </Stack>
+        </Stack>
+      </Drawer>
     </Router>
   </Provider>
 );
