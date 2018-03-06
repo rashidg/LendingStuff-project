@@ -33,12 +33,18 @@ export default class SideBar extends React.Component {
           </TouchableOpacity>
 
           <TouchableOpacity style={styles.nav_item}
-                            onPress={ () => {alert('my items');}}>
+                            onPress={ () => {
+                              Actions.myItems();
+                            }
+                          }>
             <Text style={styles.nav_title}>My Items</Text>
           </TouchableOpacity>
 
           <TouchableOpacity style={styles.nav_item}
-                            onPress={ () => {alert('rented items');}}>
+                            onPress={ () => {
+                              Actions.rentedItems();
+                            }
+                          }>
             <Text style={styles.nav_title}>Rented Items</Text>
           </TouchableOpacity>
 
