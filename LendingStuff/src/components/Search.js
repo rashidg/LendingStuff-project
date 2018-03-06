@@ -1,5 +1,6 @@
 import React from 'react';
 import { View, Button, TextInput, Slider, Text, Alert } from 'react-native';
+import { Actions } from 'react-native-router-flux';
 import RadioForm from 'react-native-radio-form';
 
 //Ideally this list will be populated from the Database
@@ -10,10 +11,10 @@ const categories = [
 		label: 'chargers'
 	},
 	{
-		label: 'adapters',
+		label: 'adapters'
 	},
 	{
-		label: 'home products',
+		label: 'home products'
 	}
 ];
 
@@ -28,6 +29,20 @@ export default class Search extends React.Component {
 			category: 'adapters',
 			price: 5
 		};
+	}
+
+	handleSearch() {
+		Alert.alert('Confirmation',
+			'Here is your submission:\n'
+			+ 'Name: ' + this.state.text + '\n'
+			+ 'Duration: ' + this.state.duration + ' hours \n'
+			+ 'Distance: ' + this.state.distance + ' KM \n'
+			+ 'Category: ' + this.state.category + '\n',
+			[
+				{text: 'OK', onPress: () => console.log('OK Pressed')},
+			],
+			{ cancelable: false });
+		Actions.search_results();
 	}
 
 	render() {
@@ -62,7 +77,7 @@ export default class Search extends React.Component {
          				value={this.state.duration}
          				onValueChange={(result) => this.setState({duration: result})} />
 				<Text>
-					Rate: {this.state.price} per {this.state.duration} hours
+					Rate: {this.state.price} per hour
 				</Text>
 				<Slider style={{ width: 300 }}
 	        			step={5}
@@ -80,16 +95,7 @@ export default class Search extends React.Component {
               		 labelHorizontal={true}
               		 onPress={(item) => this.setState({category: item.label})} />
 				<Button title="Submit search"
-          			onPress={ () => Alert.alert('Confirmation',
-  							  													'Here is your submission:\n'
-  				 				  												+ 'Name: ' + this.state.text + '\n'
-  				 					  											+ 'Duration: ' + this.state.duration + ' hours \n'
-  				 						  										+ 'Distance: ' + this.state.distance + ' KM \n'
-  				 							  									+ 'Category: ' + this.state.category + '\n',
-  												  								[
-    												  								{text: 'OK', onPress: () => console.log('OK Pressed')},
-  														  						],
-  															  					{ cancelable: false } )} />
+          			onPress={this.handleSearch.bind(this)} />
       </View>
     );
   }

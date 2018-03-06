@@ -1,21 +1,3 @@
-/**
- * The Item component.
- * Information displayed by this component differs depending on which Page the user
- * is viewing this component from.
- *
- * This assumes that props passed to this component include:
- *    .item: data related to this single item to display, including:
- *        .name: name
- *        .desc: description
- *        .image: path to the image (using static image for now)
- *        .status: status of this item ("for rent", "rented") - will be displayed
- *        .startDate: when this item was posted
- *        .endDate: until when this item is up for rent
- *        .returnDatetime: (if status="rented") when this item needs to be returned
- *    .view: which view this item is being displayed on
- *        "ResultView", "MyItems", "RentedItems"
- */
-
 import React, { Component } from 'react';
 import {
   View,
@@ -25,46 +7,24 @@ import {
   StyleSheet,
 } from 'react-native';
 
-import {
-  ResultView,
-  MyItems,
-  RentedItems,
-  rented,
-  forRent
-} from '../constants';
-
-
-/* Dummy data: This is set as default for now, should be updated such that
- * these data are received as props from parent in the future.
- */
-const dummyItem = {
-  name: "USB-C to Lightning Cable Lightning Lightning",
-  desc: "used for charging/connecting iPhones, good condition! more random text to fill up space! more random text to fill up space! more random text to fill up space! ",
-  image: "image/boo.png",
-  status: "rented",
-  location: "Toronto, ON",
-  startDate: "2017-12-20",
-  endDate: "2018-03-12",
-  returnTime: "2018-03-10 18:00"
-};
-const dummyView = ResultView;
-
-
-
 
 export default class Item extends React.Component {
 
-  /*
-   * item & view: only used for setting up dummy data - should be replaced by props
-   * timeLeft: time left until this item needs to be returned. This should be calculated
-   *        and set/updated, not set to default like here.
-   */
-
   render() {
-    const { item, view } = this.props;
+    const {
+      item,
+      view,
+      title,
+      description,
+      infoBox1,
+      infoBox2,
+      statusBox,
+      onPress
+    } = this.props;
 
     return (
-      <View style={styles.container}>
+      <TouchableOpacity style={styles.container}
+                        onPress={onPress}>
         <Image style={styles.image}
                source={require('../image/boo.png')} />
         <View style={styles.info}>
@@ -72,111 +32,47 @@ export default class Item extends React.Component {
           <View style={styles.info__text}>
             <Text numberOfLines={1}
                   style={styles.item__name}>
-              {item.name}
+              {title}
             </Text>
             <Text numberOfLines={3}
                   style={{flex: 1, color: "#5f5f5f"}}>
-              {this.getDesc(view)}
+              {description}
             </Text>
           </View>
 
           <View style={styles.info__bottom}>
-            {this.getDistance(item.location)}
-            {this.priceOrTimeLeft()}
-            <TouchableOpacity style={[styles.badge, {width: '40%', backgroundColor: '#7b37ba'}]}
-                              onPress={() => { alert("hello") }} >
+
+            {this.renderInfoBox(infoBox1)}
+            {this.renderInfoBox(infoBox2)}
+
+            <View style={[styles.badge, {width: '40%', backgroundColor: '#7b37ba'}]}>
               <Text style={styles.badge__text}>
-                {item.status.toUpperCase()}
+                {statusBox}
               </Text>
-            </TouchableOpacity>
+            </View>
           </View>
 
         </View>
-      </View>
+      </TouchableOpacity>
     )
   }
 
-
-  /*
-   * Build relevant description for the item
-   * desc: description below item name
-   *    - "ResultView": item description
-   *    - "MyItems" (lender view): post range (startDate ~ endDate), meeting location?
-   *    - "RentedItems" (renter view): return by, meeting location?
-   */
-  getDesc(view) {
-    const { item } = this.props;
-
-    if (view === ResultView) {
-      return item.desc
-
-    } else if (view === MyItems) {
-      return "Post: " + item.startDate + "~" + item.endDate + "\n"
-
-    } else if (view === RentedItems) {
-      return "Return by: " + item.returnTime + "\n"
-    }
-  }
-
-
-  /* TODO: decide on how to store location & to calculate distance
-   * getDistance: for the first badge below description
-   *    - visible only when in "ResultView"
-   *    - should show distance to meeting location
-   */
-  getDistance(location) {
-
-    if (this.props.view === ResultView) {
+  renderInfoBox(infoBox) {
+    if (infoBox)
       return (
         <View style={styles.badge}>
-          <Text style={styles.badge__text}>5km</Text>
+          <Text style={styles.badge__text}>{infoBox}</Text>
         </View>
-      )
-
-    } else {
-      return (
-        <View style={[styles.badge, {opacity: 0}]} />
-      )
-    }
-  }
-
-
-  /* TODO: decide on how/when to calculate price for this item
-   * TODO: implement counter? to show how much time is left until the item needs to be returned
-   * priceOrTimeLeft: for the second badge under description
-   *    - "ResultView": price - should be calculated by user input and cheapest rate for this item
-   *    - "MyItems": if status is rented, show how much time is left until return time
-   *    - "RentedItems": show how much time is left until return time (status=RENTED)
-   */
-  priceOrTimeLeft() {
-    const { item, view, timeLeft } = this.props;
-
-    if (view === ResultView) {
-      return (
-        <View style={styles.badge}>
-          <Text style={styles.badge__text}>$20</Text>
-        </View>
-      )
-
-    } else if (item.status === rented) {
-      let timeStr = timeLeft.hour + ":" + timeLeft.min;
-
-      return (
-        <View style={styles.badge}>
-          <Text style={styles.badge__text}>{ timeStr }</Text>
-        </View>
-      )
-    }
+      );
+    return <View style={[styles.badge, {opacity: 0}]} />
   }
 }
 
 Item.defaultProps = {
-  item: dummyItem,
-  view: dummyView,
-  timeLeft: {
-    hour: 3,
-    min: 30
-  }
+  //Should be dummyItem.name and dummyItem.desc: not imported
+  title: "Appliance",
+  description: "For kitchen use",
+  onPress: () => { alert("hello") }
 };
 
 
@@ -202,17 +98,13 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     alignSelf: 'center',
     backgroundColor: '#fff',
-    // borderColor: '#4b2481',
-    // borderWidth: 1,
     height: 130,
     margin: 10,
   },
   info__text: {
-    // backgroundColor: '#372c44',
     height: '70%'
   },
   item__name: {
-    // flex: 1,
     margin: 0,
     fontSize: 18,
     color: '#000',

@@ -2,12 +2,10 @@ import { createReducer } from 'redux-act';
 
 import { getDataSuccess, getData } from '../actions';
 
+import { itemList } from '../dummyData';
 
 const initialState = {
-  data: [
-    "init1",
-    "init2"
-  ],
+  data: itemList,
   dataFetched: false,
   isFetching: false,
   error: false
