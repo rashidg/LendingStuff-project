@@ -6,4 +6,9 @@ export const RentedItems = "RentedItems";
 export const rented = "rented";
 export const forRent = "forRent";
 
-
+export const categories = [
+  'chargers',
+  'adapters',
+  'home products',
+  'electric devices'
+];
