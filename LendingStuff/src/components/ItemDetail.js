@@ -1,21 +1,13 @@
 import React from 'react';
 import { Text, View, Button, TextInput, Image } from 'react-native';
 
-export default class Post extends React.Component {
+export default class ItemDetail extends React.Component {
   constructor(props) {
     super(props);
+
     //PLACEHOLDER: Want to pull this information from the database
     this.state = {
-      category: "chargers",
-      name: "Macbook 85W Charger",
-      desc: "It is compatible with 15 inch Macbooks",
-      rented: false,
-      location: "Toronto, ON",
-      postedOn: "2018-03-02",
-      expiresOn: "2018-03-22",
-      rate: 15,
-      owner: "lender",
-      image: "resource/boo.png"
+      item: props.item
     }
   }
 
@@ -28,12 +20,12 @@ export default class Post extends React.Component {
 
     //Placeholder: will change once we know format of stored dates
     let duration = 0;
-    let itemTitle = "Rent this item: $" + this.state.rate + "hour";
+    let itemTitle = "Rent this item: $" + this.state.item.rate + "hour";
 
     let statusText = null;
     let rentComp = null;
 
-    if (this.state.rented) {
+    if (this.state.item.rented) {
       statusText = "This item has already been rented out.";
       rentComp = <Text>Cannot rent this item.</Text>;
     }
@@ -48,21 +40,21 @@ export default class Post extends React.Component {
 
     return (
       <View style={style}>
-        <Image source={{ uri: this.state.image }}
+        <Image source={{ uri: this.state.item.image }}
                style={width=20, height=20}/>
 
-        <Text style={{fontWeight: "bold"}}>Description of {this.state.name}:</Text>
-        <Text>{this.state.desc}</Text>
-        <Text>Posted under {this.state.category}</Text>
+        <Text style={{fontWeight: "bold"}}>Description of {this.state.item.name}:</Text>
+        <Text>{this.state.item.desc}</Text>
+        <Text>Posted under {this.state.item.category}</Text>
 
         <Text style={{fontWeight: "bold"}}>Status:</Text>
         <Text>{statusText}</Text>
 
         <Text style={{fontWeight: "bold"}}>Remaining duration for this item: {duration}</Text>
-        <Text>Posted on {this.state.postedOn} by {this.state.owner}: </Text>
-        <Text>Expires on {this.state.expiresOn}</Text>
+        <Text>Posted on {this.state.item.postedOn} by {this.state.item.owner}: </Text>
+        <Text>Expires on {this.state.item.expiresOn}</Text>
 
-        <Text><Text style={{fontWeight: "bold"}}>Location:</Text> {this.state.location}</Text>
+        <Text><Text style={{fontWeight: "bold"}}>Location:</Text> {this.state.item.location}</Text>
         {rentComp}
       </View>
     );

@@ -4,6 +4,7 @@ import { Text, View, ScrollView, ActivityIndicator } from 'react-native';
 
 import Item from './Item';
 import { myItems } from '../actions';
+import { Actions } from 'react-native-router-flux';
 
 const username = 'lender';
 
@@ -19,7 +20,8 @@ class MyItems extends React.Component {
                  title={item.name}
                  description={item.desc}
                  infoBox2={"$" + item.rate}
-                 statusBox={status} />;
+                 statusBox={status}
+                 onPress={() => {Actions.itemDetail({item})}} />;
   }
 
   render() {

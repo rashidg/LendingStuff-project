@@ -4,6 +4,7 @@ import { View, ScrollView, ActivityIndicator } from 'react-native';
 
 import Item from './Item';
 import { fetchItems } from '../actions';
+import { Actions } from 'react-native-router-flux';
 
 class SearchResults extends React.Component {
   componentDidMount(){
@@ -17,7 +18,8 @@ class SearchResults extends React.Component {
                  title={item.name}
                  description={item.desc}
                  infoBox2={"$" + item.rate}
-                 statusBox={status} />;
+                 statusBox={status}
+                 onPress={() => {Actions.itemDetail({item})}} />;
   }
 
   render() {

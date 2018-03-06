@@ -4,6 +4,7 @@ import { Text, View, ScrollView, ActivityIndicator } from 'react-native';
 
 import Item from './Item';
 import { rentedItems } from '../actions';
+import { Actions } from 'react-native-router-flux';
 
 const username = 'lender';
 
@@ -15,11 +16,13 @@ class RentedItems extends React.Component {
 
   renderItem(item, idx){
     const status = item.rented ? "Rented" : "Available";
-    return <Item key={"item" + idx}
+    return <Item item={item}
+                 key={"item" + idx}
                  title={item.name}
                  description={item.desc}
                  infoBox2={"$" + item.rate}
-                 statusBox={status} />;
+                 statusBox={status}
+                 onPress={() => {Actions.itemDetail({item})}} />;
   }
 
   render() {
