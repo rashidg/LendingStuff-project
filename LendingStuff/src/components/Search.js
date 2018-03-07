@@ -30,14 +30,8 @@ export default class Search extends React.Component {
 				{text: 'OK', onPress: () => console.log('OK Pressed')},
 			],
 			{ cancelable: false });
-		const criteria = {
-			text: this.state.text,
-			duration: this.state.duration,
-			distance: this.state.distance,
-			rate: this.state.rate,
-			category: this.state.categories[this.state.categoryIdx]
-		};
-		Actions.search_results({criteria});
+		const { text, duration, distance, rate, category } = this.state;
+		Actions.search_results({text, duration, distance, rate, category});
 	}
 
 	render() {
