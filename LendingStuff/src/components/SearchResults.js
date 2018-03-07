@@ -1,15 +1,15 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { View, ScrollView, ActivityIndicator } from 'react-native';
+import { Text, View, ScrollView, ActivityIndicator } from 'react-native';
 
 import Item from './Item';
-import { fetchItems } from '../actions';
+import { fetchSearchItems } from '../actions';
 import { Actions } from 'react-native-router-flux';
 
 class SearchResults extends React.Component {
   componentDidMount(){
-    const { dispatch } = this.props;
-    dispatch(fetchItems());
+    const { dispatch, criteria } = this.props;
+    dispatch(fetchSearchItems(criteria));
   }
 
   renderItem(item, idx){
@@ -26,24 +26,21 @@ class SearchResults extends React.Component {
     const { items, isFetching } = this.props;
     const renderItems = items.map(this.renderItem);
 
-    if (items != null) {
-      return (
-        <View sytle={{paddingTop: '10%'}}>
-          <ActivityIndicator size='large'
-                             animating={isFetching} />
+    return (
+      <View>
+        <ActivityIndicator size='large'
+                           animating={isFetching} />
+        {renderItems.length &&
           <ScrollView>
             {renderItems}
           </ScrollView>
-        </View>
-      );
-    }
-    else {
-      return (
-        <View>
-          <Text>No search results found!</Text>
-        </View>
-      );
-    }
+          ||
+          <View>
+            <Text>No items appeared: try to broaden the search parameters.</Text>
+          </View>
+        }
+      </View>
+    );
   }
 }
 

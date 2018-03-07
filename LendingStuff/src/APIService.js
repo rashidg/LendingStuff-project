@@ -26,8 +26,7 @@ const fetchRentedItemsService = (username) => {
   })
 };
 
-/* UNTESTED
-const searchItemsService = (criteria) => {
+const fetchSearchItemsService = (criteria) => {
   //Search criteria gives us criteria.distance, criteria.duration,
   //criteria.rate, and criteria.name.
   //For now, filter out too-high rates and too-short durations.
@@ -44,6 +43,6 @@ const searchItemsService = (criteria) => {
     });
   })
 };
-*/
 
-export {fetchItemsService, fetchMyItemsService, fetchRentedItemsService};
+
+export {fetchItemsService, fetchMyItemsService, fetchRentedItemsService, fetchSearchItemsService};
