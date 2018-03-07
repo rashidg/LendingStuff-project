@@ -8,8 +8,8 @@ import { Actions } from 'react-native-router-flux';
 
 class SearchResults extends React.Component {
   componentDidMount(){
-    const { dispatch, criteria } = this.props;
-    dispatch(fetchSearchItems(criteria));
+    const { dispatch, text, duration, distance, rate, category } = this.props;
+    dispatch(fetchSearchItems(text, duration, distance, rate, category));
   }
 
   renderItem(item, idx){
@@ -24,7 +24,7 @@ class SearchResults extends React.Component {
 
   render() {
     const { items, isFetching } = this.props;
-    
+
     const renderItems = items.map(this.renderItem);
 
     return (

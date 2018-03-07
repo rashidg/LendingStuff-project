@@ -35,7 +35,7 @@ const fetchSearchItemsService = (text, duration, distance, rate, category) => {
     //var today = new Date();
     //var expiration = new Date(today.getTime() + duration*60000*24);
 
-    ref.orderByChild('rate').endAt(rate).once('value').then(snapshot => {
+    ref.orderByChild('rate').startAt(0).endAt(rate).once('value').then(snapshot => {
         return resolve(snapshot.val());
     });
   })
