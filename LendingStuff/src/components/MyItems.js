@@ -3,15 +3,13 @@ import { connect } from 'react-redux';
 import { Text, View, ScrollView, ActivityIndicator } from 'react-native';
 
 import Item from './Item';
-import { myItems } from '../actions';
+import { fetchMyItems } from '../actions';
 import { Actions } from 'react-native-router-flux';
-
-const username = 'lender';
 
 class MyItems extends React.Component {
   componentDidMount(){
-    const { dispatch } = this.props;
-    dispatch(myItems(this.props.username));
+    const { dispatch, username } = this.props;
+    dispatch(fetchMyItems(username));
   }
 
   renderItem(item, idx){
@@ -25,7 +23,7 @@ class MyItems extends React.Component {
   }
 
   render() {
-    const { items, isFetching } = this.props;
+    const { items, isFetching, username } = this.props;
 
     if (items != null) {
       const renderItems = items.map(this.renderItem);

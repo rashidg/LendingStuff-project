@@ -8,7 +8,7 @@ const fetchItemsService = () => {
   })
 };
 
-const myItemsService = (username) => {
+const fetchMyItemsService = (username) => {
   return new Promise((resolve, reject) => {
     var ref = firebase.database().ref('items');
     ref.orderByChild('owner').equalTo(username).once('value').then(snapshot => {
@@ -17,7 +17,7 @@ const myItemsService = (username) => {
   })
 };
 
-const rentedItemsService = (username) => {
+const fetchRentedItemsService = (username) => {
   return new Promise((resolve, reject) => {
     var ref = firebase.database().ref('items');
     ref.orderByChild('renter').equalTo(username).once('value').then(snapshot => {
@@ -46,4 +46,4 @@ const searchItemsService = (criteria) => {
 };
 */
 
-export {fetchItemsService, myItemsService, rentedItemsService};
+export {fetchItemsService, fetchMyItemsService, fetchRentedItemsService};

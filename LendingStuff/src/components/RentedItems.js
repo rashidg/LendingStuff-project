@@ -3,21 +3,18 @@ import { connect } from 'react-redux';
 import { Text, View, ScrollView, ActivityIndicator } from 'react-native';
 
 import Item from './Item';
-import { rentedItems } from '../actions';
+import { fetchRentedItems } from '../actions';
 import { Actions } from 'react-native-router-flux';
-
-const username = 'lender';
 
 class RentedItems extends React.Component {
   componentDidMount(){
-    const { dispatch } = this.props;
-    dispatch(rentedItems(this.props.username));
+    const { dispatch, username } = this.props;
+    dispatch(fetchRentedItems(username));
   }
 
   renderItem(item, idx){
     const status = item.rented ? "Rented" : "Available";
-    return <Item item={item}
-                 key={"item" + idx}
+    return <Item key={"item" + idx}
                  title={item.name}
                  description={item.desc}
                  infoBox2={"$" + item.rate}
@@ -26,7 +23,7 @@ class RentedItems extends React.Component {
   }
 
   render() {
-    const { items, isFetching } = this.props;
+    const { items, isFetching, username } = this.props;
 
     if (items != null) {
       const renderItems = items.map(this.renderItem);

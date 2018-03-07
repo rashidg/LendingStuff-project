@@ -1,6 +1,6 @@
 import { createAction } from 'redux-act';
 
-import { fetchItemsService, myItemsService, rentedItemsService } from './APIService';
+import { fetchItemsService, fetchMyItemsService, fetchRentedItemsService } from './APIService';
 
 
 export function fetchItems() {
@@ -13,21 +13,21 @@ export function fetchItems() {
   };
 }
 
-export function myItems(lender) {
+export function fetchMyItems(lender) {
   return (dispatch) => {
     dispatch(fetchItemsRequest());
 
-    myItemsService(lender)
+    fetchMyItemsService(lender)
       .then((payload) => dispatch(fetchItemsSuccess(payload)))
       .catch((err) => dispatch(fetchItemsError(err)))
   };
 }
 
-export function rentedItems(renter) {
+export function fetchRentedItems(renter) {
   return (dispatch) => {
     dispatch(fetchItemsRequest());
 
-    rentedItemsService(renter)
+    fetchRentedItemsService(renter)
       .then((payload) => dispatch(fetchItemsSuccess(payload)))
       .catch((err) => dispatch(fetchItemsError(err)))
   };

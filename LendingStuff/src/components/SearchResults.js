@@ -38,9 +38,11 @@ class SearchResults extends React.Component {
       );
     }
     else {
-      <View>
-        <Text>No search results found!</Text>
-      </View>
+      return (
+        <View>
+          <Text>No search results found!</Text>
+        </View>
+      );
     }
   }
 }
