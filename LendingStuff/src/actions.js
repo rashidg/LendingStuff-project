@@ -1,6 +1,6 @@
 import { createAction } from 'redux-act';
 
-import { fetchItemsService } from './APIService';
+import { fetchItemsService, postItemsService } from './APIService';
 
 
 export function fetchItems() {
@@ -16,3 +16,12 @@ export function fetchItems() {
 export const fetchItemsRequest = createAction('FETCH_ITEMS_REQUEST');
 export const fetchItemsSuccess = createAction('FETCH_ITEMS_SUCCESS');
 export const fetchItemsError = createAction('FETCH_ITEMS_ERROR');
+
+
+export function postItem(data) {
+
+    postItemRequest(data);
+    postItemsService(data);
+
+}
+export const postItemRequest = createAction('POST_ITEM_REQUEST');

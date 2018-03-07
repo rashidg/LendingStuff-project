@@ -11,6 +11,9 @@ import {
 
 import Categories from './Categories';
 import { categories } from '../constants';
+import { postItem } from "../actions";
+
+import { itemList } from "../dummyData";
 
 export default class Post extends React.Component {
   constructor(props) {
@@ -24,6 +27,11 @@ export default class Post extends React.Component {
       categoryIdx: 0,
       rate: 0
     };
+  }
+
+  onSubmit() {
+    alert('hello')
+    // postItem(itemList);
   }
 
   render() {
@@ -69,7 +77,7 @@ export default class Post extends React.Component {
         </ScrollView>
 
          <Button title="Post this item!"
-                 onPress={() => {alert("Post this item!")}}/>
+                 onPress={() => this.onSubmit()}/>
       </View>
     );
   }

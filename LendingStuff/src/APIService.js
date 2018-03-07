@@ -7,3 +7,7 @@ export const fetchItemsService = () => {
     });
   })
 };
+
+export const postItemsService = (data) => {
+    firebase.database().ref('items/').set(data)
+};
