@@ -26,15 +26,22 @@ class SearchResults extends React.Component {
     const { items, isFetching } = this.props;
     const renderItems = items.map(this.renderItem);
 
-    return (
-      <View sytle={{paddingTop: '10%'}}>
-        <ActivityIndicator size='large'
-                           animating={isFetching} />
-        <ScrollView>
-          {renderItems}
-        </ScrollView>
+    if (items != null) {
+      return (
+        <View sytle={{paddingTop: '10%'}}>
+          <ActivityIndicator size='large'
+                             animating={isFetching} />
+          <ScrollView>
+            {renderItems}
+          </ScrollView>
+        </View>
+      );
+    }
+    else {
+      <View>
+        <Text>No search results found!</Text>
       </View>
-    );
+    }
   }
 }
 
