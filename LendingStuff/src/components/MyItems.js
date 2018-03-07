@@ -25,26 +25,23 @@ class MyItems extends React.Component {
   render() {
     const { items, isFetching, username } = this.props;
 
-    if (items != null) {
-      const renderItems = items.map(this.renderItem);
+    const renderItems = items.map(this.renderItem);
 
-      return (
-        <View sytle={{paddingTop: '10%'}}>
-          <ActivityIndicator size='large'
-                             animating={isFetching} />
+    return (
+      <View>
+        <ActivityIndicator size='large'
+                           animating={isFetching} />
+        {renderItems &&
           <ScrollView>
             {renderItems}
           </ScrollView>
-        </View>
-      );
-    }
-    else {
-      return (
-        <View>
-          <Text>You ({username}) have not posted any items!</Text>
-        </View>
-      );
-    }
+          ||
+          <View>
+            <Text>You ({username}) have not posted any items!</Text>
+          </View>
+        }
+      </View>
+    );
   }
 }
 

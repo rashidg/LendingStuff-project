@@ -18,7 +18,16 @@ export function fetchMyItems(lender) {
     dispatch(fetchItemsRequest());
 
     fetchMyItemsService(lender)
-      .then((payload) => dispatch(fetchItemsSuccess(payload)))
+      .then((payload) =>
+        {
+          if (payload != null) {
+            dispatch(fetchItemsSuccess(payload));
+          }
+          else {
+            dispatch(fetchItemsSuccess([]));
+          }
+        }
+      )
       .catch((err) => dispatch(fetchItemsError(err)))
   };
 }
@@ -28,7 +37,16 @@ export function fetchRentedItems(renter) {
     dispatch(fetchItemsRequest());
 
     fetchRentedItemsService(renter)
-      .then((payload) => dispatch(fetchItemsSuccess(payload)))
+      .then((payload) =>
+        {
+          if (payload != null) {
+            dispatch(fetchItemsSuccess(payload));
+          }
+          else {
+            dispatch(fetchItemsSuccess([]));
+          }
+        }
+      )
       .catch((err) => dispatch(fetchItemsError(err)))
   };
 }
