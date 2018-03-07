@@ -31,7 +31,7 @@ class RentedItems extends React.Component {
       <View>
         <ActivityIndicator size='large'
                            animating={isFetching} />
-        {renderItems &&
+        {renderItems.length &&
           <ScrollView>
             {renderItems}
           </ScrollView>
