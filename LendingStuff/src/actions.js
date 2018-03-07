@@ -56,7 +56,16 @@ export function fetchSearchItems(criteria) {
     dispatch(fetchItemsRequest());
 
     fetchSearchItemsService(criteria)
-      .then((payload) => dispatch(fetchItemsSuccess(payload)))
+      .then((payload) =>
+        {
+          if (payload != null) {
+            dispatch(fetchItemsSuccess(payload));
+          }
+          else {
+            dispatch(fetchItemsSuccess([]));
+          }
+        }
+      )
       .catch((err) => dispatch(fetchItemsError(err)))
   };
 }
