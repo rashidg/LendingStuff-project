@@ -24,6 +24,7 @@ class SearchResults extends React.Component {
 
   render() {
     const { items, isFetching } = this.props;
+    const { dispatch, text, duration, distance, rate, category } = this.props;
 
     const renderItems = items.map(this.renderItem);
 

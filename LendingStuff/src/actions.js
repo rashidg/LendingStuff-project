@@ -51,7 +51,7 @@ export function fetchRentedItems(renter) {
   };
 }
 
-export function fetchSearchItems(text, duration, distance, rate, categorya) {
+export function fetchSearchItems(text, duration, distance, rate, category) {
   return (dispatch) => {
     dispatch(fetchItemsRequest());
 
