@@ -8,6 +8,7 @@ import {
 } from 'react-native';
 
 
+
 export default class Item extends React.Component {
 
   render() {
@@ -72,7 +73,9 @@ Item.defaultProps = {
   //Should be dummyItem.name and dummyItem.desc: not imported
   title: "Appliance",
   description: "For kitchen use",
-  onPress: () => { alert("hello") }
+  onPress: () => {
+      alert("Could not find this item!")
+  }
 };
 
 

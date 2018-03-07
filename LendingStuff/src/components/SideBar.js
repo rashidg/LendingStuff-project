@@ -9,7 +9,7 @@ import {
 } from 'react-native';
 import {Actions} from "react-native-router-flux";
 
-const dummyName = "User1209";
+const username = "lender";
 
 export default class SideBar extends React.Component {
 
@@ -21,7 +21,7 @@ export default class SideBar extends React.Component {
               <Image style={styles.image}
                      source={require('../image/man.png')} />
             </View>
-            <Text style={styles.username}>{dummyName}</Text>
+            <Text style={styles.username}>{username}</Text>
           </View>
 
         <ScrollView>
@@ -33,12 +33,18 @@ export default class SideBar extends React.Component {
           </TouchableOpacity>
 
           <TouchableOpacity style={styles.nav_item}
-                            onPress={ () => {alert('my items');}}>
+                            onPress={ () => {
+                              Actions.myItems({username});
+                            }
+                          }>
             <Text style={styles.nav_title}>My Items</Text>
           </TouchableOpacity>
 
           <TouchableOpacity style={styles.nav_item}
-                            onPress={ () => {alert('rented items');}}>
+                            onPress={ () => {
+                              Actions.rentedItems({username});
+                            }
+                          }>
             <Text style={styles.nav_title}>Rented Items</Text>
           </TouchableOpacity>
 
