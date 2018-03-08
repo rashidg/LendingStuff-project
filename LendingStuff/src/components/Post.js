@@ -30,6 +30,7 @@ export default class Post extends React.Component {
   }
 
   onSubmit() {
+    // postItem(itemList);
     postItem({
       category: "chargers",
       name: "TEST",

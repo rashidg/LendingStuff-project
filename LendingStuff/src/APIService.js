@@ -5,6 +5,10 @@ const fetchItemsService = () => {
     firebase.database().ref('items').once('value').then(snapshot => {
       return resolve(snapshot.val());
     });
+    // firebase.database().ref('items').orderByKey()
+    //   .then(snapshot => {
+    //     return resolve(snapshot.val());
+    //   })
   })
 };
 
@@ -47,7 +51,13 @@ const searchItemsService = (criteria) => {
 */
 
 const postItemsService = (data) => {
-    firebase.database().ref('items/9/').set(data)
+  /* This causes firebase to create a unique key and places data at that key.
+   * But this causes error in SearchResults, items.map(this.renderItem), line 27.
+   */
+    firebase.database().ref('items/').push(data)
+
+  /* This posts data to items/9/, and shows up when searched. */
+  // firebase.database().ref('items/9/').set(data);
 };
 
 export {fetchItemsService, fetchMyItemsService, fetchRentedItemsService, postItemsService};
