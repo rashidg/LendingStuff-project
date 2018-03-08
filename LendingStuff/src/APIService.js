@@ -34,7 +34,7 @@ const fetchRentedItemsService = (username) => {
 const fetchSearchItemsService = (text, duration, distance, rate, category) => {
   return new Promise((resolve, reject) => {
     var ref = firebase.database().ref('items');
-    ref.orderByChild('rate').endAt(rate).once('value').then(snapshot => {
+    ref.orderByChild('category').equalTo(category).once('value').then(snapshot => {
         return resolve(snapshot.val());
     });
   })
