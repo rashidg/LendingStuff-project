@@ -47,7 +47,7 @@ const searchItemsService = (criteria) => {
 */
 
 const postItemsService = (data) => {
-    firebase.database().ref('items/').set(data)
+    firebase.database().ref('items/9/').set(data)
 };
 
 export {fetchItemsService, fetchMyItemsService, fetchRentedItemsService, postItemsService};

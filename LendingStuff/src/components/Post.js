@@ -30,8 +30,18 @@ export default class Post extends React.Component {
   }
 
   onSubmit() {
-    alert('hello')
-    // postItem(itemList);
+    postItem({
+      category: "chargers",
+      name: "TEST",
+      desc: "TEST",
+      rented: false,
+      location: "Toronto, ON",
+      postedOn: "2018-03-02",
+      expiresOn: "2018-03-22",
+      rate: 15,
+      owner: "lender",
+      image: "resource/boo.png"
+    });
   }
 
   render() {
