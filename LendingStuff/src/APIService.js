@@ -3,6 +3,7 @@ import firebase from './firebase';
 const fetchItemsService = () => {
   return new Promise((resolve, reject) => {
     firebase.database().ref('items').once('value').then(snapshot => {
+
       console.log(snapshot.val());
       return resolve(snapshot.val());
     });
@@ -10,7 +11,7 @@ const fetchItemsService = () => {
     //   .then(snapshot => {
     //     return resolve(snapshot.val());
     //   })
-  })
+  });
 };
 
 const fetchMyItemsService = (username) => {

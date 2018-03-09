@@ -2,12 +2,11 @@ import React from 'react';
 import { View, Button } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 
-import firebase from '../firebase';
-import { itemList } from '../dummyData';
 
 export default class Home extends React.Component {
 
   render() {
+
     const style = {
       flex: 1,
       backgroundColor: '#fff',
