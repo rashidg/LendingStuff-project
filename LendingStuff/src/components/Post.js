@@ -55,11 +55,13 @@ class Post extends React.Component {
         let dur = data[key];
         retData['postedOn'] = cur.format();
         retData['expiresOn'] = cur.add(dur, 'h').format();
-      }
-
+      } else if (key === 'categoryIdx') {
+        let cat = categories[data[key]];
+        retData['category'] = cat;
+      } else {
         let value = data[key];
         retData[key] = value;
-
+      }
     });
 
     return retData
