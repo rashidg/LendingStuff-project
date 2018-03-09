@@ -46,23 +46,15 @@ class Post extends React.Component {
   }
 
   extractData(data) {
-    const retData = {};
+    const { dur, categoryIdx, ...rest } = data;
+    const cur = moment();
 
-    Object.keys(data).forEach((key) => {
-
-      if (key === 'dur') {
-        let cur = moment();
-        let dur = data[key];
-        retData['postedOn'] = cur.format();
-        retData['expiresOn'] = cur.add(dur, 'h').format();
-      } else if (key === 'categoryIdx') {
-        retData['category'] = categories[data[key]];
-      } else {
-        retData[key] = data[key];
-      }
-    });
-
-    return retData
+    return {
+      ...rest,
+      postedOn: cur.format(),
+      expiresOn: cur.add(dur, 'h').format(),
+      category: categories[categoryIdx]
+    };
   }
 
   onSuccess() {
