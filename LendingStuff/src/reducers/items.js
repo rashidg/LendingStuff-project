@@ -22,6 +22,7 @@ export const itemsReducer = createReducer({
 
   [fetchItemsError]: (state, error) => ({
     ...state,
+    data: [],
     isFetching: false,
     errorMessage: error
   })

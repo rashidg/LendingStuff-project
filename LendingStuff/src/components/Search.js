@@ -15,22 +15,20 @@ export default class Search extends React.Component {
 			duration: 12,
 			categories: categories,
 			categoryIdx: 0,
-			price: 5
+			rate: 5
 		};
 	}
 
 	handleSearch() {
-		Alert.alert('Confirmation',
-			'Here is your submission:\n'
-			+ 'Name: ' + this.state.text + '\n'
-			+ 'Duration: ' + this.state.duration + ' hours \n'
-			+ 'Distance: ' + this.state.distance + ' KM \n'
-			+ 'Category: ' + this.state.categories[this.state.categoryIdx] + '\n',
-			[
-				{text: 'OK', onPress: () => console.log('OK Pressed')},
-			],
-			{ cancelable: false });
-		Actions.search_results();
+		Actions.search_results({
+			query: {
+				text: this.state.text,
+				distance: this.state.distance,
+				duration: this.state.duration,
+				rate: this.state.rate,
+				category: this.state.categories[this.state.categoryIdx]
+			}
+		});
 	}
 
 	render() {
@@ -69,13 +67,13 @@ export default class Search extends React.Component {
 										value={this.state.duration}
 										onSlidingComplete={(result) => this.setState({duration: result})} />
 
-						<Text style={textStyle}>Rate: {this.state.price} per hour</Text>
+						<Text style={textStyle}>Rate: {this.state.rate} per hour</Text>
 						<Slider style={{ width: 300 }}
 										step={1}
 										minimumValue={0}
 										maximumValue={100}
-										value={this.state.price}
-										onSlidingComplete={(result) => this.setState({price: result})} />
+										value={this.state.rate}
+										onSlidingComplete={(result) => this.setState({rate: result})} />
 
 						<Text style={textStyle}>Text</Text>
 						<TextInput style={{height: 50, width: 300, textAlign: 'center'}}
