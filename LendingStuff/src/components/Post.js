@@ -56,11 +56,9 @@ class Post extends React.Component {
         retData['postedOn'] = cur.format();
         retData['expiresOn'] = cur.add(dur, 'h').format();
       } else if (key === 'categoryIdx') {
-        let cat = categories[data[key]];
-        retData['category'] = cat;
+        retData['category'] = categories[data[key]];
       } else {
-        let value = data[key];
-        retData[key] = value;
+        retData[key] = data[key];
       }
     });
 
@@ -101,6 +99,7 @@ class Post extends React.Component {
 
           <Text style={styles.heading}>Duration</Text>
           <TextInput style={styles.textInput}
+                     keyboardType='numeric'
                      multiline={false}
                      placeholder="Enter the duration (in hours):"
                      onChangeText={(text) => {
@@ -117,6 +116,7 @@ class Post extends React.Component {
 
           <Text style={styles.heading}>Hourly rate</Text>
           <TextInput style={styles.textInput}
+                     keyboardType='numeric'
                      multiline={false}
                      placeholder="Enter the the hourly rate (in $):"
                      onChangeText={(text) => {
