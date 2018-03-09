@@ -20,6 +20,7 @@ export default class Post extends React.Component {
     super(props);
     this.state = {
       category: "",
+      categoryIdx: 0,
       name: "",
       desc: "",
       rented: false,
@@ -29,7 +30,7 @@ export default class Post extends React.Component {
       rate: 0,
       owner: "lender",
       image: "../stock_image.png",
-      dur: 0,
+      dur: 0
     };
   }
 
@@ -61,7 +62,7 @@ export default class Post extends React.Component {
           <Text style={styles.heading__cat}>Category</Text>
           <Categories categories={categories}
                       categoryIdx={this.state.categoryIdx}
-                      onPress={(index) => this.setState({categoryIdx: categories[index]})} />
+                      onPress={(index) => this.setState({categoryIdx: index})} />
 
           <Text style={styles.heading}>Name</Text>
           <TextInput  style={styles.textInput}
