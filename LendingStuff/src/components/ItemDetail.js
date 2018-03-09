@@ -1,5 +1,6 @@
 import React from 'react';
 import { Text, View, Button, TextInput, Image } from 'react-native';
+import { updateRentedItem } from '../actions';
 
 export default class ItemDetail extends React.Component {
 
@@ -27,7 +28,8 @@ export default class ItemDetail extends React.Component {
       statusText = "This item is still available to be rented.";
       rentComp = <Button title={itemTitle}
               onPress={() => {
-                alert("Are you sure you want to rent this item?")
+                alert("Are you sure you want to rent this item?");
+                dispatch(updateRentedItem(item.id));
               }
       }/>;
     }
