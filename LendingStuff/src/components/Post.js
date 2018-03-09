@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { Actions } from 'react-native-router-flux';
 
 import {
   Text,
@@ -36,7 +37,31 @@ class Post extends React.Component {
   }
 
   onSubmit() {
-    this.props.dispatch(postItem(this.state));
+    const data = this.state;
+    const result = this.extractData(data);
+
+
+    this.props.dispatch(postItem(this.state, this.onSuccess, this.onError));
+  }
+
+  extractData(data) {
+    const retData = {};
+
+    Object.keys(data).forEach((key) => {
+      let { value } = data[key];
+      retData[key] = value;
+    });
+
+    return retData
+  }
+
+  onSuccess() {
+    alert("Posting successful!");
+    Actions.search();
+  }
+
+  onError() {
+    alert("Posting unsuccessful.");
   }
 
   render() {

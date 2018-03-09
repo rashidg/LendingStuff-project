@@ -68,8 +68,10 @@ export const fetchItemsSuccess = createAction('FETCH_ITEMS_SUCCESS');
 export const fetchItemsError = createAction('FETCH_ITEMS_ERROR');
 
 
-export function postItem(data) {
-  return (dispatch) => {
-    postItemsService(data).then(() => alert('Posted!'));
+export function postItem(data, successCB, errorCB) {
+  return () => {
+    postItemsService(data)
+      .then(() => successCB())
+      .catch(() => errorCB())
   }
 }
