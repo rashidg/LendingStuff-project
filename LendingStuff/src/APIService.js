@@ -6,10 +6,6 @@ const fetchItemsService = () => {
       const array = Object.values(snapshot.val());
       return resolve(array);
     });
-    // firebase.database().ref('items').orderByKey()
-    //   .then(snapshot => {
-    //     return resolve(snapshot.val());
-    //   })
   });
 };
 

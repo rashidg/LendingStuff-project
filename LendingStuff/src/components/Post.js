@@ -69,7 +69,7 @@ class Post extends React.Component {
   render() {
     return (
       <KeyboardAvoidingView behavior='padding'
-                            keyboardVerticalOffset={100}
+                            keyboardVerticalOffset={70}
                             style={styles.container}>
         <ScrollView showsVerticalScrollIndicator={false}>
           <Text style={styles.heading__cat}>Category</Text>
@@ -79,7 +79,6 @@ class Post extends React.Component {
 
           <Text style={styles.heading}>Name</Text>
           <TextInput  style={styles.textInput}
-                      multiline={true}
                       placeholder="Write the item name:"
                       onChangeText={(text) => this.setState({name: text})} />
 
