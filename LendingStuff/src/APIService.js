@@ -40,23 +40,13 @@ const fetchRentedItemsService = (username) => {
   })
 };
 
-<<<<<<< HEAD
-const postItemsService = (data) => {
-=======
 const updateRentedItemService = (item_id) => {
   return new Promise((resolve, reject) => {
-    firebase.database().ref('items/' + item_id).set({
-      rented: true
-    });
+    firebase.database().ref('items/' + item_id).set({rented: true});
   })
 };
 
-/* UNTESTED
-const searchItemsService = (criteria) => {
-  //Search criteria gives us criteria.distance, criteria.duration,
-  //criteria.rate, and criteria.name.
-  //For now, filter out too-high rates and too-short durations.
->>>>>>> 040e958... Added draft for action creator to update item rented status
+const postItemsService = (data) => {
   return new Promise((resolve, reject) => {
     var newKey = firebase.database().ref('items/').push().key;
 
@@ -67,8 +57,4 @@ const searchItemsService = (criteria) => {
   });
 };
 
-<<<<<<< HEAD
 export {fetchItemsService, fetchMyItemsService, fetchRentedItemsService, postItemsService};
-=======
-export {fetchItemsService, fetchMyItemsService, fetchRentedItemsService, updateRentedItemService};
->>>>>>> 947bf2c... Exported action creator

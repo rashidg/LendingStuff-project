@@ -52,8 +52,6 @@ export function fetchRentedItems(renter) {
   };
 }
 
-<<<<<<< HEAD
-=======
 export function updateRentedItem(item_id){
   return (dispatch) => {
     dispatch(fetchItemsRequest());
