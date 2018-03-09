@@ -1,10 +1,13 @@
 import React from 'react';
 import { Text, View, Button, TextInput, Image } from 'react-native';
+import { updateRentedItem, createTransaction } from '../actions';
+import { connect } from 'react-redux'
+import { Actions } from 'react-native-router-flux';
 
-export default class ItemDetail extends React.Component {
+class ItemDetail extends React.Component {
 
   render() {
-    const { item } = this.props;
+    const { item, dispatch } = this.props;
 
     const style = {
       flex: 1,
@@ -27,7 +30,10 @@ export default class ItemDetail extends React.Component {
       statusText = "This item is still available to be rented.";
       rentComp = <Button title={itemTitle}
               onPress={() => {
-                alert("Are you sure you want to rent this item?")
+                
+                dispatch(updateRentedItem(item.id));
+                dispatch(createTransaction(item.id, "renter"))
+                Actions.search_results();
               }
       }/>;
     }
@@ -54,3 +60,5 @@ export default class ItemDetail extends React.Component {
     );
   }
 }
+
+export default connect()(ItemDetail);

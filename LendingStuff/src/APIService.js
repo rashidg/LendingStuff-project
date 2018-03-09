@@ -40,6 +40,26 @@ const fetchRentedItemsService = (username) => {
   })
 };
 
+const updateRentedItemService = (item_id) => {
+  return new Promise((resolve, reject) => {
+    firebase.database().ref('items/' + item_id + '/rented').set(true);
+    firebase.database().ref('items/' + item_id + '/renter').set("renter");
+  })
+};
+
+const createTransactionService = (item_id, renter) => {
+  return new Promise((resolve, reject) => {
+    var newKey = firebase.database().ref('transactions/').push().key;
+
+    firebase.database().ref('transactions/' + newKey).set({
+      id: newKey,
+      item_id: item_id,
+      renter: renter
+    })
+
+  })
+}
+
 const postItemsService = (data) => {
   return new Promise((resolve, reject) => {
     var newKey = firebase.database().ref('items/').push().key;
@@ -51,4 +71,4 @@ const postItemsService = (data) => {
   });
 };
 
-export {fetchItemsService, fetchMyItemsService, fetchRentedItemsService, postItemsService};
+export {fetchItemsService, fetchMyItemsService, fetchRentedItemsService, postItemsService, updateRentedItemService, createTransactionService};
