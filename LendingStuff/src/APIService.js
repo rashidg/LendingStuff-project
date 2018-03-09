@@ -52,17 +52,13 @@ const searchItemsService = (criteria) => {
 */
 
 const postItemsService = (data) => {
-  /* This causes firebase to create a unique key and places data at that key.
-   * But this causes error in SearchResults, items.map(this.renderItem), line 27.
-   */
-    // firebase.database().ref('items/').push(data)
-  var newKey = firebase.database().ref('items/').push().key;
+  return new Promise((resolve, reject) => {
+    var newKey = firebase.database().ref('items/').push().key;
 
-  firebase.database().ref('items/' + newKey).set(data);
-  firebase.database().ref('items/' + newKey + '/id').set(newKey);
-
-  /* This posts data to items/9/, and shows up when searched. */
-  // firebase.database().ref('items/9/').set(data);
+    firebase.database().ref('items/' + newKey).set(data);
+    firebase.database().ref('items/' + newKey + '/id').set(newKey);
+    resolve();
+  });
 };
 
 export {fetchItemsService, fetchMyItemsService, fetchRentedItemsService, postItemsService};

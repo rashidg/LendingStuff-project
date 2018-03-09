@@ -6,7 +6,6 @@ import { Actions } from 'react-native-router-flux';
 export default class Home extends React.Component {
 
   render() {
-
     const style = {
       flex: 1,
       backgroundColor: '#fff',

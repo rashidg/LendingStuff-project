@@ -1,4 +1,6 @@
 import React from 'react';
+import { connect } from 'react-redux';
+
 import {
   Text,
   KeyboardAvoidingView,
@@ -14,7 +16,7 @@ import { categories } from '../constants';
 import { postItem } from "../actions";
 
 
-export default class Post extends React.Component {
+class Post extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -34,30 +36,13 @@ export default class Post extends React.Component {
   }
 
   onSubmit() {
-    const data = this.state;
-    const result = this.extractData(data);
-
-    postItem(data);
-    alert('hello');
-    // postItem(itemList);
-  }
-
-  extractData(data) {
-    const retData = {};
-
-    // Using forEach to implement error checking later
-    Object.keys(data).forEach((key) => {
-      let { value } = data[key];
-      retData[key] = value;
-    });
-
-    return retData;
+    this.props.dispatch(postItem(this.state));
   }
 
   render() {
     return (
       <KeyboardAvoidingView behavior='padding'
-                            keyboardVerticalOffset={70}
+                            keyboardVerticalOffset={100}
                             style={styles.container}>
         <ScrollView showsVerticalScrollIndicator={false}>
           <Text style={styles.heading__cat}>Category</Text>
@@ -131,3 +116,5 @@ const styles = StyleSheet.create({
     paddingBottom: 20
   }
 });
+
+export default connect()(Post);
