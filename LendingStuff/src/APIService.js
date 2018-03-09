@@ -67,4 +67,8 @@ const searchItemsService = (criteria) => {
   });
 };
 
+<<<<<<< HEAD
 export {fetchItemsService, fetchMyItemsService, fetchRentedItemsService, postItemsService};
+=======
+export {fetchItemsService, fetchMyItemsService, fetchRentedItemsService, updateRentedItemService};
+>>>>>>> 947bf2c... Exported action creator
