@@ -26,7 +26,7 @@ const fetchMyItemsService = (username) => {
   return new Promise((resolve, reject) => {
     var ref = firebase.database().ref('items');
     ref.orderByChild('owner').equalTo(username).once('value').then(snapshot => {
-      return resolve(snapshot.val());
+      return resolve(Object.values(snapshot.val()));
     });
   })
 };
@@ -35,7 +35,7 @@ const fetchRentedItemsService = (username) => {
   return new Promise((resolve, reject) => {
     var ref = firebase.database().ref('items');
     ref.orderByChild('renter').equalTo(username).once('value').then(snapshot => {
-      return resolve(snapshot.val());
+      return resolve(Object.values(snapshot.val()));
     });
   })
 };
