@@ -32,7 +32,7 @@ class ItemDetail extends React.Component {
               onPress={() => {
                 
                 dispatch(updateRentedItem(item.id));
-                dispatch(createTransaction(item.id, ))
+                dispatch(createTransaction(item.id, "renter"))
                 Actions.search_results();
               }
       }/>;
