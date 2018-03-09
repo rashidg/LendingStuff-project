@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Actions } from 'react-native-router-flux';
 import moment from 'moment';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
 import {
   Text,
@@ -10,7 +11,8 @@ import {
   TextInput,
   StyleSheet,
   ScrollView,
-  Keyboard
+  Keyboard,
+  View
 } from 'react-native';
 
 import Categories from './Categories';
@@ -36,13 +38,9 @@ class Post extends React.Component {
 
   componentWillUnmount() {
     Keyboard.dismiss();
-    console.log('unmount');
   }
 
   onSubmit() {
-
-    // Keyboard.dismiss();
-
     const data = this.state;
     const result = this.extractData(data);
 
@@ -72,10 +70,8 @@ class Post extends React.Component {
 
   render() {
     return (
-      <KeyboardAvoidingView behavior='padding'
-                            keyboardVerticalOffset={70}
-                            style={styles.container}>
-        <ScrollView showsVerticalScrollIndicator={false}>
+
+        <KeyboardAwareScrollView showsVerticalScrollIndicator={false} style={styles.container}>
           <Text style={styles.heading__cat}>Category</Text>
           <Categories categories={categories}
                       categoryIdx={this.state.categoryIdx}
@@ -119,11 +115,14 @@ class Post extends React.Component {
                          this.setState({rate: parseFloat(text).toFixed(2)});
                        }
                      }}/>
-        </ScrollView>
+          <Button title="Post this item!"
+                  onPress={() => this.onSubmit()}/>
 
-         <Button title="Post this item!"
-                 onPress={() => this.onSubmit()}/>
-      </KeyboardAvoidingView>
+        </KeyboardAwareScrollView>
+
+
+
+
     );
   }
 }
