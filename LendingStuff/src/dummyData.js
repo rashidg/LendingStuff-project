@@ -60,3 +60,16 @@ export const itemList = [
     image: "resource/boo.png"
   }
 ];
+
+
+import firebase from './firebase';
+
+export const populateDB = () => {
+  firebase.database().ref('items/').set({});
+
+  itemList.map(item => {
+    var newKey = firebase.database().ref('items/').push().key;
+    firebase.database().ref('items/' + newKey).set(item);
+    firebase.database().ref('items/' + newKey + '/id').set(newKey);
+  });
+};

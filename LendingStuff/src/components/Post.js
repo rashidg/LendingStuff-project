@@ -1,39 +1,86 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import { Actions } from 'react-native-router-flux';
+import moment from 'moment';
+
 import {
   Text,
-  View,
+  KeyboardAvoidingView,
   Button,
   TextInput,
-  Image,
   StyleSheet,
-  ScrollView
+  ScrollView,
+  Keyboard
 } from 'react-native';
 
 import Categories from './Categories';
 import { categories } from '../constants';
+import { postItem } from "../actions";
 
-export default class Post extends React.Component {
+
+class Post extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      pic_src: "../stock_image.png",
-      desc: "",
-      dur: 0,
-      meetLoc: "",
-      categories: categories,
+      category: "",
       categoryIdx: 0,
-      rate: 0
+      name: "",
+      desc: "",
+      rented: false,
+      location: "",
+      rate: 0,
+      owner: "lender",
+      image: "../stock_image.png",
+      dur: 0
     };
+  }
+
+  onSubmit() {
+
+    Keyboard.dismiss();
+
+    const data = this.state;
+    const result = this.extractData(data);
+
+    this.props.dispatch(postItem(result, this.onSuccess, this.onError));
+  }
+
+  extractData(data) {
+    const { dur, categoryIdx, ...rest } = data;
+    const cur = moment();
+
+    return {
+      ...rest,
+      postedOn: cur.format(),
+      expiresOn: cur.add(dur, 'h').format(),
+      category: categories[categoryIdx]
+    };
+  }
+
+  onSuccess() {
+    alert("Posting successful!");
+    Actions.search();
+  }
+
+  onError() {
+    alert("Posting unsuccessful.");
   }
 
   render() {
     return (
-      <View style={styles.container}>
+      <KeyboardAvoidingView behavior='padding'
+                            keyboardVerticalOffset={70}
+                            style={styles.container}>
         <ScrollView showsVerticalScrollIndicator={false}>
           <Text style={styles.heading__cat}>Category</Text>
-          <Categories categories={this.state.categories}
+          <Categories categories={categories}
                       categoryIdx={this.state.categoryIdx}
                       onPress={(index) => this.setState({categoryIdx: index})} />
+
+          <Text style={styles.heading}>Name</Text>
+          <TextInput  style={styles.textInput}
+                      placeholder="Write the item name:"
+                      onChangeText={(text) => this.setState({name: text})} />
 
           <Text style={styles.heading}>Description</Text>
           <TextInput  style={styles.textInput}
@@ -43,6 +90,7 @@ export default class Post extends React.Component {
 
           <Text style={styles.heading}>Duration</Text>
           <TextInput style={styles.textInput}
+                     keyboardType='numeric'
                      multiline={false}
                      placeholder="Enter the duration (in hours):"
                      onChangeText={(text) => {
@@ -55,10 +103,11 @@ export default class Post extends React.Component {
           <TextInput style={styles.textInput}
                      multiline={false}
                      placeholder="Enter the meeting location:"
-                     onChangeText={(text) => this.setState({meetLoc: text})} />
+                     onChangeText={(text) => this.setState({location: text})} />
 
           <Text style={styles.heading}>Hourly rate</Text>
           <TextInput style={styles.textInput}
+                     keyboardType='numeric'
                      multiline={false}
                      placeholder="Enter the the hourly rate (in $):"
                      onChangeText={(text) => {
@@ -69,8 +118,8 @@ export default class Post extends React.Component {
         </ScrollView>
 
          <Button title="Post this item!"
-                 onPress={() => {alert("Post this item!")}}/>
-      </View>
+                 onPress={() => this.onSubmit()}/>
+      </KeyboardAvoidingView>
     );
   }
 }
@@ -95,3 +144,5 @@ const styles = StyleSheet.create({
     paddingBottom: 20
   }
 });
+
+export default connect()(Post);

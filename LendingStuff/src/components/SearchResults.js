@@ -12,9 +12,9 @@ class SearchResults extends React.Component {
     dispatch(fetchItems(query));
   }
 
-  renderItem(item, idx){
+  renderItem(item){
     const status = item.rented ? "Rented" : "Available";
-    return <Item key={"item" + idx}
+    return <Item key={item.id}
                  title={item.name}
                  description={item.desc}
                  infoBox2={"$" + item.rate}

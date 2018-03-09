@@ -1,6 +1,6 @@
 import { createAction } from 'redux-act';
 
-import { fetchItemsService, fetchMyItemsService, fetchRentedItemsService } from './APIService';
+import { fetchItemsService, fetchMyItemsService, fetchRentedItemsService, postItemsService } from './APIService';
 
 
 export function fetchItems(query) {
@@ -9,7 +9,7 @@ export function fetchItems(query) {
 
     fetchItemsService(query)
       .then((payload) => dispatch(fetchItemsSuccess(payload)))
-      .catch((err) => dispatch(fetchItemsError(err)))
+      .catch((err) => dispatch(fetchItemsError(err)));
   };
 }
 
@@ -28,7 +28,7 @@ export function fetchMyItems(lender) {
           }
         }
       )
-      .catch((err) => dispatch(fetchItemsError(err)))
+      .catch((err) => dispatch(fetchItemsError(err)));
   };
 }
 
@@ -47,7 +47,7 @@ export function fetchRentedItems(renter) {
           }
         }
       )
-      .catch((err) => dispatch(fetchItemsError(err)))
+      .catch((err) => dispatch(fetchItemsError(err)));
   };
 }
 
@@ -56,3 +56,12 @@ export function fetchRentedItems(renter) {
 export const fetchItemsRequest = createAction('FETCH_ITEMS_REQUEST');
 export const fetchItemsSuccess = createAction('FETCH_ITEMS_SUCCESS');
 export const fetchItemsError = createAction('FETCH_ITEMS_ERROR');
+
+
+export function postItem(data, successCB, errorCB) {
+  return (dispatch) => {
+    postItemsService(data)
+      .then(() => successCB())
+      .catch(() => errorCB())
+  }
+}

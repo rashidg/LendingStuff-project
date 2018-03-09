@@ -6,7 +6,6 @@ import firebase from './firebase';
 //var expiration = new Date(today.getTime() + duration*60000*24);
 const fetchItemsService = (query={}) => {
   return new Promise((resolve, reject) => {
-
     const { text, duration, distance, rate, category } = query;
 
     var ref = firebase.database().ref('items');
@@ -16,6 +15,7 @@ const fetchItemsService = (query={}) => {
     ref.once('value').then(snapshot => {
       if (!snapshot.val())
         return resolve([]);
+
       const array = Object.values(snapshot.val());
       return resolve(array);
     });
@@ -40,5 +40,15 @@ const fetchRentedItemsService = (username) => {
   })
 };
 
+const postItemsService = (data) => {
+  return new Promise((resolve, reject) => {
+    var newKey = firebase.database().ref('items/').push().key;
 
-export { fetchItemsService, fetchMyItemsService, fetchRentedItemsService };
+    firebase.database().ref('items/' + newKey).set(data);
+    firebase.database().ref('items/' + newKey + '/id').set(newKey)
+      .then(() => { resolve(); })
+      .catch(() => { reject(); });
+  });
+};
+
+export {fetchItemsService, fetchMyItemsService, fetchRentedItemsService, postItemsService};
