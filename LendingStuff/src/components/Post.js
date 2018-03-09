@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Actions } from 'react-native-router-flux';
+import moment from 'moment';
 
 import {
   Text,
@@ -27,8 +28,6 @@ class Post extends React.Component {
       desc: "",
       rented: false,
       location: "",
-      postedOn: "2018-03-02",
-      expiresOn: "2018-03-22",
       rate: 0,
       owner: "lender",
       image: "../stock_image.png",
@@ -47,14 +46,15 @@ class Post extends React.Component {
   }
 
   extractData(data) {
-    const retData = {};
+    const { dur, categoryIdx, ...rest } = data;
+    const cur = moment();
 
-    Object.keys(data).forEach((key) => {
-      let value = data[key];
-      retData[key] = value;
-    });
-
-    return retData
+    return {
+      ...rest,
+      postedOn: cur.format(),
+      expiresOn: cur.add(dur, 'h').format(),
+      category: categories[categoryIdx]
+    };
   }
 
   onSuccess() {
@@ -91,6 +91,7 @@ class Post extends React.Component {
 
           <Text style={styles.heading}>Duration</Text>
           <TextInput style={styles.textInput}
+                     keyboardType='numeric'
                      multiline={false}
                      placeholder="Enter the duration (in hours):"
                      onChangeText={(text) => {
@@ -107,6 +108,7 @@ class Post extends React.Component {
 
           <Text style={styles.heading}>Hourly rate</Text>
           <TextInput style={styles.textInput}
+                     keyboardType='numeric'
                      multiline={false}
                      placeholder="Enter the the hourly rate (in $):"
                      onChangeText={(text) => {
