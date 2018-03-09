@@ -1,6 +1,7 @@
 import { createAction } from 'redux-act';
 
-import { fetchItemsService, fetchMyItemsService, fetchRentedItemsService, postItemsService } from './APIService';
+
+import { fetchItemsService, fetchMyItemsService, fetchRentedItemsService, updateRentedItemService, postItemsService} from './APIService';
 
 
 export function fetchItems(query) {
@@ -51,6 +52,32 @@ export function fetchRentedItems(renter) {
   };
 }
 
+<<<<<<< HEAD
+=======
+export function updateRentedItem(item_id){
+  return (dispatch) => {
+    dispatch(fetchItemsRequest());
+
+    updateRentedItemService(renter)
+      .then((payload) =>
+        {
+          if (payload != null) {
+            dispatch(fetchItemsSuccess(payload));
+          }
+          else {
+            dispatch(fetchItemsSuccess([]));
+          }
+        }
+      )
+      .catch((err) => dispatch(fetchItemsError(err)))
+  };
+}
+
+/* UNTESTED
+export function searchItems(criteria) {
+  return (dispatch) => {
+    dispatch(fetchItemsRequest());
+>>>>>>> 7d62444... Added action for updating rent
 
 
 export const fetchItemsRequest = createAction('FETCH_ITEMS_REQUEST');
