@@ -24,7 +24,7 @@ class SearchResults extends React.Component {
 
   render() {
     const { items, isFetching } = this.props;
-    const renderItems = Object.keys(items).map((key) => this.renderItem(items[key]));
+    const renderItems = items.map(this.renderItem);
 
     if (items != null) {
       return (

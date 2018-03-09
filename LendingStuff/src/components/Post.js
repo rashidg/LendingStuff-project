@@ -13,7 +13,6 @@ import Categories from './Categories';
 import { categories } from '../constants';
 import { postItem } from "../actions";
 
-import { itemList } from "../dummyData";
 
 export default class Post extends React.Component {
   constructor(props) {

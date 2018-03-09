@@ -1,9 +1,9 @@
 import { createReducer } from 'redux-act';
 
-import {fetchItemsRequest, fetchItemsSuccess, fetchItemsError, postItemRequest} from '../actions';
+import { fetchItemsRequest, fetchItemsSuccess, fetchItemsError } from '../actions';
 
 const initialState = {
-  data: {},
+  data: [],
   dataFetched: false,
   isFetching: false,
   error: false,
@@ -24,11 +24,5 @@ export const itemsReducer = createReducer({
     ...state,
     isFetching: false,
     errorMessage: error
-  }),
-
-  [postItemRequest]: (state, payload) => ({
-    ...state,
-    data: [...state.data, payload]
-  }),
-
+  })
 }, initialState);

@@ -3,9 +3,8 @@ import firebase from './firebase';
 const fetchItemsService = () => {
   return new Promise((resolve, reject) => {
     firebase.database().ref('items').once('value').then(snapshot => {
-
-      console.log(snapshot.val());
-      return resolve(snapshot.val());
+      const array = Object.values(snapshot.val());
+      return resolve(array);
     });
     // firebase.database().ref('items').orderByKey()
     //   .then(snapshot => {
