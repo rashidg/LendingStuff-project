@@ -28,7 +28,7 @@ export default () => (
               key="drawer"
               contentComponent={SideBar}
               drawerWidth={280}
-              drawerPosition="right" >
+              drawerPosition="right">
         <Stack key="root">
           <Scene key="home" component={Home} title="Home"/>
           <Scene key="items" component={Items} title="Register"/>

@@ -71,6 +71,7 @@ class Post extends React.Component {
   render() {
     return (
 
+
         <KeyboardAwareScrollView showsVerticalScrollIndicator={false} style={styles.container}>
           <Text style={styles.heading__cat}>Category</Text>
           <Categories categories={categories}
@@ -115,11 +116,11 @@ class Post extends React.Component {
                          this.setState({rate: parseFloat(text).toFixed(2)});
                        }
                      }}/>
+
+
           <Button title="Post this item!"
                   onPress={() => this.onSubmit()}/>
-
         </KeyboardAwareScrollView>
-
 
 
 
