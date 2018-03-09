@@ -22,7 +22,6 @@ class Post extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      category: "",
       categoryIdx: 0,
       name: "",
       desc: "",
@@ -35,9 +34,14 @@ class Post extends React.Component {
     };
   }
 
+  componentWillUnmount() {
+    Keyboard.dismiss();
+    console.log('unmount');
+  }
+
   onSubmit() {
 
-    Keyboard.dismiss();
+    // Keyboard.dismiss();
 
     const data = this.state;
     const result = this.extractData(data);
@@ -59,7 +63,7 @@ class Post extends React.Component {
 
   onSuccess() {
     alert("Posting successful!");
-    Actions.search();
+    Actions.popTo("home");
   }
 
   onError() {
@@ -111,8 +115,8 @@ class Post extends React.Component {
                      multiline={false}
                      placeholder="Enter the the hourly rate (in $):"
                      onChangeText={(text) => {
-                       if (parseInt(text) != NaN) {
-                         this.setState({rate: parseInt(text)});
+                       if (parseFloat(text) != NaN) {
+                         this.setState({rate: parseFloat(text).toFixed(2)});
                        }
                      }}/>
         </ScrollView>
