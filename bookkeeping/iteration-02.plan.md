@@ -57,8 +57,9 @@ TODO: Tickets need to be hashed out, so that we can define the scope of the spri
  * use separate branch for each ticket
  	** avoid conflicts caused by multiple people working on the same branch but for different purpose
  	** makes code review easier, since each branch has a defined goal to achieve
- * each pull request should be reviewed by at least two members before merging
+ * each pull request should be reviewed by the team leader, and at least one other member
  	** allows getting different perspective, which are useful for catching errors and maintaining code readability
+
 
 ## Product
 
