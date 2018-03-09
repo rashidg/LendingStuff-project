@@ -72,7 +72,7 @@ export const fetchItemsError = createAction('FETCH_ITEMS_ERROR');
 
 export function postItem(data) {
 
-    postItemRequest(data);
+    // postItemRequest(data);
     postItemsService(data);
 
 }

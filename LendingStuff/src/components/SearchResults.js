@@ -12,9 +12,9 @@ class SearchResults extends React.Component {
     dispatch(fetchItems());
   }
 
-  renderItem(item, idx){
+  renderItem(item){
     const status = item.rented ? "Rented" : "Available";
-    return <Item key={"item" + idx}
+    return <Item key={item.id}
                  title={item.name}
                  description={item.desc}
                  infoBox2={"$" + item.rate}
@@ -24,7 +24,7 @@ class SearchResults extends React.Component {
 
   render() {
     const { items, isFetching } = this.props;
-    const renderItems = items.map(this.renderItem);
+    const renderItems = Object.keys(items).map((key) => this.renderItem(items[key]));
 
     if (items != null) {
       return (

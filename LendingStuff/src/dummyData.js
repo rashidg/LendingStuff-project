@@ -9,7 +9,8 @@ export const itemList = [
     expiresOn: "2018-03-22",
     rate: 15,
     owner: "lender",
-    image: "resource/boo.png"
+    image: "resource/boo.png",
+    id: 0
   },
   {
     category: "chargers",
@@ -21,7 +22,8 @@ export const itemList = [
     expiresOn: "2018-03-22",
     rate: 15,
     owner: "lender",
-    image: "resource/boo.png"
+    image: "resource/boo.png",
+    id: 1
   },
   {
     category: "home products",
@@ -33,7 +35,8 @@ export const itemList = [
     expiresOn: "2018-03-22",
     rate: 10,
     owner: "lender",
-    image: "resource/boo.png"
+    image: "resource/boo.png",
+    id: 2
   },
   {
     category: "home products",
@@ -45,7 +48,8 @@ export const itemList = [
     expiresOn: "2018-03-22",
     rate: 5,
     owner: "lender",
-    image: "resource/boo.png"
+    image: "resource/boo.png",
+    id: 3
   },
   {
     category: "home products",
@@ -57,6 +61,7 @@ export const itemList = [
     expiresOn: "2018-03-22",
     rate: 5,
     owner: "lender",
-    image: "resource/boo.png"
+    image: "resource/boo.png",
+    id: 4
   }
 ];

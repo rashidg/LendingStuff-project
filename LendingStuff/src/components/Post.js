@@ -19,30 +19,39 @@ export default class Post extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      pic_src: "../stock_image.png",
+      category: "",
+      name: "",
       desc: "",
+      rented: false,
+      location: "",
+      postedOn: "2018-03-02",
+      expiresOn: "2018-03-22",
+      rate: 0,
+      owner: "lender",
+      image: "../stock_image.png",
       dur: 0,
-      meetLoc: "",
-      categories: categories,
-      categoryIdx: 0,
-      rate: 0
     };
   }
 
   onSubmit() {
+    const data = this.state;
+    const result = this.extractData(data);
+
+    postItem(data);
+    alert('hello');
     // postItem(itemList);
-    postItem({
-      category: "chargers",
-      name: "TEST",
-      desc: "TEST",
-      rented: false,
-      location: "Toronto, ON",
-      postedOn: "2018-03-02",
-      expiresOn: "2018-03-22",
-      rate: 15,
-      owner: "lender",
-      image: "resource/boo.png"
+  }
+
+  extractData(data) {
+    const retData = {};
+
+    // Using forEach to implement error checking later
+    Object.keys(data).forEach((key) => {
+      let { value } = data[key];
+      retData[key] = value;
     });
+
+    return retData;
   }
 
   render() {
@@ -50,9 +59,15 @@ export default class Post extends React.Component {
       <View style={styles.container}>
         <ScrollView showsVerticalScrollIndicator={false}>
           <Text style={styles.heading__cat}>Category</Text>
-          <Categories categories={this.state.categories}
+          <Categories categories={categories}
                       categoryIdx={this.state.categoryIdx}
-                      onPress={(index) => this.setState({categoryIdx: index})} />
+                      onPress={(index) => this.setState({categoryIdx: categories[index]})} />
+
+          <Text style={styles.heading}>Name</Text>
+          <TextInput  style={styles.textInput}
+                      multiline={true}
+                      placeholder="Write the item name:"
+                      onChangeText={(text) => this.setState({name: text})} />
 
           <Text style={styles.heading}>Description</Text>
           <TextInput  style={styles.textInput}
@@ -74,7 +89,7 @@ export default class Post extends React.Component {
           <TextInput style={styles.textInput}
                      multiline={false}
                      placeholder="Enter the meeting location:"
-                     onChangeText={(text) => this.setState({meetLoc: text})} />
+                     onChangeText={(text) => this.setState({location: text})} />
 
           <Text style={styles.heading}>Hourly rate</Text>
           <TextInput style={styles.textInput}

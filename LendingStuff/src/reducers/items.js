@@ -3,7 +3,7 @@ import { createReducer } from 'redux-act';
 import {fetchItemsRequest, fetchItemsSuccess, fetchItemsError, postItemRequest} from '../actions';
 
 const initialState = {
-  data: [],
+  data: {},
   dataFetched: false,
   isFetching: false,
   error: false,
