@@ -43,6 +43,7 @@ const fetchRentedItemsService = (username) => {
 const updateRentedItemService = (item_id) => {
   return new Promise((resolve, reject) => {
     firebase.database().ref('items/' + item_id + '/rented').set(true);
+    firebase.database().ref('items/' + item_id + '/renter').set("renter");
   })
 };
 
