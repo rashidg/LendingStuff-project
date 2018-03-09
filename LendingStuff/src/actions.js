@@ -6,7 +6,8 @@ import {
   fetchMyItemsService,
   fetchRentedItemsService,
   updateRentedItemService,
-  postItemsService
+  postItemsService,
+  createTransactionService
 } from './APIService';
 
  
@@ -68,6 +69,20 @@ export function updateRentedItem(item_id){
     dispatch(fetchItemsRequest());
 
     updateRentedItemService(item_id)
+      .then(() =>
+        {
+            dispatch(fetchItemsSuccess([]));
+        }
+      )
+      .catch((err) => dispatch(fetchItemsError(err)))
+  };
+}
+
+export function createTransaction(item_id, renter){
+  return (dispatch) => {
+    dispatch(fetchItemsRequest());
+
+    createTransactionService(item_id, renter)
       .then(() =>
         {
             dispatch(fetchItemsSuccess([]));

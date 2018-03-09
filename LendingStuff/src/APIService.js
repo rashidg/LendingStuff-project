@@ -46,7 +46,7 @@ const updateRentedItemService = (item_id) => {
   })
 };
 
-const createTransaction = (item_id, renter) => {
+const createTransactionService = (item_id, renter) => {
   return new Promise((resolve, reject) => {
     var newKey = firebase.database().ref('transactions/').push().key;
 
@@ -70,4 +70,4 @@ const postItemsService = (data) => {
   });
 };
 
-export {fetchItemsService, fetchMyItemsService, fetchRentedItemsService, postItemsService, updateRentedItemService};
+export {fetchItemsService, fetchMyItemsService, fetchRentedItemsService, postItemsService, updateRentedItemService, createTransactionService};

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Text, View, Button, TextInput, Image } from 'react-native';
-import { updateRentedItem } from '../actions';
+import { updateRentedItem, createTransaction } from '../actions';
 import { connect } from 'react-redux'
 import { Actions } from 'react-native-router-flux';
 
@@ -32,6 +32,7 @@ class ItemDetail extends React.Component {
               onPress={() => {
                 
                 dispatch(updateRentedItem(item.id));
+                dispatch(createTransaction(item.id, ))
                 Actions.search_results();
               }
       }/>;
