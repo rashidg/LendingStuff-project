@@ -56,8 +56,9 @@ const postItemsService = (data) => {
     var newKey = firebase.database().ref('items/').push().key;
 
     firebase.database().ref('items/' + newKey).set(data);
-    firebase.database().ref('items/' + newKey + '/id').set(newKey);
-    resolve();
+    firebase.database().ref('items/' + newKey + '/id').set(newKey)
+      .then(() => { resolve(); })
+      .catch(() => { reject(); });
   });
 };
 

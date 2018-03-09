@@ -7,9 +7,9 @@ import {
   KeyboardAvoidingView,
   Button,
   TextInput,
-  Image,
   StyleSheet,
-  ScrollView
+  ScrollView,
+  Keyboard
 } from 'react-native';
 
 import Categories from './Categories';
@@ -37,18 +37,20 @@ class Post extends React.Component {
   }
 
   onSubmit() {
+
+    Keyboard.dismiss();
+
     const data = this.state;
     const result = this.extractData(data);
 
-
-    this.props.dispatch(postItem(this.state, this.onSuccess, this.onError));
+    this.props.dispatch(postItem(result, this.onSuccess, this.onError));
   }
 
   extractData(data) {
     const retData = {};
 
     Object.keys(data).forEach((key) => {
-      let { value } = data[key];
+      let value = data[key];
       retData[key] = value;
     });
 

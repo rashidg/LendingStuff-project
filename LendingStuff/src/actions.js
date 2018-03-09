@@ -69,7 +69,7 @@ export const fetchItemsError = createAction('FETCH_ITEMS_ERROR');
 
 
 export function postItem(data, successCB, errorCB) {
-  return () => {
+  return (dispatch) => {
     postItemsService(data)
       .then(() => successCB())
       .catch(() => errorCB())
