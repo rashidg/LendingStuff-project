@@ -3,13 +3,13 @@ import { connect } from 'react-redux';
 import { Text, View, ScrollView, ActivityIndicator } from 'react-native';
 
 import Item from './Item';
-import { fetchSearchItems } from '../actions';
+import { fetchItems } from '../actions';
 import { Actions } from 'react-native-router-flux';
 
 class SearchResults extends React.Component {
   componentDidMount(){
-    const { dispatch, text, duration, distance, rate, category } = this.props;
-    dispatch(fetchSearchItems(text, duration, distance, rate, category));
+    const { dispatch, query } = this.props;
+    dispatch(fetchItems(query));
   }
 
   renderItem(item, idx){
@@ -24,7 +24,6 @@ class SearchResults extends React.Component {
 
   render() {
     const { items, isFetching } = this.props;
-    const { dispatch, text, duration, distance, rate, category } = this.props;
 
     const renderItems = items.map(this.renderItem);
 

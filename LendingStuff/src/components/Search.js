@@ -20,24 +20,15 @@ export default class Search extends React.Component {
 	}
 
 	handleSearch() {
-		Alert.alert('Confirmation',
-			'Here is your submission:\n'
-			+ 'Name: ' + this.state.text + '\n'
-			+ 'Hourly Rate: ' + this.state.rate + '\n'
-			+ 'Duration: ' + this.state.duration + ' hours \n'
-			+ 'Distance: ' + this.state.distance + ' KM \n'
-			+ 'Category: ' + this.state.categories[this.state.categoryIdx] + '\n',
-			[
-				{text: 'OK', onPress: () => {
-					console.log('OK Pressed');
-					Actions.search_results({text: this.state.text,
-						distance: this.state.distance,
-						duration: this.state.duration,
-						rate: this.state.rate,
-						category: this.state.categories[this.state.categoryIdx] });
-				}},
-			],
-			{ cancelable: false });
+		Actions.search_results({
+			query: {
+				text: this.state.text,
+				distance: this.state.distance,
+				duration: this.state.duration,
+				rate: this.state.rate,
+				category: this.state.categories[this.state.categoryIdx]
+			}
+		});
 	}
 
 	render() {

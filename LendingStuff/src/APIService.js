@@ -1,11 +1,25 @@
 import firebase from './firebase';
 
-const fetchItemsService = () => {
+
+//For now, filter out too-high rates and too-short durations, and select the correct category.
+//var today = new Date();
+//var expiration = new Date(today.getTime() + duration*60000*24);
+const fetchItemsService = (query={}) => {
   return new Promise((resolve, reject) => {
-    firebase.database().ref('items').once('value').then(snapshot => {
-      return resolve(snapshot.val());
+
+    const { text, duration, distance, rate, category } = query;
+
+    var ref = firebase.database().ref('items');
+    if (category)
+      ref = ref.orderByChild('category').equalTo(category);
+
+    ref.once('value').then(snapshot => {
+      if (!snapshot.val())
+        return resolve([]);
+      const array = Object.values(snapshot.val());
+      return resolve(array);
     });
-  })
+  });
 };
 
 const fetchMyItemsService = (username) => {
@@ -26,19 +40,5 @@ const fetchRentedItemsService = (username) => {
   })
 };
 
-//Search criteria gives us criteria.distance, criteria.duration,
-//criteria.rate, criteria.text and criteria.category
-//For now, filter out too-high rates and too-short durations, and select the correct category.
-//var today = new Date();
-//var expiration = new Date(today.getTime() + duration*60000*24);
-const fetchSearchItemsService = (text, duration, distance, rate, category) => {
-  return new Promise((resolve, reject) => {
-    var ref = firebase.database().ref('items');
-    ref.orderByChild('category').equalTo(category).once('value').then(snapshot => {
-        return resolve(snapshot.val());
-    });
-  })
-};
 
-
-export {fetchItemsService, fetchMyItemsService, fetchRentedItemsService, fetchSearchItemsService};
+export { fetchItemsService, fetchMyItemsService, fetchRentedItemsService };
