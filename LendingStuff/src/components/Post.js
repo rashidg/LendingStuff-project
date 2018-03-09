@@ -1,7 +1,7 @@
 import React from 'react';
 import {
   Text,
-  View,
+  KeyboardAvoidingView,
   Button,
   TextInput,
   Image,
@@ -57,7 +57,9 @@ export default class Post extends React.Component {
 
   render() {
     return (
-      <View style={styles.container}>
+      <KeyboardAvoidingView behavior='padding'
+                            keyboardVerticalOffset={70}
+                            style={styles.container}>
         <ScrollView showsVerticalScrollIndicator={false}>
           <Text style={styles.heading__cat}>Category</Text>
           <Categories categories={categories}
@@ -105,7 +107,7 @@ export default class Post extends React.Component {
 
          <Button title="Post this item!"
                  onPress={() => this.onSubmit()}/>
-      </View>
+      </KeyboardAvoidingView>
     );
   }
 }
