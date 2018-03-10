@@ -35,22 +35,12 @@
  	** decide on specific items to get done before the next meeting
  * We will have online meetings on Sunday when necessary
 
-We're planning to have a weekly meeting every Friday. First half of the meeting is going to be review of the previous iteration, and the second half is going to be planning next iteration. We are expecting everyone to either be on campus or online during the meetings.
-
-In the future iterations, we might add another weekly meeting to sync up if we see a need.
-
 #### Artifacts
 
  * project management: Trello: [https://trello.com/b/wgqXn3yi/lendingstuff]
  	* create tickets, assign up to two members
  	* attach story points to prioritize
  	* aim to finish a defined set of tickets every week
- 
-
-Our Trello board: [https://trello.com/b/wgqXn3yi/lendingstuff]
-TODO: We will prioritize the tickets and attach story points.
-TODO: We will aim at doing a defined set of the tickets.
-TODO: Tickets need to be hashed out, so that we can define the scope of the sprint.
 
 #### Git / GitHub workflow
 
@@ -86,6 +76,7 @@ TODO: Tickets need to be hashed out, so that we can define the scope of the spri
  	** integrate firebase to the app
  	** implement API services
  	** decide on landing page for the app
+ 	** decide on the overall style of the app
 
 #### Artifacts
 
