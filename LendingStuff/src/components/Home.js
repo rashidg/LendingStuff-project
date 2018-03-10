@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Button } from 'react-native';
+import { Button, Text, TextInput, KeyboardAvoidingView } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 
 
@@ -12,19 +12,24 @@ export default class Home extends React.Component {
       alignItems: 'center',
       justifyContent: 'center'
     };
+    const textStyle = {
+      fontSize: 20,
+      textAlign: 'center'
+    };
     return (
-      <View style={style}>
-        <Button title="Login with something"
+      <KeyboardAvoidingView behavior='padding'
+                            keyboardVerticalOffset={70}
+                            style={style}>
+        <Text style={textStyle}>Username</Text>
+            <TextInput style={{height: 50, width: 300, textAlign: 'center'}}
+                       placeholder="Username" />
+        <Text style={textStyle}>Password</Text>
+            <TextInput style={{height: 50, width: 300, textAlign: 'center'}}
+                       placeholder="Passowrd"
+                       secureTextEntry={true}/>
+        <Button title="Login!"
                 onPress={ () => {Actions.search();}} />
-        <Button title="Post a new Item"
-                onPress={ () => {Actions.post();}} />
-        <Button title="Go to Items"
-                onPress={ () => {Actions.items();} } />
-        <Button title="Search for items"
-                onPress={ () => {Actions.search();} } />
-        <Button title="items"
-                onPress={ () => {Actions.items();}} />
-      </View>
+      </KeyboardAvoidingView>
     );
   }
 }
