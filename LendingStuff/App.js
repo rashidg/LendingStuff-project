@@ -21,6 +21,8 @@ import RentedItems from './src/components/RentedItems.js';
 
 const reduxStore = createStore(indexReducer, applyMiddleware(thunk));
 
+console.disableYellowBox = true;
+
 export default () => (
   <Provider store={reduxStore}>
     <Router>

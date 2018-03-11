@@ -16,7 +16,7 @@ class ItemDetail extends React.Component {
     };
 
     //Placeholder: will change once we know format of stored dates
-    let duration = 0;
+    let duration = 5;
     let itemTitle = "Rent this item: $" + item.rate + "hour";
 
     let statusText = null;
