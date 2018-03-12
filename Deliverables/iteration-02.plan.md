@@ -83,9 +83,9 @@
  * Mockups are on Figma: [https://www.figma.com/file/TuuidWH5QxTfadgI7hF3MmoT/LendingStuff]
  	* give guideline for implementing scenes
  	* can be shared between members for editing
- * Our database schema:
+ * Our database schema: [https://github.com/csc301-winter-2018/project-team-22/blob/master/Deliverables/Schema/schema_1.jpg] [https://github.com/csc301-winter-2018/project-team-22/blob/master/Deliverables/Schema/schema_2.jpg]
  	* essential for writing methods that deal with database
  	* members can implement how to render data by referring to this schema
- * Our demo video: 
+ * Our demo video: [https://drive.google.com/file/d/1evo8pu8DTtGn09ZxTuLVv0WyxjAkxstZ/view]
  	* shows the process made
  	* shows how the app will be used
