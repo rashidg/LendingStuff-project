@@ -143,6 +143,7 @@ export const postItemsService = (item) => {
   });
 };
 
+
 export const fetchReviewsService = (item_id) => {
   return new Promise((resolve, reject) => {
     var ref = firebase.database().ref('reviews/');
@@ -190,3 +191,45 @@ const confirmRenter = (username, item_id) => {
       .catch(() => reject());
   })
 };
+
+export const registerService = (data) => {
+  return new Promise((resolve, reject) => {
+    const { email, password } = data;
+    firebase.auth().createUserWithEmailAndPassword(email, password)
+      .then((user) => { resolve(user) })
+      .catch((err) => { reject(err) })
+  })
+};
+
+/*export const createUserService = (data) => {
+  return new Promise((resolve, reject) => {
+    firebase.database().ref('users').child(data.uid).update({username: data.email})
+      .then((data) => resolve(data))
+      .catch((err) => reject(err));
+  })
+};*/
+
+export const logInService = (data) => {
+  return new Promise((resolve, reject) => {
+    const { email, password } = data;
+    firebase.auth().signInWithEmailAndPassword(data.email, data.password)
+      //.then((user) => getUserService(user, resolve, reject))
+      .then((user) => resolve(user))
+      .catch((err) => reject(err));
+  })
+};
+
+/*export const getUserService = (user, successCB, errorCB) => {
+  console.log(user);
+  firebase.database().ref('users').child(user.uid).once('value')
+    .then(snapshot => {
+      if (!snapshot.val() || snapshot == null) { 
+          console.log("hello"); errorCB();
+      } else {
+        console.log("hello"); 
+        const username = snapshot.val().username;
+        successCB(username);
+      }
+    })
+    .catch((err) => errorCB(err));
+};*/

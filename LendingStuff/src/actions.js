@@ -9,16 +9,21 @@ import {
   postItemsService,
   createTransactionService,
   fetchReviewsService,
-  postReviewService
+  postReviewService,
+  registerService,
+  createUserService,
+  logInService
 } from './APIService';
 
  
 export const fetchItemsRequest = createAction('FETCH_ITEMS_REQUEST');
 export const fetchItemsSuccess = createAction('FETCH_ITEMS_SUCCESS');
 export const fetchItemsError = createAction('FETCH_ITEMS_ERROR');
-
 export const fetchReviewsSuccess = createAction('FETCH_REVIEWS_SUCCESS');
 export const fetchReviewsError = createAction('FETCH_REVIEWS_ERROR');
+export const logInRequest = createAction('LOG_IN');
+export const logOutRequest = createAction('LOG_OUT');
+export const registerRequest = createAction('REGISTER_REQUEST');
 
 
 export function fetchItems(query) {
@@ -114,5 +119,38 @@ export function postReview(data, successCB, errorCB) {
         successCB();
       })
       .catch(errorCB);
+  }
+}
+
+export function register(data, successCB, errorCB) {
+  return (dispatch) => {
+
+    registerService(data)
+      .then((payload) => {
+        successCB(payload);
+        dispatch(registerRequest(payload));
+      })
+      .catch((err) => errorCB(err))
+
+  }
+}
+
+/*export function createUser(data, successCB, errorCB) {
+  return (dispatch) => {
+    createUserService(data)
+      .then((user) => successCB(user))
+      .catch((err) => errorCB(err))
+  }
+}*/
+
+export function login(data, successCB, errorCB) {
+  return (dispatch) => {
+
+    logInService(data)
+      .then((payload) => {
+        successCB(payload);
+        dispatch(logInRequest(payload));
+      })
+      .catch((err) => errorCB(err))
   }
 }
