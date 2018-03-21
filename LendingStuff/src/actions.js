@@ -47,6 +47,7 @@ export function fetchMyItems(lender) {
 
 export function fetchRentedItems(renter) {
   return (dispatch) => {
+    
     dispatch(fetchItemsRequest());
 
     fetchRentedItemsService(renter)

@@ -20,15 +20,14 @@ export default class Search extends React.Component {
 	}
 
 	handleSearch() {
-		Actions.search_results({
-			query: {
-				text: this.state.text,
-				distance: this.state.distance,
-				duration: this.state.duration,
-				rate: this.state.rate,
-				category: this.state.categories[this.state.categoryIdx]
-			}
+		this.props.updateQuery({
+			text: this.state.text,
+			distance: this.state.distance,
+			duration: this.state.duration,
+			rate: this.state.rate,
+			category: this.state.categories[this.state.categoryIdx]
 		});
+		Actions.popTo('itemList');
 	}
 
 	render() {

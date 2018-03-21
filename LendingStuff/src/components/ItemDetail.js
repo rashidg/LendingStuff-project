@@ -1,7 +1,6 @@
 import React from 'react';
 import { Text, View, Button, TextInput, Image } from 'react-native';
 import { updateRentedItem, createTransaction } from '../actions';
-import { connect } from 'react-redux'
 import { Actions } from 'react-native-router-flux';
 
 class ItemDetail extends React.Component {
@@ -30,10 +29,9 @@ class ItemDetail extends React.Component {
       statusText = "This item is still available to be rented.";
       rentComp = <Button title={itemTitle}
               onPress={() => {
-                
                 dispatch(updateRentedItem(item.id));
-                dispatch(createTransaction(item.id, "renter"))
-                Actions.search_results();
+                dispatch(createTransaction(item.id, "renter"));
+                Actions.popTo('itemList');
               }
       }/>;
     }
