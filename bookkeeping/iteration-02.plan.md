@@ -38,9 +38,9 @@
 #### Artifacts
 
  * project management: Trello: [https://trello.com/b/wgqXn3yi/lendingstuff]
- 	* create tickets, assign up to two members
- 	* attach story points to prioritize
- 	* aim to finish a defined set of tickets every week
+ 	** create tickets, assign up to two members
+ 	** attach story points to prioritize
+ 	** aim to finish a defined set of tickets every week
 
 #### Git / GitHub workflow
 
@@ -68,7 +68,7 @@
  		** Category
  	** implement the necessary scenes for the workflow (in order of priority)
  		** Search
- 		** Searcg Result
+ 		** Search Result
  		** Post
  		** Rented Items
  		** My Items
