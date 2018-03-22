@@ -28,7 +28,7 @@ class ItemList extends React.Component {
   }
 
   render() {
-    const { items, isFetching, dispatch } = this.props;
+    const { items, isFetching } = this.props;
 
     const renderItems = items.map(this.renderItem);
 

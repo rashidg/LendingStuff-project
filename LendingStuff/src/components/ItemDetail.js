@@ -1,19 +1,16 @@
 import React from 'react';
 import { connect } from 'react-redux'
-import { Text, View, Button, TextInput, Image } from 'react-native';
-import { updateRentedItem, createTransaction } from '../actions';
+import { Text, View, Button, TextInput, Image, StyleSheet, ScrollView } from 'react-native';
+import moment from 'moment';
 import { Actions } from 'react-native-router-flux';
+
+import { updateRentedItem, createTransaction } from '../actions';
+
 
 class ItemDetail extends React.Component {
 
   render() {
     const { item, dispatch } = this.props;
-
-    const style = {
-      flex: 1,
-      backgroundColor: '#fff',
-      alignItems: 'center'
-    };
 
     //Placeholder: will change once we know format of stored dates
     let duration = 0;
@@ -37,27 +34,69 @@ class ItemDetail extends React.Component {
       }/>;
     }
 
+    const renderInline = (title, text) => (
+      <View style={styles.inline}>
+        <Text style={styles.heading}>{title}:</Text>
+        <Text>{text}</Text>
+      </View>
+    );
+
     return (
-      <View style={style}>
-        <Image source={{ uri: item.image }}
-               style={width=20, height=20}/>
+      <View style={styles.container} >
+        <ScrollView showsVerticalScrollIndicator={false}>
+          <View style={{paddingBottom: 20, alignItems: 'center'}}>
+            <Image source={require('../image/boo.png')} />
+          </View>
 
-        <Text style={{fontWeight: "bold"}}>Description of {item.name}:</Text>
-        <Text>{item.desc}</Text>
-        <Text>Posted under {item.category}</Text>
+          {renderInline('Name', item.name)}
+          {renderInline('Category', item.category)}
 
-        <Text style={{fontWeight: "bold"}}>Status:</Text>
-        <Text>{statusText}</Text>
+          <View style={{paddingTop: 5, paddingBottom: 5}}>
+            <Text style={styles.heading}>Description :</Text>
+            <Text>{item.desc}</Text>
+          </View>
 
-        <Text style={{fontWeight: "bold"}}>Remaining duration for this item: {duration}</Text>
-        <Text>Posted on {item.postedOn} by {item.owner}: </Text>
-        <Text>Expires on {item.expiresOn}</Text>
-
-        <Text><Text style={{fontWeight: "bold"}}>Location:</Text> {item.location}</Text>
-        {rentComp}
+          {renderInline('Owner', item.owner)}
+          {renderInline('Expiry', moment().to(moment(item.postedOn)))}
+          {renderInline('Location', item.location)}
+        </ScrollView>
+        { !item.rented &&
+          <View style={styles.submit}>
+            {rentComp}
+          </View>
+        }
       </View>
     );
   }
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#fff',
+    padding: "5%"
+  },
+  heading: {
+    fontSize: 16,
+    paddingRight: 5,
+    color: 'grey'
+  },
+  text: {
+    paddingBottom: 20
+  },
+  inline: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingTop: 5,
+    paddingBottom: 5
+  },
+  submit: {
+    backgroundColor:'#2f3699',
+    borderRadius: 20,
+    borderWidth: 2,
+    borderColor: 'transparent'
+  }
+});
+
 
 export default connect()(ItemDetail);
