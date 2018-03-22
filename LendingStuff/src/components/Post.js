@@ -13,7 +13,7 @@ import {
   Keyboard
 } from 'react-native';
 
-import Categories from './Categories';
+import Categories from './common/Categories';
 import { categories } from '../constants';
 import { postItem } from "../actions";
 

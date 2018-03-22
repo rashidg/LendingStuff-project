@@ -27,19 +27,29 @@ class RentedItems extends React.Component {
 
     const renderItems = items.map(this.renderItem);
 
+    if (!renderItems.length && !isFetching) {
+      return (
+        <View style={{backgroundColor: 'white', height: '100%'}}>
+          <Text>You ({username}) have not posted any items.</Text>
+        </View>
+      );
+    }
+
+    if (isFetching) {
+      return (
+        <View style={{backgroundColor: 'white', height: '100%'}}>
+          <ActivityIndicator size='large'
+                             animating={isFetching}
+                             style={{paddingTop: 20}}/>
+        </View>
+      );
+    }
+
     return (
-      <View>
-        <ActivityIndicator size='large'
-                           animating={isFetching} />
-        {renderItems.length &&
-          <ScrollView>
-            {renderItems}
-          </ScrollView>
-          ||
-          <View>
-            <Text>You ({username}) have not posted any items!</Text>
-          </View>
-        }
+      <View style={{backgroundColor: 'white', height: '100%'}}>
+        <ScrollView>
+          {renderItems}
+        </ScrollView>
       </View>
     );
   }

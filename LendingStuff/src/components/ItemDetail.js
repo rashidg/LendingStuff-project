@@ -1,4 +1,5 @@
 import React from 'react';
+import { connect } from 'react-redux'
 import { Text, View, Button, TextInput, Image } from 'react-native';
 import { updateRentedItem, createTransaction } from '../actions';
 import { Actions } from 'react-native-router-flux';

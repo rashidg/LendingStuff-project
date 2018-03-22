@@ -3,7 +3,7 @@ import { View, Button, TextInput, Slider, Text, Alert, ScrollView } from 'react-
 import { Actions } from 'react-native-router-flux';
 
 import { categories } from '../constants';
-import Categories from './Categories';
+import Categories from './common/Categories';
 
 export default class Search extends React.Component {
 
