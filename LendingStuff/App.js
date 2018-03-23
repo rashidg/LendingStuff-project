@@ -21,9 +21,9 @@ import RentedItems from './src/components/RentedItems.js';
 const reduxStore = createStore(indexReducer, applyMiddleware(thunk));
 
 console.disableYellowBox = true;
+
 //import {populateDB} from './src/dummyData';
 //populateDB();
-
 
 export default () => (
   <Provider store={reduxStore}>
@@ -32,7 +32,7 @@ export default () => (
               key="drawer"
               contentComponent={SideBar}
               drawerWidth={280}
-              drawerPosition="right" >
+              drawerPosition="right">
         <Stack key="root">
           <Scene key="home" component={Home} title="Home"/>
           <Scene key="post" component={Post} title="Post an Item"/>

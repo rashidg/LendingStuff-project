@@ -16,7 +16,6 @@ class ItemDetail extends React.Component {
 
   handleRent() {
     const { item, dispatch } = this.props;
-
     dispatch(updateRentedItem(item.id));
     dispatch(createTransaction(item.id, "renter", this.state.duration));
     Actions.popTo('itemList');
