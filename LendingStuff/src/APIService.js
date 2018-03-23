@@ -47,14 +47,15 @@ const updateRentedItemService = (item_id) => {
   })
 };
 
-const createTransactionService = (item_id, renter) => {
+const createTransactionService = (item_id, renter, duration) => {
   return new Promise((resolve, reject) => {
     var newKey = firebase.database().ref('transactions/').push().key;
 
     firebase.database().ref('transactions/' + newKey).set({
       id: newKey,
       item_id: item_id,
-      renter: renter
+      renter: renter,
+      duration: duration
     })
 
   })

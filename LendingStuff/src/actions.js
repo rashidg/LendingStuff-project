@@ -67,29 +67,14 @@ export function fetchRentedItems(renter) {
 
 export function updateRentedItem(item_id){
   return (dispatch) => {
-    dispatch(fetchItemsRequest());
-
-    updateRentedItemService(item_id)
-      .then(() =>
-        {
-            dispatch(fetchItemsSuccess([]));
-        }
-      )
-      .catch((err) => dispatch(fetchItemsError(err)))
+    updateRentedItemService(item_id);
   };
 }
 
-export function createTransaction(item_id, renter){
+export function createTransaction(item_id, renter, duration){
   return (dispatch) => {
-    dispatch(fetchItemsRequest());
-
-    createTransactionService(item_id, renter)
-      .then(() =>
-        {
-            dispatch(fetchItemsSuccess([]));
-        }
-      )
-      .catch((err) => dispatch(fetchItemsError(err)))
+    createTransactionService(item_id, renter, duration);
+    dispatch(fetchItems());
   };
 }
 

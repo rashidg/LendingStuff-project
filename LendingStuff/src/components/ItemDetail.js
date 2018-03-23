@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux'
-import { Text, View, Button, TextInput, Image, StyleSheet, ScrollView } from 'react-native';
+import { Text, View, Button, TextInput, Image, StyleSheet, ScrollView, Slider } from 'react-native';
 import moment from 'moment';
 import { Actions } from 'react-native-router-flux';
 
@@ -9,30 +9,21 @@ import { updateRentedItem, createTransaction } from '../actions';
 
 class ItemDetail extends React.Component {
 
-  render() {
+  constructor(props) {
+    super(props);
+    this.state = { duration: 1 };
+  }
+
+  handleRent() {
     const { item, dispatch } = this.props;
 
-    //Placeholder: will change once we know format of stored dates
-    let duration = 0;
-    let itemTitle = "Rent this item: $" + item.rate + "hour";
+    dispatch(updateRentedItem(item.id));
+    dispatch(createTransaction(item.id, "renter", this.state.duration));
+    Actions.popTo('itemList');
+  }
 
-    let statusText = null;
-    let rentComp = null;
-
-    if (item.rented) {
-      statusText = "This item has already been rented out.";
-      rentComp = <Text>Cannot rent this item.</Text>;
-    }
-    else {
-      statusText = "This item is still available to be rented.";
-      rentComp = <Button title={itemTitle}
-              onPress={() => {
-                dispatch(updateRentedItem(item.id));
-                dispatch(createTransaction(item.id, "renter"));
-                Actions.popTo('itemList');
-              }
-      }/>;
-    }
+  render() {
+    const { item } = this.props;
 
     const renderInline = (title, text) => (
       <View style={styles.inline}>
@@ -40,6 +31,8 @@ class ItemDetail extends React.Component {
         <Text>{text}</Text>
       </View>
     );
+
+    const hoursLeft = moment().diff(moment(item.postedOn), 'hours');
 
     return (
       <View style={styles.container} >
@@ -61,8 +54,24 @@ class ItemDetail extends React.Component {
           {renderInline('Location', item.location)}
         </ScrollView>
         { !item.rented &&
-          <View style={styles.submit}>
-            {rentComp}
+          <View>
+            <View style={[styles.inline, { paddingLeft: 20 }]}>
+              <Text style={styles.heading}>Duration: </Text>
+              <Slider style={{ width: 150 }}
+                      step={1}
+                      minimumValue={0}
+                      maximumValue={hoursLeft}
+                      onSlidingComplete={(hours) => this.setState({duration: hours})} />
+
+              <Text style={{ paddingLeft: 15 }}>
+                {moment.duration(this.state.duration, 'hours').humanize()}
+              </Text>
+            </View>
+
+            <View style={styles.submit}>
+              <Button title={"Rent this item: $" + item.rate + "hour"}
+                      onPress={this.handleRent.bind(this)} />
+            </View>
           </View>
         }
       </View>
