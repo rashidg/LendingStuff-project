@@ -28,7 +28,7 @@ export default class Home extends React.Component {
                        placeholder="Passowrd"
                        secureTextEntry={true}/>
         <Button title="Login!"
-                onPress={ () => {Actions.search();}} />
+                onPress={ () => {Actions.itemList();}} />
       </KeyboardAvoidingView>
     );
   }

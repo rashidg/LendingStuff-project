@@ -1,64 +1,110 @@
 import React from 'react';
-import { Text, View, Button, TextInput, Image } from 'react-native';
-import { updateRentedItem, createTransaction } from '../actions';
 import { connect } from 'react-redux'
+import { Text, View, Button, TextInput, Image, StyleSheet, ScrollView, Slider } from 'react-native';
+import moment from 'moment';
 import { Actions } from 'react-native-router-flux';
+
+import { updateRentedItem, createTransaction } from '../actions';
+
 
 class ItemDetail extends React.Component {
 
-  render() {
+  constructor(props) {
+    super(props);
+    this.state = { duration: 1 };
+  }
+
+  handleRent() {
     const { item, dispatch } = this.props;
+    dispatch(updateRentedItem(item.id));
+    dispatch(createTransaction(item.id, "renter", this.state.duration));
+    Actions.popTo('itemList');
+  }
 
-    const style = {
-      flex: 1,
-      backgroundColor: '#fff',
-      alignItems: 'center'
-    };
+  render() {
+    const { item } = this.props;
 
-    //Placeholder: will change once we know format of stored dates
-    let duration = 5;
-    let itemTitle = "Rent this item: $" + item.rate + "hour";
+    const renderInline = (title, text) => (
+      <View style={styles.inline}>
+        <Text style={styles.heading}>{title}:</Text>
+        <Text>{text}</Text>
+      </View>
+    );
 
-    let statusText = null;
-    let rentComp = null;
-
-    if (item.rented) {
-      statusText = "This item has already been rented out.";
-      rentComp = <Text>Cannot rent this item.</Text>;
-    }
-    else {
-      statusText = "This item is still available to be rented.";
-      rentComp = <Button title={itemTitle}
-              onPress={() => {
-                
-                dispatch(updateRentedItem(item.id));
-                dispatch(createTransaction(item.id, "renter"))
-                Actions.search_results();
-              }
-      }/>;
-    }
+    const hoursLeft = moment().diff(moment(item.postedOn), 'hours');
 
     return (
-      <View style={style}>
-        <Image source={{ uri: item.image }}
-               style={width=20, height=20}/>
+      <View style={styles.container} >
+        <ScrollView showsVerticalScrollIndicator={false}>
+          <View style={{paddingBottom: 20, alignItems: 'center'}}>
+            <Image source={require('../image/boo.png')} />
+          </View>
 
-        <Text style={{fontWeight: "bold"}}>Description of {item.name}:</Text>
-        <Text>{item.desc}</Text>
-        <Text>Posted under {item.category}</Text>
+          {renderInline('Name', item.name)}
+          {renderInline('Category', item.category)}
 
-        <Text style={{fontWeight: "bold"}}>Status:</Text>
-        <Text>{statusText}</Text>
+          <View style={{paddingTop: 5, paddingBottom: 5}}>
+            <Text style={styles.heading}>Description :</Text>
+            <Text>{item.desc}</Text>
+          </View>
 
-        <Text style={{fontWeight: "bold"}}>Remaining duration for this item: {duration}</Text>
-        <Text>Posted on {item.postedOn} by {item.owner}: </Text>
-        <Text>Expires on {item.expiresOn}</Text>
+          {renderInline('Owner', item.owner)}
+          {renderInline('Expiry', moment().to(moment(item.postedOn)))}
+          {renderInline('Location', item.location)}
+        </ScrollView>
+        { !item.rented &&
+          <View>
+            <View style={[styles.inline, { paddingLeft: 20 }]}>
+              <Text style={styles.heading}>Duration: </Text>
+              <Slider style={{ width: 150 }}
+                      step={1}
+                      minimumValue={0}
+                      maximumValue={hoursLeft}
+                      onSlidingComplete={(hours) => this.setState({duration: hours})} />
 
-        <Text><Text style={{fontWeight: "bold"}}>Location:</Text> {item.location}</Text>
-        {rentComp}
+              <Text style={{ paddingLeft: 15 }}>
+                {moment.duration(this.state.duration, 'hours').humanize()}
+              </Text>
+            </View>
+
+            <View style={styles.submit}>
+              <Button title={"Rent this item: $" + item.rate + "hour"}
+                      onPress={this.handleRent.bind(this)} />
+            </View>
+          </View>
+        }
       </View>
     );
   }
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#fff',
+    padding: "5%"
+  },
+  heading: {
+    fontSize: 16,
+    paddingRight: 5,
+    color: 'grey'
+  },
+  text: {
+    paddingBottom: 20
+  },
+  inline: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingTop: 5,
+    paddingBottom: 5
+  },
+  submit: {
+    backgroundColor:'#2f3699',
+    borderRadius: 20,
+    borderWidth: 2,
+    borderColor: 'transparent'
+  }
+});
+
 
 export default connect()(ItemDetail);
