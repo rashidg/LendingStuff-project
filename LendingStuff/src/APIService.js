@@ -88,6 +88,16 @@ export const fetchMyItemsService = (email) => {
   })
 };
 
+
+export const fetchTransactionService = (username) => {
+  return new Promise((resolve, reject) => {
+    var ref = firebase.database().ref('items');
+    ref.orderByChild('owner').equalTo(username).once('value').then(snapshot => {
+      return resolve(Object.values(snapshot.val()));
+    });
+  })
+};
+
 export const fetchRentedItemsService = (username) => {
   return new Promise((resolve, reject) => {
     var ref = firebase.database().ref('items');
@@ -112,9 +122,16 @@ export const createTransactionService = (item_id, renter, duration) => {
       id: newKey,
       item_id: item_id,
       renter: renter,
-      duration: duration
+      duration: duration,
+      approved: false
     })
 
+  })
+};
+
+export const approveTransactionService = (item_id) => {
+  return new Promise((resolve, reject) => {
+    firebase.database().ref('transactions/' + item_id + '/approved').set(true);
   })
 };
 

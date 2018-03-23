@@ -15,7 +15,7 @@ import {
   logInService
 } from './APIService';
 
- 
+
 export const fetchItemsRequest = createAction('FETCH_ITEMS_REQUEST');
 export const fetchItemsSuccess = createAction('FETCH_ITEMS_SUCCESS');
 export const fetchItemsError = createAction('FETCH_ITEMS_ERROR');
@@ -84,6 +84,20 @@ export function createTransaction(item_id, renter, duration){
   return (dispatch) => {
     createTransactionService(item_id, renter, duration);
     dispatch(fetchItems());
+  };
+}
+
+export function approveTransaction(item_id) {
+  return (dispatch) => {
+    dispatch(fetchItemsRequest());
+
+    approveTransactionService(item_id, renter)
+      .then(() =>
+        {
+            dispatch(fetchItemsSuccess([]));
+        }
+      )
+      .catch((err) => dispatch(fetchItemsError(err)))
   };
 }
 

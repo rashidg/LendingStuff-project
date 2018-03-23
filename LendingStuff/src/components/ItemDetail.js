@@ -1,10 +1,11 @@
 import React from 'react';
-import { connect } from 'react-redux'
+import { connect } from 'react-redux';
 import { Text, View, Button, TextInput, Image, StyleSheet, ScrollView, Slider, Linking } from 'react-native';
 import moment from 'moment';
 import { Actions } from 'react-native-router-flux';
 
 import { updateRentedItem, createTransaction, fetchReviews } from '../actions';
+import { updateRentedItem, createTransaction, approveTransaction } from '../actions';
 import ReviewList from "./ReviewList";
 
 
