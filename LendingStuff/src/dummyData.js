@@ -73,3 +73,10 @@ export const populateDB = () => {
     firebase.database().ref('items/' + newKey + '/id').set(newKey);
   });
 };
+
+
+export const populateFirestore = () => {
+  const db = firebase.firestore();
+  const itemsRef = db.collection("items");
+  itemList.forEach(item => itemsRef.add(item));
+};

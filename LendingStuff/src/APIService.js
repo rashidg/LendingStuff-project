@@ -8,6 +8,26 @@ const fetchItemsService = (query={}) => {
   return new Promise((resolve, reject) => {
     const { text, duration, distance, rate, category } = query;
 
+    var itemsRef = firebase.firestore().collection('items');
+
+    if (category)
+      itemsRef = itemsRef.where('category', '==', category);
+
+    if (rate)
+      itemsRef = itemsRef.where('rate', '<=', rate);
+
+    itemsRef.get()
+      .then(snapshot => {
+        const arr = [];
+        snapshot.forEach(doc => { arr.push({...doc.data(), id: doc.id}); });
+        return resolve(arr);
+      })
+      .catch(err => {
+        console.log('Error getting items', err);
+      });
+
+
+    /*
     var ref = firebase.database().ref('items');
     if (category)
       ref = ref.orderByChild('category').equalTo(category);
@@ -19,6 +39,7 @@ const fetchItemsService = (query={}) => {
       const array = Object.values(snapshot.val());
       return resolve(array);
     });
+    */
   });
 };
 
