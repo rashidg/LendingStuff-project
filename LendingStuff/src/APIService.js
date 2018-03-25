@@ -88,7 +88,6 @@ export const fetchMyItemsService = (email) => {
   })
 };
 
-
 export const fetchTransactionService = (username) => {
   return new Promise((resolve, reject) => {
     var ref = firebase.database().ref('items');
@@ -109,8 +108,17 @@ export const fetchRentedItemsService = (username) => {
 
 export const updateRentedItemService = (item_id) => {
   return new Promise((resolve, reject) => {
+    firebase.database().ref('items/' + item_id + '/requested').set(false);
     firebase.database().ref('items/' + item_id + '/rented').set(true);
     firebase.database().ref('items/' + item_id + '/renter').set("renter");
+  })
+};
+
+export const updateRequestedItemService = (item_id) => {
+  return new Promise((resolve, reject) => {
+    firebase.database().ref('items/' + item_id + '/requested').set(true);
+    firebase.database().ref('items/' + item_id + '/rented').set(false);
+    firebase.database().ref('items/' + item_id + '/requester').set("renter");
   })
 };
 
@@ -126,12 +134,6 @@ export const createTransactionService = (item_id, renter, duration) => {
       approved: false
     })
 
-  })
-};
-
-export const approveTransactionService = (item_id) => {
-  return new Promise((resolve, reject) => {
-    firebase.database().ref('transactions/' + item_id + '/approved').set(true);
   })
 };
 

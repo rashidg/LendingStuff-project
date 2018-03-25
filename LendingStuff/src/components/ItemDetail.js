@@ -3,10 +3,10 @@ import { connect } from 'react-redux';
 import { Text, View, Button, TextInput, Image, StyleSheet, ScrollView, Slider, Linking } from 'react-native';
 import moment from 'moment';
 import { Actions } from 'react-native-router-flux';
-
-import { updateRentedItem, createTransaction, fetchReviews } from '../actions';
-import { updateRentedItem, createTransaction, approveTransaction } from '../actions';
+import { updateRentedItem, createTransaction, fetchReviews, approveTransaction, updateRequestedItem } from '../actions';
 import ReviewList from "./ReviewList";
+
+
 
 
 class ItemDetail extends React.Component {
@@ -16,9 +16,16 @@ class ItemDetail extends React.Component {
     this.state = { duration: 1 };
   }
 
+
   componentDidMount() {
-    const { item, dispatch } = this.props;
+    const {item, dispatch} = this.props;
     dispatch(fetchReviews(item.id))
+  }
+
+  handleRequest() {
+    const { item, dispatch } = this.props;
+    dispatch(updateRequestedItem(item.id));
+    Actions.popTo('itemList');
   }
 
   handleRent() {
@@ -91,7 +98,19 @@ class ItemDetail extends React.Component {
           
         </ScrollView>
 
-        { !item.rented &&
+        { (item.requested && item.owner === "lender") &&
+          <View>
+            <View style={[styles.inline, { paddingLeft: 20 }]}>
+              <Text>{item.requester} wants to borrow this item!</Text>
+            </View>
+
+            <View style={styles.submit}>
+              <Button title={"Rent out this item: $" + item.rate + "hour"}
+                      onPress={this.handleRent.bind(this)} />
+            </View>
+          </View>
+        }
+        { (!item.rented && item.owner !== "lender") &&
           <View>
             <View style={[styles.inline, { paddingLeft: 20 }]}>
               <Text style={styles.heading}>Duration: </Text>
@@ -112,8 +131,8 @@ class ItemDetail extends React.Component {
                       onPress={ () => goToUrl(directionsurl)} />
             </View>
             <View style={styles.submit}>
-              <Button title={"Rent this item: $" + item.rate + "hour"}
-                      onPress={this.handleRent.bind(this)} />
+              <Button title={"Request this item: $" + item.rate + "hour"}
+                      onPress={this.handleRequest.bind(this)} />
             </View>
           </View>
         }

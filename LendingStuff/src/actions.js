@@ -7,6 +7,7 @@ import {
   fetchMyItemsService,
   fetchRentedItemsService,
   updateRentedItemService,
+  updateRequestedItemService,
   postItemsService,
   createTransactionService,
   fetchReviewsService,
@@ -54,9 +55,28 @@ export function fetchMyItems(email) {
   };
 }
 
+export function fetchTransaction(item_id) {
+  return (dispatch) => {
+    dispatch(fetchItemsRequest());
+
+    fetchTransactionService(item_id)
+      .then((payload) =>
+        {
+          if (payload != null) {
+            dispatch(fetchItemsSuccess(payload));
+          }
+          else {
+            dispatch(fetchItemsSuccess([]));
+          }
+        }
+      )
+      .catch((err) => dispatch(fetchItemsError(err)));
+  };
+}
+
 export function fetchRentedItems(renter) {
   return (dispatch) => {
-    
+
     dispatch(fetchItemsRequest());
 
     fetchRentedItemsService(renter)
@@ -80,24 +100,16 @@ export function updateRentedItem(item_id){
   };
 }
 
+export function updateRequestedItem(item_id){
+  return (dispatch) => {
+    updateRequestedItemService(item_id);
+  };
+}
+
 export function createTransaction(item_id, renter, duration){
   return (dispatch) => {
     createTransactionService(item_id, renter, duration);
     dispatch(fetchItems());
-  };
-}
-
-export function approveTransaction(item_id) {
-  return (dispatch) => {
-    dispatch(fetchItemsRequest());
-
-    approveTransactionService(item_id, renter)
-      .then(() =>
-        {
-            dispatch(fetchItemsSuccess([]));
-        }
-      )
-      .catch((err) => dispatch(fetchItemsError(err)))
   };
 }
 
