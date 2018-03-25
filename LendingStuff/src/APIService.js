@@ -1,25 +1,75 @@
-import firebase from './firebase';
-
+import moment from 'moment';
 import { Location, Permissions } from 'expo';
 
-//For now, filter out too-high rates and too-short durations, and select the correct category.
-//var today = new Date();
-//var expiration = new Date(today.getTime() + duration*60000*24);
+import firebase from './firebase';
+
+
+async function getLocationAsync() {
+  const { status } = await Permissions.askAsync(Permissions.LOCATION);
+  if (status === 'granted') {
+    return Location.getCurrentPositionAsync({ enableHighAccuracy: true });
+  } else {
+    throw new Error('Location permission not granted');
+  }
+}
+
+const calcDistance = (loc1, loc2) => {
+  const lat1 = loc1.latitude;
+  const lon1 = loc1.longitude;
+  const lat2 = loc2.latitude;
+  const lon2 = loc2.longitude;
+
+  var p = 0.017453292519943295;    // Math.PI / 180
+  var c = Math.cos;
+  var a = 0.5 - c((lat2 - lat1) * p)/2 +
+    c(lat1 * p) * c(lat2 * p) *
+    (1 - c((lon2 - lon1) * p))/2;
+
+  return 12742 * Math.asin(Math.sqrt(a)); // 2 * R; R = 6371 km
+};
+
 export const fetchItemsService = (query={}) => {
   return new Promise((resolve, reject) => {
-    const { text, duration, distance, rate, category } = query;
+    getLocationAsync()
+      .then(location => {
+        const { text, duration, distance, rate, category } = query;
 
-    var ref = firebase.database().ref('items');
-    if (category)
-      ref = ref.orderByChild('category').equalTo(category);
+        var ref = firebase.database().ref('items');
+        if (category)
+          ref = ref.orderByChild('category').equalTo(category);
 
-    ref.once('value').then(snapshot => {
-      if (!snapshot.val())
-        return resolve([]);
+        ref.once('value').then(snapshot => {
+          if (!snapshot.val())
+            return resolve([]);
 
-      const array = Object.values(snapshot.val());
-      return resolve(array);
-    });
+          const array = Object.values(snapshot.val());
+
+          const withDistances = array.map(item => ({
+            ...item,
+            distance: Math.round(calcDistance(item.location, location.coords) * 10) / 10
+          }));
+
+          const sortedByDistance = withDistances.sort((a, b) => a.distance > b.distance);
+
+          const filteredArray = sortedByDistance.filter(item => {
+            let ret = true;
+            if (duration && moment().add(duration, 'hours').isAfter(moment(item.expiresOn)))
+              ret = false;
+            if (category && item.category != category)
+              ret = false;
+            if (rate && item.rate > rate)
+              ret = false;
+            if (text && !item.name.includes(text) && !item.desc.includes(text))
+              ret = false;
+            if (distance && item.distance > distance)
+              ret = false;
+
+            return ret;
+          });
+
+          return resolve(filteredArray);
+        });
+      });
   });
 };
 
@@ -62,19 +112,10 @@ export const createTransactionService = (item_id, renter, duration) => {
   })
 };
 
-async function getLocationAsync() {
-  const { status } = await Permissions.askAsync(Permissions.LOCATION);
-  if (status === 'granted') {
-    return Location.getCurrentPositionAsync({ enableHighAccuracy: true });
-  } else {
-    throw new Error('Location permission not granted');
-  }
-}
-
 export const postItemsService = (item) => {
   return new Promise((resolve, reject) => {
     getLocationAsync()
-      .then((location)=>{
+      .then(location => {
         var newKey = firebase.database().ref('items/').push().key;
 
         firebase.database().ref('items/' + newKey).set({

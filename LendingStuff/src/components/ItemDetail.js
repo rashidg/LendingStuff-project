@@ -49,7 +49,8 @@ class ItemDetail extends React.Component {
           </View>
 
           {renderInline('Owner', item.owner)}
-          {renderInline('Expiry', moment().to(moment(item.postedOn)))}
+          {renderInline('Posted', moment().to(moment(item.postedOn)))}
+          {renderInline('Expiry', moment().to(moment(item.expiresOn)))}
           {renderInline('Location', item.location)}
         </ScrollView>
         { !item.rented &&

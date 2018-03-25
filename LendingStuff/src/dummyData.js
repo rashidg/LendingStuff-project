@@ -1,14 +1,14 @@
 const yongeEglinton = {
-  lat: 43.706916,
-  lon: -79.398348
+  latitude: 43.706916,
+  longitude: -79.398348
 };
 const robarts = {
-  lat: 43.664488,
-  lon: -79.399695
+  latitude: 43.664488,
+  longitude: -79.399695
 };
 const eatonCenter = {
-  lat: 43.654444,
-  lon: -79.380705
+  latitude: 43.654444,
+  longitude: -79.380705
 };
 
 export const itemList = [
@@ -16,10 +16,10 @@ export const itemList = [
     category: "chargers",
     name: "Macbook 85W Charger",
     desc: "It is compatible with 15 inch Macbooks",
-    rented: true,
+    rented: false,
     location: robarts,
     postedOn: "2018-03-02",
-    expiresOn: "2018-03-22",
+    expiresOn: "2018-03-26",
     rate: 15,
     owner: "lender",
     image: "resource/boo.png"
@@ -31,7 +31,7 @@ export const itemList = [
     rented: false,
     location: yongeEglinton,
     postedOn: "2018-03-02",
-    expiresOn: "2018-03-22",
+    expiresOn: "2018-03-26",
     rate: 15,
     owner: "lender",
     image: "resource/boo.png"
@@ -40,10 +40,10 @@ export const itemList = [
     category: "home products",
     name: "29pc Imperial Cobalt Drill Bit Set",
     desc: "29pc Imperial Cobalt Drill Bit Set for Stainless Steel",
-    rented: true,
+    rented: false,
     location: eatonCenter,
     postedOn: "2018-03-02",
-    expiresOn: "2018-03-22",
+    expiresOn: "2018-03-26",
     rate: 10,
     owner: "lender",
     image: "resource/boo.png"
@@ -55,7 +55,7 @@ export const itemList = [
     rented: false,
     location: robarts,
     postedOn: "2018-03-02",
-    expiresOn: "2018-03-22",
+    expiresOn: "2018-03-28",
     rate: 5,
     owner: "lender",
     image: "resource/boo.png"
@@ -67,7 +67,7 @@ export const itemList = [
     rented: false,
     location: robarts,
     postedOn: "2018-03-02",
-    expiresOn: "2018-03-22",
+    expiresOn: "2018-03-26",
     rate: 5,
     owner: "lender",
     image: "resource/boo.png"
