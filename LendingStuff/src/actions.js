@@ -78,10 +78,10 @@ export function createTransaction(item_id, renter, duration){
   };
 }
 
-export function postItem(data, successCB, errorCB) {
+export function postItem(item, successCB, errorCB) {
   return (dispatch) => {
-    postItemsService(data)
-      .then(() => successCB())
-      .catch(() => errorCB())
+    postItemsService(item)
+      .then(successCB)
+      .catch(errorCB);
   }
 }

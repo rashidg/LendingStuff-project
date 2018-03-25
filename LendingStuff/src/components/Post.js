@@ -64,15 +64,14 @@ class Post extends React.Component {
     Actions.popTo("home");
   }
 
-  onError() {
-    alert("Posting unsuccessful.");
+  onError(message) {
+    alert("Posting unsuccessful: " + message);
   }
 
   render() {
     return (
-
-
-        <KeyboardAwareScrollView showsVerticalScrollIndicator={false} style={styles.container}>
+      <View style={styles.container}>
+        <KeyboardAwareScrollView showsVerticalScrollIndicator={false}>
           <Text style={styles.heading__cat}>Category</Text>
           <Categories categories={categories}
                       categoryIdx={this.state.categoryIdx}
@@ -116,14 +115,10 @@ class Post extends React.Component {
                          this.setState({rate: parseFloat(text).toFixed(2)});
                        }
                      }}/>
-
-
-          <Button title="Post this item!"
-                  onPress={() => this.onSubmit()}/>
         </KeyboardAwareScrollView>
-
-
-
+        <Button title="Post this item!"
+                onPress={() => this.onSubmit()}/>
+      </View>
     );
   }
 }
