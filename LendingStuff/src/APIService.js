@@ -111,6 +111,7 @@ export const updateRentedItemService = (item_id) => {
     firebase.database().ref('items/' + item_id + '/requested').set(false);
     firebase.database().ref('items/' + item_id + '/rented').set(true);
     firebase.database().ref('items/' + item_id + '/renter').set("renter");
+    firebase.database().ref('items/' + item_id + '/requester').set(null);
   })
 };
 
@@ -119,6 +120,7 @@ export const updateRequestedItemService = (item_id) => {
     firebase.database().ref('items/' + item_id + '/requested').set(true);
     firebase.database().ref('items/' + item_id + '/rented').set(false);
     firebase.database().ref('items/' + item_id + '/requester').set("renter");
+    firebase.database().ref('items/' + item_id + '/renter').set(null);
   })
 };
 
@@ -131,7 +133,6 @@ export const createTransactionService = (item_id, renter, duration) => {
       item_id: item_id,
       renter: renter,
       duration: duration,
-      approved: false
     })
 
   })

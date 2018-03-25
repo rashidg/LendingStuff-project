@@ -23,7 +23,9 @@ export const itemList = [
     rate: 15,
     owner: "lender",
     image: "resource/boo.png",
-    requested: false
+    requested: true,
+    renter: null,
+    requester: "renter"
   },
   {
     category: "chargers",
@@ -36,7 +38,9 @@ export const itemList = [
     rate: 15,
     owner: "lender",
     image: "resource/boo.png",
-    requested: false
+    requested: false,
+    renter: null,
+    requester: null
   },
   {
     category: "home products",
@@ -49,7 +53,9 @@ export const itemList = [
     rate: 10,
     owner: "lender",
     image: "resource/boo.png",
-    requested: false
+    requested: false,
+    renter: null,
+    requester: null
   },
   {
     category: "home products",
@@ -62,7 +68,9 @@ export const itemList = [
     rate: 5,
     owner: "lender",
     image: "resource/boo.png",
-    requested: false
+    requested: false,
+    renter: null,
+    requester: null
   },
   {
     category: "home products",
@@ -75,7 +83,9 @@ export const itemList = [
     rate: 5,
     owner: "lender",
     image: "resource/boo.png",
-    requested: false
+    requested: false,
+    renter: null,
+    requester: null
   }
 ];
 

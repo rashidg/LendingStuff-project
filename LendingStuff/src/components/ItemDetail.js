@@ -16,10 +16,13 @@ class ItemDetail extends React.Component {
     this.state = { duration: 1 };
   }
 
-
   componentDidMount() {
     const {item, dispatch} = this.props;
-    dispatch(fetchReviews(item.id))
+    dispatch(fetchReviews(item.id));
+  }
+
+  shouldComponentUpdate(nextProps, nextState) {
+    return this.props.value !== nextProps.value;
   }
 
   handleRequest() {
@@ -30,6 +33,7 @@ class ItemDetail extends React.Component {
 
   handleRent() {
     const { item, dispatch } = this.props;
+
     dispatch(updateRentedItem(item.id));
     dispatch(createTransaction(item.id, "renter", this.state.duration));
     Actions.popTo('itemList');
@@ -103,12 +107,12 @@ class ItemDetail extends React.Component {
             </View>
 
             <View style={styles.submit}>
-              <Button title={"Rent out this item: $" + item.rate + "hour"}
+              <Button title={"Rent out this item: $" + item.rate + " per hour"}
                       onPress={this.handleRent.bind(this)} />
             </View>
           </View>
         }
-        { (!item.rented && item.owner !== "lender") &&
+        { (!item.requested && !item.rented) &&
           <View>
             <View style={[styles.inline, { paddingLeft: 20 }]}>
               <Text style={styles.heading}>Duration: </Text>
@@ -129,7 +133,7 @@ class ItemDetail extends React.Component {
                       onPress={ () => goToUrl(directionsurl)} />
             </View>
             <View style={styles.submit}>
-              <Button title={"Request this item: $" + item.rate + "hour"}
+              <Button title={"Request this item: $" + item.rate + " per hour"}
                       onPress={this.handleRequest.bind(this)} />
             </View>
           </View>
