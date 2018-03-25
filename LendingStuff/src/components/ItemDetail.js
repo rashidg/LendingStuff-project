@@ -94,8 +94,6 @@ class ItemDetail extends React.Component {
             </View>
           </View>
 
-
-          
         </ScrollView>
 
         { (item.requested && item.owner === "lender") &&
