@@ -1,3 +1,5 @@
+import moment from 'moment';
+
 import firebase from './firebase';
 
 import { Location, Permissions } from 'expo';
@@ -18,7 +20,22 @@ export const fetchItemsService = (query={}) => {
         return resolve([]);
 
       const array = Object.values(snapshot.val());
-      return resolve(array);
+      const filteredArray = array.filter((item) => {
+        let ret = true;
+        if (duration && moment().add(duration, 'hours').isAfter(moment(item.expiresOn)))
+          ret = false;
+        if (category && item.category != category)
+          ret = false;
+        if (rate && item.rate > rate)
+          ret = false;
+        if (text && !item.name.includes(text) && !item.desc.includes(text))
+          ret = false;
+
+        return ret;
+      });
+
+      return resolve(filteredArray);
+
     });
   });
 };
