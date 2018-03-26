@@ -24,7 +24,7 @@ class ItemDetail extends React.Component {
   render() {
     const { item } = this.props;
     const locationurl = "https://www.google.com/maps/search/?api=1&query=" + item.location.latitude + "," + item.location.longitude;
-    const directionsurl = "https://www.google.com/maps/search/?api=1&query=" + item.location.latitude + "," + item.location.longitude;
+    const directionsurl = "https://www.google.com/maps/dir/?api=1&destination=" + item.location.latitude + "," + item.location.longitude;
 
 
     const renderInline = (title, text) => (
