@@ -51,7 +51,7 @@ class ItemDetail extends React.Component {
           {renderInline('Owner', item.owner)}
           {renderInline('Posted', moment().to(moment(item.postedOn)))}
           {renderInline('Expiry', moment().to(moment(item.expiresOn)))}
-          {renderInline('Location', item.location)}
+          
         </ScrollView>
         { !item.rented &&
           <View>
@@ -67,7 +67,12 @@ class ItemDetail extends React.Component {
                 {moment.duration(this.state.duration, 'hours').humanize()}
               </Text>
             </View>
-
+            <View style={styles.location}>
+              <Button title={"Show location:"}
+                      onPress={function{
+                        alert("Hello");
+                      }}
+            </View>
             <View style={styles.submit}>
               <Button title={"Rent this item: $" + item.rate + "hour"}
                       onPress={this.handleRent.bind(this)} />
@@ -105,6 +110,7 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     borderColor: 'transparent'
   }
+  
 });
 
 
