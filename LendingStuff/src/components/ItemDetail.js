@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { Text, View, Button, TextInput, Image, StyleSheet, ScrollView, Slider, Linking } from 'react-native';
 import moment from 'moment';
 import { Actions } from 'react-native-router-flux';
-import { robarts } from '../dummyData'
+
 import { updateRentedItem, createTransaction } from '../actions';
 
 
@@ -30,6 +30,7 @@ class ItemDetail extends React.Component {
     //URL which stores google maps directions to item's location
     const directionsurl = "https://www.google.com/maps/dir/?api=1&destination=" + item.location.latitude + "," + item.location.longitude;
 
+    const goToUrl = url => Linking.openURL(url).catch(err => console.error('An error occurred', err));
 
     const renderInline = (title, text) => (
       <View style={styles.inline}>
@@ -75,14 +76,10 @@ class ItemDetail extends React.Component {
               </Text>
             </View>
             <View style={styles.location}>
-              <Button title={"Show location"} style={styles.submit}
-                      onPress={function()
-                        {
-                          Linking.openURL(locationurl).catch(err => console.error('An error occurred', err));}} />
-              <Button title={"Show directions"} style={styles.submit}
-                      onPress={function()
-                        {
-                          Linking.openURL(directionsurl).catch(err => console.error('An error occurred', err));}} />
+              <Button title="Show location" style={styles.submit}
+                      onPress={ () => goToUrl(locationurl)} />
+              <Button title="Show directions" style={styles.submit}
+                      onPress={ () => goToUrl(directionsurl)} />
             </View>
             <View style={styles.submit}>
               <Button title={"Rent this item: $" + item.rate + "hour"}
@@ -125,7 +122,8 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     borderRadius: 10,
     borderWidth: 2,
-    borderColor: 'white'
+    borderColor: 'white',
+    justifyContent: 'center'
   }
 });
 
