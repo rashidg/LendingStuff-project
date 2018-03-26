@@ -69,9 +69,8 @@ class ItemDetail extends React.Component {
             </View>
             <View style={styles.location}>
               <Button title={"Show location:"}
-                      onPress={function{
-                        alert("Hello");
-                      }}
+                      onPress={function()
+                        {alert("Latitude: 43.654444 and longitude: -79.380705 for eatonCentre");}} />
             </View>
             <View style={styles.submit}>
               <Button title={"Rent this item: $" + item.rate + "hour"}
@@ -109,8 +108,8 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     borderWidth: 2,
     borderColor: 'transparent'
-  }
-  location: }
+  },
+  location: {
     backgroundColor: 'blue',
     borderRadius: 10,
     borderWidth: 2,
