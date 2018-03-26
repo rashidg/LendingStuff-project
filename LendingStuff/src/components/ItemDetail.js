@@ -4,6 +4,8 @@ import { Text, View, Button, TextInput, Image, StyleSheet, ScrollView, Slider, L
 import moment from 'moment';
 import { Actions } from 'react-native-router-flux';
 
+import SubmitReview from './SubmitReview';
+
 import { updateRentedItem, createTransaction } from '../actions';
 
 
@@ -22,7 +24,7 @@ class ItemDetail extends React.Component {
   }
 
   render() {
-    const { item } = this.props;
+    const { item, allowReview } = this.props;
 
     //URL which stores google maps location of item
     const locationurl = "https://www.google.com/maps/search/?api=1&query=" + item.location.latitude + "," + item.location.longitude;
@@ -61,6 +63,9 @@ class ItemDetail extends React.Component {
           {renderInline('Expiry', moment().to(moment(item.expiresOn)))}
           
         </ScrollView>
+        { allowReview &&
+          <SubmitReview item_id={item.id}/>
+        }
         { !item.rented &&
           <View>
             <View style={[styles.inline, { paddingLeft: 20 }]}>

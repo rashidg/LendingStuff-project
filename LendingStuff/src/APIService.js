@@ -131,3 +131,17 @@ export const postItemsService = (item) => {
       });
   });
 };
+
+export const postReviewService = (username, rating, review, item_id) => {
+  return new Promise((resolve, reject) => {
+    console.log(username + " " + rating + " " + review + " " + item_id);
+    var newRef = firebase.database().ref('items/'+ item_id + '/reviews').push();
+    newRef.set({
+      username: username,
+      rating: rating,
+      review: review
+    })
+      .then(() => resolve())
+      .catch((err) => reject(err));
+  })
+}
