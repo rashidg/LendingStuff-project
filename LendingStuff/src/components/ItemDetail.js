@@ -61,7 +61,7 @@ class ItemDetail extends React.Component {
           {renderInline('Owner', item.owner)}
           {renderInline('Posted', moment().to(moment(item.postedOn)))}
           {renderInline('Expiry', moment().to(moment(item.expiresOn)))}
-          
+
         </ScrollView>
         { allowReview &&
           <SubmitReview item_id={item.id}/>
