@@ -23,7 +23,11 @@ class ItemDetail extends React.Component {
 
   render() {
     const { item } = this.props;
+
+    //URL which stores google maps location of item
     const locationurl = "https://www.google.com/maps/search/?api=1&query=" + item.location.latitude + "," + item.location.longitude;
+
+    //URL which stores google maps directions to item's location
     const directionsurl = "https://www.google.com/maps/dir/?api=1&destination=" + item.location.latitude + "," + item.location.longitude;
 
 
@@ -70,13 +74,13 @@ class ItemDetail extends React.Component {
                 {moment.duration(this.state.duration, 'hours').humanize()}
               </Text>
             </View>
-            <View style={styles.location}>
+            <View style={styles.submit}>
               <Button title={"Show location"}
                       onPress={function()
                         {
                           Linking.openURL(locationurl).catch(err => console.error('An error occurred', err));}} />
             </View>
-            <View style={styles.location}>
+            <View style={styles.submit}>
               <Button title={"Show directions"}
                       onPress={function()
                         {
