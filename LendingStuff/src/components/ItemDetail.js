@@ -23,7 +23,8 @@ class ItemDetail extends React.Component {
 
   render() {
     const { item } = this.props;
-    const url = "https://www.google.com/maps/search/?api=1&query=" + item.location.latitude + "," + item.location.longitude;
+    const locationurl = "https://www.google.com/maps/search/?api=1&query=" + item.location.latitude + "," + item.location.longitude;
+    const directionsurl = "https://www.google.com/maps/search/?api=1&query=" + item.location.latitude + "," + item.location.longitude;
 
 
     const renderInline = (title, text) => (
@@ -70,10 +71,16 @@ class ItemDetail extends React.Component {
               </Text>
             </View>
             <View style={styles.location}>
-              <Button title={"Show location:"}
+              <Button title={"Show location"}
                       onPress={function()
                         {
-                          Linking.openURL(url).catch(err => console.error('An error occurred', err));}} />
+                          Linking.openURL(locationurl).catch(err => console.error('An error occurred', err));}} />
+            </View>
+            <View style={styles.location}>
+              <Button title={"Show directions"}
+                      onPress={function()
+                        {
+                          Linking.openURL(directionsurl).catch(err => console.error('An error occurred', err));}} />
             </View>
             <View style={styles.submit}>
               <Button title={"Rent this item: $" + item.rate + "hour"}
