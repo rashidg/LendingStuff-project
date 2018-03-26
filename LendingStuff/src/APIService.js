@@ -126,31 +126,25 @@ export const updateRequestedItemService = (item_id) => {
 
 export const createTransactionService = (item_id, renter, duration) => {
   return new Promise((resolve, reject) => {
-    var newKey = firebase.database().ref('transactions/').push().key;
-
-    firebase.database().ref('transactions/' + newKey).set({
-      id: newKey,
-      item_id: item_id,
+    firebase.database().ref('transactions/' + item_id).set({
+      id: item_id,
       renter: renter,
       duration: duration,
       lender_confirmed: false,
       borrower_confirmed: false
     })
-
   })
 };
 
 export const returnTransactionService = (item_id) => {
   return new Promise((resolve, reject) => {
-    var ref = firebase.database().ref('transactions');
-    ref.orderByChild('item_id').equalTo(item_id).child('/borrower_confirmed').set(true);
+    firebase.database().ref('transactions/' + item_id + '/borrower_confirmed').set(true);
   })
 };
 
 export const gotbackTransactionService = (item_id) => {
   return new Promise((resolve, reject) => {
-    var ref = firebase.database().ref('transactions');
-    ref.orderByChild('item_id').equalTo(item_id).child('/lender_confirmed').set(true);
+    firebase.database().ref('transactions/' + item_id + '/lender_confirmed').set(true);
   })
 };
 

@@ -166,7 +166,7 @@ class ItemDetail extends React.Component {
 
             <View style={styles.submit}>
               <Button title={"Confirm item return (as lender)"}
-                      onPress={this.handleRequest.bind(this)} />
+                      onPress={this.handleGotback.bind(this)} />
             </View>
           </View>
         }

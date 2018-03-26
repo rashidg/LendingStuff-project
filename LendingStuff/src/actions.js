@@ -101,19 +101,20 @@ export function fetchRentedItems(renter) {
 export function updateRentedItem(item_id){
   return (dispatch) => {
     updateRentedItemService(item_id);
+    dispatch(fetchItems());
   };
 }
 
 export function updateRequestedItem(item_id){
   return (dispatch) => {
     updateRequestedItemService(item_id);
+    dispatch(fetchItems());
   };
 }
 
 export function createTransaction(item_id, renter, duration){
   return (dispatch) => {
     createTransactionService(item_id, renter, duration);
-    dispatch(fetchItems());
   };
 }
 
