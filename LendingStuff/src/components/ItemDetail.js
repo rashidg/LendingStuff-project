@@ -74,14 +74,12 @@ class ItemDetail extends React.Component {
                 {moment.duration(this.state.duration, 'hours').humanize()}
               </Text>
             </View>
-            <View style={styles.submit}>
-              <Button title={"Show location"}
+            <View style={styles.location}>
+              <Button title={"Show location"} style={styles.submit}
                       onPress={function()
                         {
                           Linking.openURL(locationurl).catch(err => console.error('An error occurred', err));}} />
-            </View>
-            <View style={styles.submit}>
-              <Button title={"Show directions"}
+              <Button title={"Show directions"} style={styles.submit}
                       onPress={function()
                         {
                           Linking.openURL(directionsurl).catch(err => console.error('An error occurred', err));}} />
@@ -124,7 +122,7 @@ const styles = StyleSheet.create({
     borderColor: 'transparent'
   },
   location: {
-    backgroundColor: 'blue',
+    flexDirection: 'row',
     borderRadius: 10,
     borderWidth: 2,
     borderColor: 'white'
