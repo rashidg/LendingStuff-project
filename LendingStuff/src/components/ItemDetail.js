@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux'
-import { Text, View, Button, TextInput, Image, StyleSheet, ScrollView, Slider } from 'react-native';
+import { Text, View, Button, TextInput, Image, StyleSheet, ScrollView, Slider, Linking } from 'react-native';
 import moment from 'moment';
 import { Actions } from 'react-native-router-flux';
 import { robarts } from '../dummyData'
@@ -23,6 +23,8 @@ class ItemDetail extends React.Component {
 
   render() {
     const { item } = this.props;
+
+    const url = "https://www.google.com/maps/search/?api=1&query=47.5951518,-122.3316393";
 
     const renderInline = (title, text) => (
       <View style={styles.inline}>
@@ -70,7 +72,8 @@ class ItemDetail extends React.Component {
             <View style={styles.location}>
               <Button title={"Show location:"}
                       onPress={function()
-                        {alert(robarts.longitude);}} />
+                        {alert(robarts.longitude);
+                          Linking.openURL(url).catch(err => console.error('An error occurred', err));}} />
             </View>
             <View style={styles.submit}>
               <Button title={"Rent this item: $" + item.rate + "hour"}
