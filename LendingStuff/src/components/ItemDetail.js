@@ -110,7 +110,12 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     borderColor: 'transparent'
   }
-  
+  location: }
+    backgroundColor: 'blue',
+    borderRadius: 10,
+    borderWidth: 2,
+    borderColor: 'white'
+  }
 });
 
 
