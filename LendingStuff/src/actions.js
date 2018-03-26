@@ -7,7 +7,8 @@ import {
   fetchRentedItemsService,
   updateRentedItemService,
   postItemsService,
-  createTransactionService
+  createTransactionService,
+  postReviewService
 } from './APIService';
 
  
@@ -81,6 +82,14 @@ export function createTransaction(item_id, renter, duration){
 export function postItem(item, successCB, errorCB) {
   return (dispatch) => {
     postItemsService(item)
+      .then(successCB)
+      .catch(errorCB);
+  }
+}
+
+export function postReview(data, successCB, errorCB) {
+  return (dispatch) => {
+    postReviewService(data.username, data.rating, data.review, data.item_id)
       .then(successCB)
       .catch(errorCB);
   }

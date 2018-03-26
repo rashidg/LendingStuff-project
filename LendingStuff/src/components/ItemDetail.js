@@ -4,6 +4,8 @@ import { Text, View, Button, TextInput, Image, StyleSheet, ScrollView, Slider } 
 import moment from 'moment';
 import { Actions } from 'react-native-router-flux';
 
+import SubmitReview from './SubmitReview';
+
 import { updateRentedItem, createTransaction } from '../actions';
 
 
@@ -22,7 +24,7 @@ class ItemDetail extends React.Component {
   }
 
   render() {
-    const { item } = this.props;
+    const { item, allowReview } = this.props;
 
     const renderInline = (title, text) => (
       <View style={styles.inline}>
@@ -51,8 +53,11 @@ class ItemDetail extends React.Component {
           {renderInline('Owner', item.owner)}
           {renderInline('Posted', moment().to(moment(item.postedOn)))}
           {renderInline('Expiry', moment().to(moment(item.expiresOn)))}
-          {renderInline('Location', item.location)}
+          {/*{renderInline('Location', item.location)}*/}
         </ScrollView>
+        { allowReview &&
+          <SubmitReview item_id={item.id}/>
+        }
         { !item.rented &&
           <View>
             <View style={[styles.inline, { paddingLeft: 20 }]}>
