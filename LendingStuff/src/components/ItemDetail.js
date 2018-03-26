@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { Text, View, Button, TextInput, Image, StyleSheet, ScrollView, Slider } from 'react-native';
 import moment from 'moment';
 import { Actions } from 'react-native-router-flux';
-
+import { robarts } from '../dummyData'
 import { updateRentedItem, createTransaction } from '../actions';
 
 
@@ -70,7 +70,7 @@ class ItemDetail extends React.Component {
             <View style={styles.location}>
               <Button title={"Show location:"}
                       onPress={function()
-                        {alert("Latitude: 43.654444 and longitude: -79.380705 for eatonCentre");}} />
+                        {alert(robarts.longitude);}} />
             </View>
             <View style={styles.submit}>
               <Button title={"Rent this item: $" + item.rate + "hour"}
