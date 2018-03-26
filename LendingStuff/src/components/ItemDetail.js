@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux'
-import { Text, View, Button, TextInput, Image, StyleSheet, ScrollView, Slider } from 'react-native';
+import { Text, View, Button, TextInput, Image, StyleSheet, ScrollView, Slider, Linking } from 'react-native';
 import moment from 'moment';
 import { Actions } from 'react-native-router-flux';
 
@@ -23,6 +23,14 @@ class ItemDetail extends React.Component {
 
   render() {
     const { item } = this.props;
+
+    //URL which stores google maps location of item
+    const locationurl = "https://www.google.com/maps/search/?api=1&query=" + item.location.latitude + "," + item.location.longitude;
+
+    //URL which stores google maps directions to item's location
+    const directionsurl = "https://www.google.com/maps/dir/?api=1&destination=" + item.location.latitude + "," + item.location.longitude;
+
+    const goToUrl = url => Linking.openURL(url).catch(err => console.error('An error occurred', err));
 
     const renderInline = (title, text) => (
       <View style={styles.inline}>
@@ -51,7 +59,7 @@ class ItemDetail extends React.Component {
           {renderInline('Owner', item.owner)}
           {renderInline('Posted', moment().to(moment(item.postedOn)))}
           {renderInline('Expiry', moment().to(moment(item.expiresOn)))}
-          {renderInline('Location', item.location)}
+          
         </ScrollView>
         { !item.rented &&
           <View>
@@ -67,7 +75,12 @@ class ItemDetail extends React.Component {
                 {moment.duration(this.state.duration, 'hours').humanize()}
               </Text>
             </View>
-
+            <View style={styles.location}>
+              <Button title="Show location" style={styles.submit}
+                      onPress={ () => goToUrl(locationurl)} />
+              <Button title="Show directions" style={styles.submit}
+                      onPress={ () => goToUrl(directionsurl)} />
+            </View>
             <View style={styles.submit}>
               <Button title={"Rent this item: $" + item.rate + "hour"}
                       onPress={this.handleRent.bind(this)} />
@@ -104,6 +117,13 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     borderWidth: 2,
     borderColor: 'transparent'
+  },
+  location: {
+    flexDirection: 'row',
+    borderRadius: 10,
+    borderWidth: 2,
+    borderColor: 'white',
+    justifyContent: 'center'
   }
 });
 
