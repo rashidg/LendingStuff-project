@@ -88,10 +88,10 @@ export const fetchMyItemsService = (email) => {
   })
 };
 
-export const fetchTransactionService = (username) => {
+export const fetchTransactionService = (item_id) => {
   return new Promise((resolve, reject) => {
-    var ref = firebase.database().ref('items');
-    ref.orderByChild('owner').equalTo(username).once('value').then(snapshot => {
+    var ref = firebase.database().ref('transactions');
+    ref.orderByChild('item_id').equalTo(item_id).once('value').then(snapshot => {
       return resolve(Object.values(snapshot.val()));
     });
   })
@@ -133,8 +133,24 @@ export const createTransactionService = (item_id, renter, duration) => {
       item_id: item_id,
       renter: renter,
       duration: duration,
+      lender_confirmed: false,
+      borrower_confirmed: false
     })
 
+  })
+};
+
+export const returnTransactionService = (item_id) => {
+  return new Promise((resolve, reject) => {
+    var ref = firebase.database().ref('transactions');
+    ref.orderByChild('item_id').equalTo(item_id).child('/borrower_confirmed').set(true);
+  })
+};
+
+export const gotbackTransactionService = (item_id) => {
+  return new Promise((resolve, reject) => {
+    var ref = firebase.database().ref('transactions');
+    ref.orderByChild('item_id').equalTo(item_id).child('/lender_confirmed').set(true);
   })
 };
 

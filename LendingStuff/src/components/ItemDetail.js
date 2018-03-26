@@ -3,10 +3,16 @@ import { connect } from 'react-redux';
 import { Text, View, Button, TextInput, Image, StyleSheet, ScrollView, Slider, Linking } from 'react-native';
 import moment from 'moment';
 import { Actions } from 'react-native-router-flux';
-import { updateRentedItem, createTransaction, fetchReviews, approveTransaction, updateRequestedItem } from '../actions';
 import ReviewList from "./ReviewList";
-
-
+import {
+  fetchReviews,
+  updateRentedItem,
+  createTransaction,
+  approveTransaction,
+  returnTransaction,
+  gotbackTransaction,
+  updateRequestedItem
+} from '../actions';
 
 
 class ItemDetail extends React.Component {
@@ -39,8 +45,22 @@ class ItemDetail extends React.Component {
     Actions.popTo('itemList');
   }
 
+  handleReturn() {
+    const { item, dispatch } = this.props;
+
+    dispatch(returnTransaction(item.id));
+    Actions.popTo('itemList');
+  }
+
+  handleGotback() {
+    const { item, dispatch } = this.props;
+
+    dispatch(gotbackTransaction(item.id));
+    Actions.popTo('itemList');
+  }
+
   render() {
-    const { item, reviews } = this.props;
+    const { item, reviews, transactions, isFetching } = this.props;
 
     //URL which stores google maps location of item
     const locationurl = "https://www.google.com/maps/search/?api=1&query=" + item.location.latitude + "," + item.location.longitude;
@@ -135,6 +155,30 @@ class ItemDetail extends React.Component {
             <View style={styles.submit}>
               <Button title={"Request this item: $" + item.rate + " per hour"}
                       onPress={this.handleRequest.bind(this)} />
+            </View>
+          </View>
+        }
+        { (item.rented && item.owner === "lender") &&
+          <View>
+            <View style={[styles.inline, { paddingLeft: 20 }]}>
+              <Text>You have rented out this item.</Text>
+            </View>
+
+            <View style={styles.submit}>
+              <Button title={"Confirm item return (as lender)"}
+                      onPress={this.handleRequest.bind(this)} />
+            </View>
+          </View>
+        }
+        { (item.rented && item.renter === "renter") &&
+          <View>
+            <View style={[styles.inline, { paddingLeft: 20 }]}>
+              <Text>You have borrowed this item.</Text>
+            </View>
+
+            <View style={styles.submit}>
+              <Button title={"Confirm item return (as borrower)"}
+                      onPress={this.handleReturn.bind(this)} />
             </View>
           </View>
         }

@@ -46,7 +46,7 @@ export const itemList = [
     category: "home products",
     name: "29pc Imperial Cobalt Drill Bit Set",
     desc: "29pc Imperial Cobalt Drill Bit Set for Stainless Steel",
-    rented: false,
+    rented: true,
     location: eatonCenter,
     postedOn: "2018-03-02",
     expiresOn: "2018-03-26",
@@ -54,7 +54,7 @@ export const itemList = [
     owner: "lender",
     image: "resource/boo.png",
     requested: false,
-    renter: null,
+    renter: "renter",
     requester: null
   },
   {

@@ -13,7 +13,9 @@ import {
   fetchReviewsService,
   postReviewService,
   registerService,
-  logInService
+  logInService,
+  returnTransactionService,
+  gotbackTransactionService
 } from './APIService';
 
 
@@ -74,6 +76,8 @@ export function fetchTransaction(item_id) {
   };
 }
 
+
+
 export function fetchRentedItems(renter) {
   return (dispatch) => {
 
@@ -110,6 +114,18 @@ export function createTransaction(item_id, renter, duration){
   return (dispatch) => {
     createTransactionService(item_id, renter, duration);
     dispatch(fetchItems());
+  };
+}
+
+export function returnTransaction(item_id){
+  return (dispatch) => {
+    returnTransactionService(item_id);
+  };
+}
+
+export function gotbackTransaction(item_id){
+  return (dispatch) => {
+    gotbackTransactionService(item_id);
   };
 }
 
