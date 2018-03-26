@@ -32,7 +32,8 @@ class Post extends React.Component {
       rate: 0,
       owner: "lender",
       image: "../stock_image.png",
-      dur: 0
+      dur: 0,
+      reviews: []
     };
   }
 
