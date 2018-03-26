@@ -18,12 +18,14 @@ import ItemDetail from './src/components/ItemDetail';
 import MyItems from './src/components/MyItems.js';
 import RentedItems from './src/components/RentedItems.js';
 
+import SubmitReview from './src/components/SubmitReview.js';
+
 const reduxStore = createStore(indexReducer, applyMiddleware(thunk));
 
 console.disableYellowBox = true;
 
-//import {populateDB} from './src/dummyData';
-//populateDB();
+// import {populateDB} from './src/dummyData';
+// populateDB();
 
 export default () => (
   <Provider store={reduxStore}>
@@ -34,6 +36,7 @@ export default () => (
               drawerWidth={280}
               drawerPosition="right">
         <Stack key="root">
+          {/*<Scene key="test" component={SubmitReview} title="Test" />*/}
           <Scene key="home" component={Home} title="Home"/>
           <Scene key="post" component={Post} title="Post an Item"/>
           <Scene key="search" component={Search} title="Search"/>
