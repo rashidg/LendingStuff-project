@@ -2,7 +2,7 @@ const yongeEglinton = {
   latitude: 43.706916,
   longitude: -79.398348
 };
-const robarts = {
+export const robarts = {
   latitude: 43.664488,
   longitude: -79.399695
 };
