@@ -5,8 +5,9 @@ import moment from 'moment';
 import { Actions } from 'react-native-router-flux';
 import ReviewList from "./ReviewList";
 import {
-  fetchReviews,
   updateRentedItem,
+  fetchItemTransaction,
+  fetchReviews,
   createTransaction,
   approveTransaction,
   returnTransaction,
@@ -19,6 +20,8 @@ class ItemDetail extends React.Component {
 
   constructor(props) {
     super(props);
+    const { item, dispatch } = this.props;
+    dispatch(fetchItemTransaction(item.id));
     this.state = { duration: 1 };
   }
 
@@ -158,7 +161,7 @@ class ItemDetail extends React.Component {
             </View>
           </View>
         }
-        { (item.rented && item.owner === "lender") &&
+        { (!isFetching && transactions.length && !(transactions[0].lender_approved) && transactions[0].owner === "lender") &&
           <View>
             <View style={[styles.inline, { paddingLeft: 20 }]}>
               <Text>You have rented out this item.</Text>
@@ -170,7 +173,7 @@ class ItemDetail extends React.Component {
             </View>
           </View>
         }
-        { (item.rented && item.renter === "renter") &&
+        { (!isFetching && transactions.length && !(transactions[0].borrower_approved) && transactions[0].renter === "renter") &&
           <View>
             <View style={[styles.inline, { paddingLeft: 20 }]}>
               <Text>You have borrowed this item.</Text>
@@ -179,6 +182,18 @@ class ItemDetail extends React.Component {
             <View style={styles.submit}>
               <Button title={"Confirm item return (as borrower)"}
                       onPress={this.handleReturn.bind(this)} />
+            </View>
+          </View>
+        }
+        { (!isFetching && transactions.length && transactions[0].lender_approved && transactions[0].borrower_approved) &&
+          <View>
+            <View style={[styles.inline, { paddingLeft: 20 }]}>
+              <Text>This item has been returned.</Text>
+            </View>
+
+            <View style={styles.submit}>
+              <Button title={"Close this item"}
+                      onPress={this.handleClose.bind(this)} />
             </View>
           </View>
         }

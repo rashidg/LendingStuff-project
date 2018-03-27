@@ -88,7 +88,7 @@ export const fetchMyItemsService = (email) => {
   })
 };
 
-export const fetchTransactionService = (item_id) => {
+export const fetchItemTransactionService = (item_id) => {
   return new Promise((resolve, reject) => {
     var ref = firebase.database().ref('transactions');
     ref.orderByChild('item_id').equalTo(item_id).once('value').then(snapshot => {

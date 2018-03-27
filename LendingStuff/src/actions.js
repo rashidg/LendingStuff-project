@@ -15,7 +15,9 @@ import {
   registerService,
   logInService,
   returnTransactionService,
-  gotbackTransactionService
+  gotbackTransactionService,
+  closeItemService,
+  fetchItemTransactionService
 } from './APIService';
 
 
@@ -27,6 +29,9 @@ export const fetchReviewsError = createAction('FETCH_REVIEWS_ERROR');
 export const logInRequest = createAction('LOG_IN');
 export const logOutRequest = createAction('LOG_OUT');
 
+export const fetchTransactionsRequest = createAction('FETCH_TRANSACTIONS_REQUEST');
+export const fetchTransactionsSuccess = createAction('FETCH_TRANSACTIONS_SUCCESS');
+export const fetchTransactionsError = createAction('FETCH_TRANSACTIONS_ERROR');
 
 export function fetchItems(query) {
   return (dispatch) => {
@@ -57,26 +62,20 @@ export function fetchMyItems(email) {
   };
 }
 
-export function fetchTransaction(item_id) {
+export function fetchItemTransaction(item_id) {
   return (dispatch) => {
-    dispatch(fetchItemsRequest());
-
-    fetchTransactionService(item_id)
+    dispatch(fetchTransactionsRequest());
+    fetchItemTransactionService(item_id)
       .then((payload) =>
         {
-          if (payload != null) {
-            dispatch(fetchItemsSuccess(payload));
-          }
-          else {
-            dispatch(fetchItemsSuccess([]));
-          }
-        }
-      )
-      .catch((err) => dispatch(fetchItemsError(err)));
+          if (payload != null)
+            dispatch(fetchTransactionsSuccess(payload));
+          else
+            dispatch(fetchTransactionsSuccess([]));
+        })
+      .catch((err) => dispatch(fetchTransactionsError(err)));
   };
 }
-
-
 
 export function fetchRentedItems(renter) {
   return (dispatch) => {
