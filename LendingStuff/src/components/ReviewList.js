@@ -3,6 +3,16 @@ import { Text, View, ScrollView } from 'react-native';
 
 export default class ReviewList extends React.Component {
   render() {
+    return (
+      <View>
 
+      </View>
+    )
   }
 }
+
+const styles = StyleSheet.create({
+  container: {
+
+  }
+})

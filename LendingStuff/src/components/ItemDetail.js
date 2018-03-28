@@ -24,7 +24,7 @@ class ItemDetail extends React.Component {
   }
 
   render() {
-    const { item, allowReview } = this.props;
+    const { item } = this.props;
 
     //URL which stores google maps location of item
     const locationurl = "https://www.google.com/maps/search/?api=1&query=" + item.location.latitude + "," + item.location.longitude;
@@ -62,10 +62,10 @@ class ItemDetail extends React.Component {
           {renderInline('Posted', moment().to(moment(item.postedOn)))}
           {renderInline('Expiry', moment().to(moment(item.expiresOn)))}
 
-        </ScrollView>
-        { allowReview &&
           <SubmitReview item_id={item.id}/>
-        }
+
+        </ScrollView>
+
         { !item.rented &&
           <View>
             <View style={[styles.inline, { paddingLeft: 20 }]}>

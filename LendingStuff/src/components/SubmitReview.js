@@ -8,6 +8,7 @@ import {
 } from 'react-native';
 import Modal from 'react-native-modal';
 import StarRating from 'react-native-star-rating';
+import moment from 'moment';
 
 import { connect } from 'react-redux';
 import { Actions } from 'react-native-router-flux';
@@ -36,12 +37,14 @@ class SubmitReview extends React.Component {
   onSubmit() {
     console.log(this.state.rating + " " + this.state.review);
     this.toggleModal();
+    const cur = moment().format("MMM Do YYYY")
 
     const data = {
       username: "testUser",
       review: this.state.review,
       rating: this.state.rating,
-      item_id: this.props.item_id
+      item_id: this.props.item_id,
+      postedOn: cur
     };
 
     this.props.postReview(data, this.onSuccess, this.onError);
@@ -64,9 +67,7 @@ class SubmitReview extends React.Component {
 				</TouchableOpacity>
 				<Modal isVisible={this.state.isVisible} avoidKeyboard={true} onBackdropPress={() => this.toggleModal()}>
 					<View style={styles.modal}>
-            <StarRating disabled={false}
-                        maxStars={5}
-                        rating={this.state.rating}
+            <StarRating rating={this.state.rating}
                         halfStarEnabled={true}
                         selectedStar={(rating) => this.onStarRatingPress(rating)} />
 						<View style={styles.textBox}>

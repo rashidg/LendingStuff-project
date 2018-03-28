@@ -19,7 +19,7 @@ class RentedItems extends React.Component {
                  description={item.desc}
                  infoBox2={"$" + item.rate}
                  statusBox={status}
-                 onPress={() => {Actions.itemDetail({item, allowReview: true})}} />;
+                 onPress={() => {Actions.itemDetail({item})}} />;
   }
 
   render() {
