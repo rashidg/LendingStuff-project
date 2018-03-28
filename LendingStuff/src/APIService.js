@@ -121,16 +121,17 @@ export const postItemsService = (item) => {
 
         const byteArray = b64.toByteArray(item.image.base64);
         const metadata = {contentType: 'image/jpg'};
-        firebase.storage().ref('/images').child(newKey + '.jpg').put(byteArray, metadata);
-
-        firebase.database().ref('items/' + newKey).set({
-          ...item,
-          id: newKey,
-          location: {
-            lat: location.coords.latitude,
-            lon: location.coords.longitude
-          }
-        }).then(() => { resolve(); }).catch(() => { reject(); });
+        firebase.storage().ref('/images').child(newKey + '.jpg').put(byteArray, metadata).then(snapshot => {
+          firebase.database().ref('items/' + newKey).set({
+            ...item,
+            id: newKey,
+            imgUrl: snapshot.downloadURL,
+            location: {
+              lat: location.coords.latitude,
+              lon: location.coords.longitude
+            }
+          }).then(() => { resolve(); }).catch(() => { reject(); });
+        });
       });
   });
 };

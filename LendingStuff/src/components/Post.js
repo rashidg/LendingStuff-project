@@ -78,7 +78,6 @@ class Post extends React.Component {
   }
 
   render() {
-    console.log(this.state.image);
     return (
       <View style={styles.container}>
         <KeyboardAwareScrollView showsVerticalScrollIndicator={false}>
