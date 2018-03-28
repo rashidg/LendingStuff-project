@@ -62,6 +62,32 @@ class ItemDetail extends React.Component {
     Actions.popTo('itemList');
   }
 
+  handleClose() {
+    const { item, dispatch } = this.props;
+    dispatch(closeTransaction(item.id));
+    Actions.popTo('itemList');
+  }
+
+  isLoaded() {
+    const { transactions, isFetching } = this.props;
+    return !(isFetching);
+  }
+
+  lenderReturnable() {
+    const { transactions, isFetching } = this.props;
+    return (!isFetching && transactions.length && !(transactions[0].lender_approved) && transactions[0].owner === "lender");
+  }
+
+  borrowerReturnable() {
+    const { transactions, isFetching } = this.props;
+    return (!isFetching && transactions.length && !(transactions[0].borrower_approved) && transactions[0].renter === "renter");
+  }
+
+  bothReturned() {
+    const { transactions, isFetching } = this.props;
+    return (!isFetching && transactions.length && transactions[0].lender_approved && transactions[0].borrower_approved);
+  }
+
   render() {
     const { item, reviews, transactions, isFetching } = this.props;
 
@@ -161,7 +187,14 @@ class ItemDetail extends React.Component {
             </View>
           </View>
         }
-        { (!isFetching && transactions.length && !(transactions[0].lender_approved) && transactions[0].owner === "lender") &&
+        { this.isLoaded() == true &&
+          <View>
+            <View style={[styles.inline, { paddingLeft: 20 }]}>
+              <Text>Transaction length: {transactions.length}</Text>
+            </View>
+          </View>
+        }
+        { this.lenderReturnable() == true &&
           <View>
             <View style={[styles.inline, { paddingLeft: 20 }]}>
               <Text>You have rented out this item.</Text>
@@ -173,7 +206,7 @@ class ItemDetail extends React.Component {
             </View>
           </View>
         }
-        { (!isFetching && transactions.length && !(transactions[0].borrower_approved) && transactions[0].renter === "renter") &&
+        { this.borrowerReturnable() == true &&
           <View>
             <View style={[styles.inline, { paddingLeft: 20 }]}>
               <Text>You have borrowed this item.</Text>
@@ -185,7 +218,7 @@ class ItemDetail extends React.Component {
             </View>
           </View>
         }
-        { (!isFetching && transactions.length && transactions[0].lender_approved && transactions[0].borrower_approved) &&
+        { this.bothReturned() == true &&
           <View>
             <View style={[styles.inline, { paddingLeft: 20 }]}>
               <Text>This item has been returned.</Text>
