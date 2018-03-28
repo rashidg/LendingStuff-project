@@ -1,5 +1,6 @@
-import moment from 'moment';
 import { Location, Permissions } from 'expo';
+import moment from 'moment';
+import b64 from 'base64-js';
 
 import firebase from './firebase';
 
@@ -118,16 +119,18 @@ export const postItemsService = (item) => {
       .then(location => {
         var newKey = firebase.database().ref('items/').push().key;
 
+        const byteArray = b64.toByteArray(item.image.base64);
+        const metadata = {contentType: 'image/jpg'};
+        firebase.storage().ref('/images').child(newKey + '.jpg').put(byteArray, metadata);
+
         firebase.database().ref('items/' + newKey).set({
           ...item,
+          id: newKey,
           location: {
             lat: location.coords.latitude,
             lon: location.coords.longitude
           }
-        });
-        firebase.database().ref('items/' + newKey + '/id').set(newKey)
-          .then(() => { resolve(); })
-          .catch(() => { reject(); });
+        }).then(() => { resolve(); }).catch(() => { reject(); });
       });
   });
 };
