@@ -26,6 +26,8 @@ const calcDistance = (loc1, loc2) => {
     c(lat1 * p) * c(lat2 * p) *
     (1 - c((lon2 - lon1) * p))/2;
 
+  if (!a)
+    return 0;
   return 12742 * Math.asin(Math.sqrt(a)); // 2 * R; R = 6371 km
 };
 
