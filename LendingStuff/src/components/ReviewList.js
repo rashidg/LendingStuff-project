@@ -1,18 +1,30 @@
 import React from 'react';
-import { Text, View, ScrollView } from 'react-native';
+import { Text, View, ScrollView, StyleSheet } from 'react-native';
+import Review from "./Review";
 
 export default class ReviewList extends React.Component {
-  render() {
-    return (
-      <View>
 
-      </View>
+  renderReview(review) {
+    return <Review review={review}/>
+  }
+
+  render() {
+
+    const { reviews } = this.props;
+    console.log(reviews);
+    const renderReviews = reviews.map(this.renderReview);
+
+    return (
+      <ScrollView style={styles.container}>
+        {renderReviews}
+      </ScrollView>
     )
   }
 }
 
 const styles = StyleSheet.create({
   container: {
-
+    backgroundColor: '#fff',
+    height: '100%'
   }
 })

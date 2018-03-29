@@ -3,7 +3,6 @@ import {
   View,
   Text,
   StyleSheet,
-  ScrollView,
   TouchableOpacity
 } from 'react-native';
 import StarRating from 'react-native-star-rating';
@@ -25,7 +24,9 @@ export default class Review extends React.Component {
 
 
   render() {
-    const { username, review, rating, postedOn } = this.props;
+    const { username, review, rating, postedOn } = this.props.review;
+
+    console.log(this.props.review);
 
     const renderContent = (modal) => {
       return (
@@ -72,9 +73,11 @@ Review.defaultProps = {
 const styles = StyleSheet.create({
   container: {
     height: 180,
-    backgroundColor: '#fff',
+    backgroundColor: '#dcd6e4',
     borderRadius: 15,
-    margin: 15,
+    marginTop: 15,
+    marginLeft: 15,
+    marginRight: 15,
     padding: 15,
   },
   review : {

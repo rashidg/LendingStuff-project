@@ -4,9 +4,10 @@ import { Text, View, Button, TextInput, Image, StyleSheet, ScrollView, Slider, L
 import moment from 'moment';
 import { Actions } from 'react-native-router-flux';
 
-import SubmitReview from './SubmitReview';
+import Review from './Review';
 
 import { updateRentedItem, createTransaction } from '../actions';
+import ReviewList from "./ReviewList";
 
 
 class ItemDetail extends React.Component {
@@ -25,6 +26,7 @@ class ItemDetail extends React.Component {
 
   render() {
     const { item } = this.props;
+    const { reviews } = item;
 
     //URL which stores google maps location of item
     const locationurl = "https://www.google.com/maps/search/?api=1&query=" + item.location.latitude + "," + item.location.longitude;
@@ -42,6 +44,21 @@ class ItemDetail extends React.Component {
     );
 
     const hoursLeft = moment().diff(moment(item.postedOn), 'hours');
+
+    const renderReviews = (reviews) => (
+      <View style={{flexDirection: 'column', borderTopWidth: 1, borderBottomWidth: 1, borderColor: 'grey', marginTop: 15}}>
+        <Text style={{fontSize: 20, marginTop: 15}}>Reviews</Text>
+        <View style={{height: 200}}>
+          <ReviewList reviews={Object.values(reviews)}/>
+        </View>
+        <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
+          <Button title={"Write a review"}
+                  onPress={() => { Actions.push("submitReview", {item_id: item.id}); }} />
+          <Button title={"See All"}
+                  onPress={() => { Actions.push("reviewList", {reviews: reviews}); }} />
+        </View>
+      </View>
+    )
 
     return (
       <View style={styles.container} >
@@ -62,8 +79,25 @@ class ItemDetail extends React.Component {
           {renderInline('Posted', moment().to(moment(item.postedOn)))}
           {renderInline('Expiry', moment().to(moment(item.expiresOn)))}
 
-          <Button title={"Write a review"}
-                  onPress={() => { Actions.push("submitReview", {item_id: item.id}); }} />
+
+          <View style={{flexDirection: 'column', borderTopWidth: 1, borderBottomWidth: 1, borderColor: 'grey', marginTop: 15}}>
+            <Text style={{fontSize: 20, marginTop: 15}}>Reviews</Text>
+            { reviews &&
+              <View style={{height: 200}}>
+                <ReviewList reviews={Object.values(reviews)}/>
+              </View>
+            }
+            { !reviews &&
+              <Text style={{color: 'grey', textAlign: 'center', marginTop: 10}}>No reviews have been submitted.</Text>
+            }
+            <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
+              <Button title={"Write a review"}
+                      onPress={() => { Actions.push("submitReview", {item_id: item.id}); }} />
+              <Button title={"See All"}
+                      onPress={() => { Actions.push("reviewList", {reviews: reviews}); }} />
+            </View>
+          </View>
+
 
         </ScrollView>
         
