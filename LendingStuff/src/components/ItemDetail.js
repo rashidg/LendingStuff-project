@@ -94,7 +94,7 @@ class ItemDetail extends React.Component {
               <Button title={"Write a review"}
                       onPress={() => { Actions.push("submitReview", {item_id: item.id}); }} />
               <Button title={"See All"}
-                      onPress={() => { Actions.push("reviewList", {reviews: reviews}); }} />
+                      onPress={() => { Actions.push("reviewList", {reviews: Object.values(reviews)}); }} />
             </View>
           </View>
           
