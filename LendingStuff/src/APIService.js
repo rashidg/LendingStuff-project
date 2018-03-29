@@ -135,7 +135,6 @@ export const postItemsService = (item) => {
 export const postReviewService = (data) => {
   return new Promise((resolve, reject) => {
     var { username, item_id } = data;
-    console.log(data);
 
     confirmRenter(username, item_id)
       .then(() => {

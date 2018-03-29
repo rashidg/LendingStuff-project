@@ -53,7 +53,6 @@ class SubmitReview extends React.Component {
   }
 
   onError(notRented) {
-    console.log("Posting unsuccessful");
     if (notRented) {
       alert("You did not rent this item!")
     } else {

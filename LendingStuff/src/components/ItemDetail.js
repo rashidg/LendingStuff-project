@@ -45,21 +45,6 @@ class ItemDetail extends React.Component {
 
     const hoursLeft = moment().diff(moment(item.postedOn), 'hours');
 
-    const renderReviews = (reviews) => (
-      <View style={{flexDirection: 'column', borderTopWidth: 1, borderBottomWidth: 1, borderColor: 'grey', marginTop: 15}}>
-        <Text style={{fontSize: 20, marginTop: 15}}>Reviews</Text>
-        <View style={{height: 200}}>
-          <ReviewList reviews={Object.values(reviews)}/>
-        </View>
-        <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
-          <Button title={"Write a review"}
-                  onPress={() => { Actions.push("submitReview", {item_id: item.id}); }} />
-          <Button title={"See All"}
-                  onPress={() => { Actions.push("reviewList", {reviews: reviews}); }} />
-        </View>
-      </View>
-    )
-
     return (
       <View style={styles.container} >
         <ScrollView showsVerticalScrollIndicator={false}>

@@ -11,7 +11,6 @@ export default class ReviewList extends React.Component {
   render() {
 
     const { reviews } = this.props;
-    console.log(reviews);
     const renderReviews = reviews.map(this.renderReview);
 
     return (

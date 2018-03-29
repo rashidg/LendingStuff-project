@@ -26,8 +26,6 @@ export default class Review extends React.Component {
   render() {
     const { username, review, rating, postedOn } = this.props.review;
 
-    console.log(this.props.review);
-
     const renderContent = (modal) => {
       return (
         <View>
