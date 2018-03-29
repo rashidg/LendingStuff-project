@@ -97,10 +97,9 @@ class ItemDetail extends React.Component {
                       onPress={() => { Actions.push("reviewList", {reviews: reviews}); }} />
             </View>
           </View>
-
-
+          
         </ScrollView>
-        
+
         { !item.rented &&
           <View>
             <View style={[styles.inline, { paddingLeft: 20 }]}>
