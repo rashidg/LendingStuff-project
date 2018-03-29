@@ -19,6 +19,7 @@ import MyItems from './src/components/MyItems.js';
 import RentedItems from './src/components/RentedItems.js';
 
 import SubmitReview from './src/components/SubmitReview.js';
+import ReviewList from './src/components/ReviewList.js';
 import Review from './src/components/Review.js';
 
 const reduxStore = createStore(indexReducer, applyMiddleware(thunk));
@@ -45,6 +46,7 @@ export default () => (
           <Scene key="itemList" component={ItemList} title="Item List"/>
           <Scene key="myItems" component={MyItems} title="My Items"/>
           <Scene key="rentedItems" component={RentedItems} title="Rented Items"/>
+          <Scene key="reviewList" component={ReviewList} title="Reviews" />
         </Stack>
       </Drawer>
     </Router>
