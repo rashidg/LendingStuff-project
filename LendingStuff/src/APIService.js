@@ -132,16 +132,35 @@ export const postItemsService = (item) => {
   });
 };
 
-export const postReviewService = (username, rating, review, item_id) => {
+export const postReviewService = (data) => {
   return new Promise((resolve, reject) => {
-    console.log(username + " " + rating + " " + review + " " + item_id);
-    var newRef = firebase.database().ref('items/'+ item_id + '/reviews').push();
-    newRef.set({
-      username: username,
-      rating: rating,
-      review: review
-    })
-      .then(() => resolve())
-      .catch((err) => reject(err));
+    var { username, item_id } = data;
+    console.log(data);
+
+    confirmRenter(username, item_id)
+      .then(() => {
+        var newRef = firebase.database().ref('items/'+ item_id + '/reviews').push();
+        newRef.set(data)
+          .then(() => { resolve(); })
+          .catch((err) => { reject(err); })
+      })
+      .catch(() => { reject(true); });
+  });
+};
+
+const confirmRenter = (username, item_id) => {
+  return new Promise((resolve, reject) => {
+    var ref = firebase.database().ref('transactions/');
+    ref.orderByChild('item_id').equalTo(item_id).once('value')
+      .then(snapshot => {
+        snapshot.forEach(childSnapshot => {
+          var childData = childSnapshot.val();
+          if (childData.renter === username) {
+            return resolve();
+          }
+        });
+        return reject();
+      })
+      .catch(() => reject(true));
   })
-}
+};

@@ -89,7 +89,7 @@ export function postItem(item, successCB, errorCB) {
 
 export function postReview(data, successCB, errorCB) {
   return (dispatch) => {
-    postReviewService(data.username, data.rating, data.review, data.item_id)
+    postReviewService(data)
       .then(successCB)
       .catch(errorCB);
   }

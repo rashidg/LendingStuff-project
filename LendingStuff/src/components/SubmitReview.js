@@ -2,11 +2,11 @@ import React from 'react';
 import {
 	Text,
 	TextInput,
-	TouchableOpacity,
+  Button,
 	StyleSheet,
-	View
+	View,
+  KeyboardAvoidingView
 } from 'react-native';
-import Modal from 'react-native-modal';
 import StarRating from 'react-native-star-rating';
 import moment from 'moment';
 
@@ -20,68 +20,71 @@ class SubmitReview extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      isVisible: false,
       review: "",
       rating: 0,
     }
   }
-
-	toggleModal() {
-		this.setState({ isVisible: !this.state.isVisible });
-	}
 
 	onStarRatingPress(rating) {
     this.setState({ rating: rating });
   }
 
   onSubmit() {
-    console.log(this.state.rating + " " + this.state.review);
-    this.toggleModal();
-    const cur = moment().format("MMM Do YYYY")
+    const cur = moment().format("MMM Do YYYY");
 
     const data = {
-      username: "testUser",
+      username: "renter",
       review: this.state.review,
       rating: this.state.rating,
       item_id: this.props.item_id,
       postedOn: cur
     };
 
-    this.props.postReview(data, this.onSuccess, this.onError);
+    if (data.review === "") {
+      alert("Please fill in the review")
+    } else {
+      this.props.postReview(data, this.onSuccess, this.onError);
+    }
   }
 
   onSuccess() {
-    console.log("Posting successful!");
-    Actions.popTo("home");
+    alert("Posting successful!");
+    Actions.pop();
   }
 
-  onError(message) {
-    console.log("Posting unsuccessful: " + message);
+  onError(notRented) {
+    console.log("Posting unsuccessful");
+    if (notRented) {
+      alert("You did not rent this item!")
+    } else {
+      alert("Posting unsuccessful")
+    }
+
+    Actions.pop();
   }
 
 	render() {
 		return (
-			<View style={styles.container}>
-				<TouchableOpacity style={styles.button} onPress={() => this.toggleModal()}>
-					<Text>Write a review!</Text>
-				</TouchableOpacity>
-				<Modal isVisible={this.state.isVisible} avoidKeyboard={true} onBackdropPress={() => this.toggleModal()}>
-					<View style={styles.modal}>
-            <StarRating rating={this.state.rating}
-                        halfStarEnabled={true}
-                        selectedStar={(rating) => this.onStarRatingPress(rating)} />
-						<View style={styles.textBox}>
-							<TextInput placeholder="Write a review!"
-												 multiline={true}
-												 maxHeight={200}
-												 onChangeText={(text) => this.setState({review: text})} />
-						</View>
-						<TouchableOpacity style={styles.button} onPress={() => this.onSubmit()}>
-							<Text>Submit</Text>
-						</TouchableOpacity>
-					</View>
-				</Modal>
-			</View>
+			<KeyboardAvoidingView behavior='padding'
+                            keyboardVerticalOffset={70}
+                            style={styles.container}>
+        <View style={styles.rating}>
+          <StarRating rating={this.state.rating}
+                      halfStarEnabled={true}
+                      selectedStar={(rating) => this.onStarRatingPress(rating)}
+                      containerStyle={{justifyContent: 'center'}} />
+          <Text style={styles.info}>Tap a star to rate</Text>
+        </View>
+        <TextInput style={styles.review}
+                   placeholder="Review"
+                   multiline={true}
+                   onChangeText={(text) => this.setState({review: text})}/>
+        <TextInput/>
+        <View style={styles.button}>
+          <Button title="Post this review!"
+                  onPress={() => this.onSubmit()}/>
+        </View>
+			</KeyboardAvoidingView>
 		)
 	}
 }
@@ -89,34 +92,30 @@ class SubmitReview extends React.Component {
 const styles = StyleSheet.create({
 	container: {
 		flex: 1,
+    flexDirection: 'column',
 		justifyContent: 'center',
-		alignItems: 'center',
+    backgroundColor: '#fff',
 	},
-	button: {
-		backgroundColor: 'lightblue',
-    padding: 12,
-		justifyContent: 'center',
-		alignItems: 'center',
-		borderRadius: 4,
-		borderColor: 'rgba(0, 0, 0, 0.1)',
-	},
-	modal: {
-		backgroundColor: 'white',
-		padding: 22,
-		justifyContent: 'center',
-		alignItems: 'center',
-		borderRadius: 4,
-		borderColor: 'rgba(0, 0, 0, 0.1)'
-	},
-	textBox: {
-	  alignSelf: 'stretch',
-    borderColor: 'grey',
-    borderRadius: 4,
-    borderWidth: 1,
-    padding: 10,
-    marginTop: 10,
-		marginBottom: 10
-	},
+  rating: {
+	  width: '100%',
+    padding: 5,
+  },
+  info: {
+	  fontSize: 11,
+    color: 'grey',
+    textAlign: 'center',
+  },
+  review: {
+	  flex: 1,
+    marginLeft: 10,
+    marginRight: 10,
+    borderTopWidth: 1,
+    borderBottomWidth: 1,
+    borderColor: 'grey'
+  },
+  button: {
+	  marginBottom: 15
+  }
 });
 
 export default connect(null, { postReview })(SubmitReview);
