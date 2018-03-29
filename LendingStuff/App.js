@@ -17,10 +17,8 @@ import ItemDetail from './src/components/ItemDetail';
 
 import MyItems from './src/components/MyItems.js';
 import RentedItems from './src/components/RentedItems.js';
-
 import SubmitReview from './src/components/SubmitReview.js';
 import ReviewList from './src/components/ReviewList.js';
-import Review from './src/components/Review.js';
 
 const reduxStore = createStore(indexReducer, applyMiddleware(thunk));
 
@@ -38,7 +36,6 @@ export default () => (
               drawerWidth={280}
               drawerPosition="right">
         <Stack key="root">
-          <Scene key="submitReview" component={SubmitReview} title="Test" />
           <Scene key="home" component={Home} title="Home"/>
           <Scene key="post" component={Post} title="Post an Item"/>
           <Scene key="search" component={Search} title="Search"/>
@@ -46,6 +43,7 @@ export default () => (
           <Scene key="itemList" component={ItemList} title="Item List"/>
           <Scene key="myItems" component={MyItems} title="My Items"/>
           <Scene key="rentedItems" component={RentedItems} title="Rented Items"/>
+          <Scene key="submitReview" component={SubmitReview} title="Submit Review"/>
           <Scene key="reviewList" component={ReviewList} title="Reviews" />
         </Stack>
       </Drawer>
