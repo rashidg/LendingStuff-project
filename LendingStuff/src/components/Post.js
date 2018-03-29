@@ -62,7 +62,7 @@ class Post extends React.Component {
 
   onSuccess() {
     alert("Posting successful!");
-    Actions.popTo("home");
+    Actions.popTo("test");
   }
 
   onError(message) {

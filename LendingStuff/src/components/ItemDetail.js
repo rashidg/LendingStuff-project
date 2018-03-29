@@ -62,7 +62,8 @@ class ItemDetail extends React.Component {
           {renderInline('Posted', moment().to(moment(item.postedOn)))}
           {renderInline('Expiry', moment().to(moment(item.expiresOn)))}
 
-          <SubmitReview item_id={item.id}/>
+          <Button title={"Write a review"}
+                  onPress={() => { Actions.push("submitReview", {item_id: item.id}); }} />
 
         </ScrollView>
         
