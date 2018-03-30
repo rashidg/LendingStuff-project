@@ -72,7 +72,16 @@ class ItemDetail extends React.Component {
   }
 
   optionsList() {
-    const { item, isFetching, transactions } = this.props;
+    const { transactions, isFetching, item } = this.props;
+
+    const renderInline = (title, text) => (
+      <View style={styles.inline}>
+        <Text style={styles.heading}>{title}:</Text>
+        <Text>{text}</Text>
+      </View>
+    );
+
+    const hoursLeft = moment().diff(moment(item.postedOn), 'hours');
 
     if (item.requested && item.owner === "lender") {
       return (

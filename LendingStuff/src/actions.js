@@ -129,6 +129,14 @@ export function gotbackTransaction(item_id){
   };
 }
 
+
+export function closeItem(item_id) {
+  return (dispatch) => {
+    closeItemService(item_id);
+    dispatch(fetchItems());
+  };
+}
+
 export function postItem(item, successCB, errorCB) {
   return (dispatch) => {
     postItemsService(item)
