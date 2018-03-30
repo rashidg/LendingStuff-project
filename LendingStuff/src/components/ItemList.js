@@ -16,6 +16,7 @@ class ItemList extends React.Component {
     return <Item key={item.id}
                  title={item.name}
                  description={item.desc}
+                 imgUrl={item.imgUrl}
                  infoBox1={item.distance + "km"}
                  infoBox2={"$" + item.rate}
                  statusBox={status}

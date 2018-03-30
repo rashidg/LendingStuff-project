@@ -1,9 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Actions } from 'react-native-router-flux';
+import { ImagePicker } from 'expo';
 import moment from 'moment';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
-
 import {
   Text,
   KeyboardAvoidingView,
@@ -12,7 +12,9 @@ import {
   StyleSheet,
   ScrollView,
   Keyboard,
-  View
+  View,
+  TouchableOpacity,
+  Image
 } from 'react-native';
 
 import Categories from './common/Categories';
@@ -31,9 +33,8 @@ class Post extends React.Component {
       location: "",
       rate: 0,
       owner: "lender",
-      image: "../stock_image.png",
-      dur: 0,
-      reviews: []
+      image: null,
+      dur: 0
     };
   }
 
@@ -69,10 +70,30 @@ class Post extends React.Component {
     alert("Posting unsuccessful: " + message);
   }
 
+  pickImage(){
+    const that = this;
+    ImagePicker.launchImageLibraryAsync({base64: true, quality: 0.5}).then(response => {
+      if (!response.cancelled)
+        that.setState({...that.state, image: response});
+    });
+  }
+
   render() {
     return (
       <View style={styles.container}>
         <KeyboardAwareScrollView showsVerticalScrollIndicator={false}>
+
+          {this.state.image &&
+            <View style={{ alignItems: 'center', paddingBottom: 10 }}>
+              <Image source={{ uri: this.state.image.uri }}
+                     style={{width: 300, height: 400}} />
+            </View>
+          }
+          <TouchableOpacity onPress={this.pickImage.bind(this)}
+                            style={{ alignItems: 'center' }}>
+            <Text style={ styles.upload }> Upload </Text>
+          </TouchableOpacity>
+
           <Text style={styles.heading__cat}>Category</Text>
           <Categories categories={categories}
                       categoryIdx={this.state.categoryIdx}
@@ -142,6 +163,17 @@ const styles = StyleSheet.create({
   textInput: {
     paddingTop: 20,
     paddingBottom: 20
+  },
+  upload: {
+    textAlign: 'center',
+    color: '#333333',
+    padding: 10,
+    marginBottom: 5,
+    borderWidth: 1,
+    borderColor: 'gray',
+    borderRadius: 20,
+    width: '70%',
+    paddingTop: 10
   }
 });
 

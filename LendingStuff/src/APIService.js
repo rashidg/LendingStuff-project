@@ -1,5 +1,6 @@
-import moment from 'moment';
 import { Location, Permissions } from 'expo';
+import moment from 'moment';
+import b64 from 'base64-js';
 
 import firebase from './firebase';
 
@@ -25,6 +26,8 @@ const calcDistance = (loc1, loc2) => {
     c(lat1 * p) * c(lat2 * p) *
     (1 - c((lon2 - lon1) * p))/2;
 
+  if (!a)
+    return 0;
   return 12742 * Math.asin(Math.sqrt(a)); // 2 * R; R = 6371 km
 };
 
@@ -118,16 +121,24 @@ export const postItemsService = (item) => {
       .then(location => {
         var newKey = firebase.database().ref('items/').push().key;
 
+        if (item.image) {
+          const byteArray = b64.toByteArray(item.image.base64);
+          const metadata = {contentType: 'image/jpg'};
+          firebase.storage().ref('/images').child(newKey + '.jpg').put(byteArray, metadata).then(snapshot => {
+            firebase.database().ref('items/' + newKey).update({
+              imgUrl: snapshot.downloadURL
+            });
+          });
+        }
+
         firebase.database().ref('items/' + newKey).set({
           ...item,
+          id: newKey,
           location: {
             lat: location.coords.latitude,
             lon: location.coords.longitude
           }
-        });
-        firebase.database().ref('items/' + newKey + '/id').set(newKey)
-          .then(() => { resolve(); })
-          .catch(() => { reject(); });
+        }).then(() => { resolve(); }).catch(() => { reject(); });
       });
   });
 };
