@@ -124,10 +124,11 @@ export const updateRequestedItemService = (item_id) => {
   })
 };
 
-export const createTransactionService = (item_id, renter, duration) => {
+export const createTransactionService = (item_id, owner, renter, duration) => {
   return new Promise((resolve, reject) => {
     firebase.database().ref('transactions/' + item_id).set({
       item_id: item_id,
+      owner: lender,
       renter: renter,
       duration: duration,
       lender_confirmed: false,

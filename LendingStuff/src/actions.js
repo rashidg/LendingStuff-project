@@ -111,9 +111,9 @@ export function updateRequestedItem(item_id){
   };
 }
 
-export function createTransaction(item_id, renter, duration){
+export function createTransaction(item_id, lender, renter, duration){
   return (dispatch) => {
-    createTransactionService(item_id, renter, duration);
+    createTransactionService(item_id, lender, renter, duration);
   };
 }
 

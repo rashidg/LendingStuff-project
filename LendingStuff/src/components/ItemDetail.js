@@ -47,7 +47,7 @@ class ItemDetail extends React.Component {
     const { item, dispatch } = this.props;
 
     dispatch(updateRentedItem(item.id));
-    dispatch(createTransaction(item.id, "renter", this.state.duration));
+    dispatch(createTransaction(item.id, "lender", "renter", this.state.duration));
     Actions.popTo('itemList');
   }
 
@@ -71,24 +71,102 @@ class ItemDetail extends React.Component {
     Actions.popTo('itemList');
   }
 
-  isLoaded() {
-    const { isFetching } = this.props;
-    return !isFetching;
-  }
+  optionsList() {
+    const { item, isFetching, transactions } = this.props;
 
-  lenderReturnable() {
-    const { transactions, isFetching } = this.props;
-    return (!isFetching && transactions.length && !(transactions[0].lender_approved) && transactions[0].owner === "lender");
-  }
+    if (item.requested && item.owner === "lender") {
+      return (
+        <View>
+          <View style={[styles.inline, { paddingLeft: 20 }]}>
+            <Text>{item.requester} wants to borrow this item!</Text>
+          </View>
 
-  borrowerReturnable() {
-    const { transactions, isFetching } = this.props;
-    return (!isFetching && transactions.length && !(transactions[0].borrower_approved) && transactions[0].renter === "renter");
-  }
+          <View style={styles.submit}>
+            <Button title={"Rent out this item: $" + item.rate + " per hour"}
+                    onPress={this.handleRent.bind(this)} />
+          </View>
+        </View>
+      )
+    }
 
-  bothReturned() {
-    const { transactions, isFetching } = this.props;
-    return (!isFetching && transactions.length && transactions[0].lender_approved && transactions[0].borrower_approved);
+    if (!item.requested && !item.rented) {
+      return (
+        <View>
+          <View style={[styles.inline, { paddingLeft: 20 }]}>
+            <Text style={styles.heading}>Duration: </Text>
+            <Slider style={{ width: 150 }}
+                    step={1}
+                    minimumValue={0}
+                    maximumValue={hoursLeft}
+                    onSlidingComplete={(hours) => this.setState({duration: hours})} />
+
+            <Text style={{ paddingLeft: 15 }}>
+              {moment.duration(this.state.duration, 'hours').humanize()}
+            </Text>
+          </View>
+
+          <View style={styles.submit}>
+            <Button title={"Request this item: $" + item.rate + " per hour"}
+                    onPress={this.handleRequest.bind(this)} />
+          </View>
+        </View>
+      )
+    }
+
+    if (isFetching) {
+      return (
+        <View style={{backgroundColor: 'white', height: '100%'}}>
+          <ActivityIndicator size='large'
+                             animating={isFetching}
+                             style={{paddingTop: 20}}/>
+        </View>
+      )
+    }
+    if (!isFetching && transactions.length && !(transactions[0].lender_approved) && transactions[0].owner === "lender") {
+      return (
+        <View>
+          <View style={[styles.inline, { paddingLeft: 20 }]}>
+            <Text>You have rented out this item.</Text>
+          </View>
+
+          <View style={styles.submit}>
+            <Button title={"Confirm item return (as lender)"}
+                    onPress={this.handleGotback.bind(this)} />
+          </View>
+        </View>
+      )
+    }
+    if (!isFetching && transactions.length && !(transactions[0].borrower_approved) && transactions[0].renter === "renter") {
+      return (
+        <View>
+          <View style={[styles.inline, { paddingLeft: 20 }]}>
+            <Text>You have borrowed this item.</Text>
+          </View>
+
+          <View style={styles.submit}>
+            <Button title={"Confirm item return (as borrower)"}
+                    onPress={this.handleReturn.bind(this)} />
+          </View>
+        </View>
+      )
+    }
+    if (!isFetching && transactions.length && transactions[0].lender_approved && transactions[0].borrower_approved) {
+      return (
+        <View>
+          <View style={[styles.inline, { paddingLeft: 20 }]}>
+            <Text>This item has been returned.</Text>
+          </View>
+
+          <View style={styles.submit}>
+            <Button title={"Close this item"}
+                    onPress={this.handleClose.bind(this)} />
+          </View>
+        </View>
+      )
+    }
+    return (
+      <View></View>
+    )
   }
 
   render() {
@@ -151,88 +229,7 @@ class ItemDetail extends React.Component {
           </View>
 
         </ScrollView>
-
-        { (item.requested && item.owner === "lender") &&
-          <View>
-            <View style={[styles.inline, { paddingLeft: 20 }]}>
-              <Text>{item.requester} wants to borrow this item!</Text>
-            </View>
-
-            <View style={styles.submit}>
-              <Button title={"Rent out this item: $" + item.rate + " per hour"}
-                      onPress={this.handleRent.bind(this)} />
-            </View>
-          </View>
-        }
-        { (!item.requested && !item.rented) &&
-          <View>
-            <View style={[styles.inline, { paddingLeft: 20 }]}>
-              <Text style={styles.heading}>Duration: </Text>
-              <Slider style={{ width: 150 }}
-                      step={1}
-                      minimumValue={0}
-                      maximumValue={hoursLeft}
-                      onSlidingComplete={(hours) => this.setState({duration: hours})} />
-
-              <Text style={{ paddingLeft: 15 }}>
-                {moment.duration(this.state.duration, 'hours').humanize()}
-              </Text>
-            </View>
-            <View style={styles.location}>
-              <Button title="Show location" style={styles.submit}
-                      onPress={ () => goToUrl(locationurl)} />
-              <Button title="Show directions" style={styles.submit}
-                      onPress={ () => goToUrl(directionsurl)} />
-            </View>
-            <View style={styles.submit}>
-              <Button title={"Request this item: $" + item.rate + " per hour"}
-                      onPress={this.handleRequest.bind(this)} />
-            </View>
-          </View>
-        }
-        { this.isLoaded() == false &&
-          <View style={{backgroundColor: 'white', height: '100%'}}>
-            <ActivityIndicator size='large'
-                               animating={isFetching}
-                               style={{paddingTop: 20}}/>
-          </View>
-        }
-        { this.lenderReturnable() == true &&
-          <View>
-            <View style={[styles.inline, { paddingLeft: 20 }]}>
-              <Text>You have rented out this item.</Text>
-            </View>
-
-            <View style={styles.submit}>
-              <Button title={"Confirm item return (as lender)"}
-                      onPress={this.handleGotback.bind(this)} />
-            </View>
-          </View>
-        }
-        { this.borrowerReturnable() == true &&
-          <View>
-            <View style={[styles.inline, { paddingLeft: 20 }]}>
-              <Text>You have borrowed this item.</Text>
-            </View>
-
-            <View style={styles.submit}>
-              <Button title={"Confirm item return (as borrower)"}
-                      onPress={this.handleReturn.bind(this)} />
-            </View>
-          </View>
-        }
-        { this.bothReturned() == true &&
-          <View>
-            <View style={[styles.inline, { paddingLeft: 20 }]}>
-              <Text>This item has been returned.</Text>
-            </View>
-
-            <View style={styles.submit}>
-              <Button title={"Close this item"}
-                      onPress={this.handleClose.bind(this)} />
-            </View>
-          </View>
-        }
+        { this.optionsList() }
       </View>
     );
   }
