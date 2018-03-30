@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Text, View, Button, TextInput, Image, StyleSheet, ScrollView, Slider, Linking } from 'react-native';
+import { Text, View, Button, TextInput, Image, StyleSheet, ScrollView, Slider, ActivityIndicator } from 'react-native';
 import moment from 'moment';
 import { Actions } from 'react-native-router-flux';
 import ReviewList from "./ReviewList";
@@ -20,9 +20,12 @@ class ItemDetail extends React.Component {
 
   constructor(props) {
     super(props);
+    this.state = { duration: 1 };
+  }
+
+  componentDidMount() {
     const { item, dispatch } = this.props;
     dispatch(fetchItemTransaction(item.id));
-    this.state = { duration: 1 };
   }
 
   componentDidMount() {
@@ -69,8 +72,8 @@ class ItemDetail extends React.Component {
   }
 
   isLoaded() {
-    const { transactions, isFetching } = this.props;
-    return !(isFetching);
+    const { isFetching } = this.props;
+    return !isFetching;
   }
 
   lenderReturnable() {
@@ -187,11 +190,11 @@ class ItemDetail extends React.Component {
             </View>
           </View>
         }
-        { this.isLoaded() == true &&
-          <View>
-            <View style={[styles.inline, { paddingLeft: 20 }]}>
-              <Text>Transaction length: {transactions.length}</Text>
-            </View>
+        { this.isLoaded() == false &&
+          <View style={{backgroundColor: 'white', height: '100%'}}>
+            <ActivityIndicator size='large'
+                               animating={isFetching}
+                               style={{paddingTop: 20}}/>
           </View>
         }
         { this.lenderReturnable() == true &&
