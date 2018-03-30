@@ -28,7 +28,7 @@ export default class ReviewList extends React.Component {
   }
 
   renderReview(review) {
-    return <Review review={review}/>
+    return <Review key={review.id} review={review}/>
   }
 
   calculateRating(ratings) {

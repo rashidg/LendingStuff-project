@@ -43,7 +43,7 @@ class SubmitReview extends React.Component {
       item_id: this.props.item_id,
       postedOn: cur.format()
     };
-    
+
     if (data.review === "") {
       alert("Please fill in the review")
     } else {
