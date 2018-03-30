@@ -72,8 +72,9 @@ class Post extends React.Component {
 
   pickImage(){
     const that = this;
-    ImagePicker.launchImageLibraryAsync({base64: true}).then(response => {
-      that.setState({...that.state, image: response});
+    ImagePicker.launchImageLibraryAsync({base64: true, quality: 0.5}).then(response => {
+      if (!response.cancelled)
+        that.setState({...that.state, image: response});
     });
   }
 

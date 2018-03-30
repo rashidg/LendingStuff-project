@@ -121,19 +121,24 @@ export const postItemsService = (item) => {
       .then(location => {
         var newKey = firebase.database().ref('items/').push().key;
 
-        const byteArray = b64.toByteArray(item.image.base64);
-        const metadata = {contentType: 'image/jpg'};
-        firebase.storage().ref('/images').child(newKey + '.jpg').put(byteArray, metadata).then(snapshot => {
-          firebase.database().ref('items/' + newKey).set({
-            ...item,
-            id: newKey,
-            imgUrl: snapshot.downloadURL,
-            location: {
-              lat: location.coords.latitude,
-              lon: location.coords.longitude
-            }
-          }).then(() => { resolve(); }).catch(() => { reject(); });
-        });
+        if (item.image) {
+          const byteArray = b64.toByteArray(item.image.base64);
+          const metadata = {contentType: 'image/jpg'};
+          firebase.storage().ref('/images').child(newKey + '.jpg').put(byteArray, metadata).then(snapshot => {
+            firebase.database().ref('items/' + newKey).update({
+              imgUrl: snapshot.downloadURL
+            });
+          });
+        }
+
+        firebase.database().ref('items/' + newKey).set({
+          ...item,
+          id: newKey,
+          location: {
+            lat: location.coords.latitude,
+            lon: location.coords.longitude
+          }
+        }).then(() => { resolve(); }).catch(() => { reject(); });
       });
   });
 };
