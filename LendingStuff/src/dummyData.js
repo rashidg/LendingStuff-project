@@ -89,15 +89,30 @@ export const itemList = [
   }
 ];
 
-
 import firebase from './firebase';
 
 export const populateDB = () => {
   firebase.database().ref('items/').set({});
+  firebase.database().ref('transactions/').set({});
 
   itemList.map(item => {
-    var newKey = firebase.database().ref('items/').push().key;
-    firebase.database().ref('items/' + newKey).set(item);
-    firebase.database().ref('items/' + newKey + '/id').set(newKey);
+    if (item.rented) {
+      var newKey = firebase.database().ref('items/').push().key;
+      firebase.database().ref('items/' + newKey).set(item);
+      firebase.database().ref('items/' + newKey + '/id').set(newKey);
+      firebase.database().ref('transactions/' + newKey).set({
+        item_id: newKey,
+        lender_confirmed: false,
+        renter_confirmed: false,
+        owner: item.owner,
+        renter: item.renter,
+        duration: 8
+      });
+    }
+    else {
+      var newKey = firebase.database().ref('items/').push().key;
+      firebase.database().ref('items/' + newKey).set(item);
+      firebase.database().ref('items/' + newKey + '/id').set(newKey);
+    }
   });
 };

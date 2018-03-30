@@ -12,6 +12,7 @@ import {
   approveTransaction,
   returnTransaction,
   gotbackTransaction,
+  closeItem,
   updateRequestedItem
 } from '../actions';
 
@@ -24,8 +25,7 @@ class ItemDetail extends React.Component {
   }
 
   componentDidMount() {
-    const { item, dispatch } = this.props;
-    dispatch(fetchItemTransaction(item.id));
+    this.props.dispatch(fetchItemTransaction(this.props.item.id));
   }
 
   componentDidMount() {
@@ -67,7 +67,7 @@ class ItemDetail extends React.Component {
 
   handleClose() {
     const { item, dispatch } = this.props;
-    dispatch(closeTransaction(item.id));
+    dispatch(closeItem(item.id));
     Actions.popTo('itemList');
   }
 
@@ -112,17 +112,7 @@ class ItemDetail extends React.Component {
         </View>
       )
     }
-
-    if (isFetching) {
-      return (
-        <View style={{backgroundColor: 'white', height: '100%'}}>
-          <ActivityIndicator size='large'
-                             animating={isFetching}
-                             style={{paddingTop: 20}}/>
-        </View>
-      )
-    }
-    if (!isFetching && transactions.length && !(transactions[0].lender_approved) && transactions[0].owner === "lender") {
+    if (item.rented && transactions.length && !isFetching && transactions[0].lender_confirmed == false && transactions[0].owner === "lender") {
       return (
         <View>
           <View style={[styles.inline, { paddingLeft: 20 }]}>
@@ -136,7 +126,7 @@ class ItemDetail extends React.Component {
         </View>
       )
     }
-    if (!isFetching && transactions.length && !(transactions[0].borrower_approved) && transactions[0].renter === "renter") {
+    if (item.rented && transactions.length && !isFetching && transactions[0].renter_confirmed == false && transactions[0].renter === "renter") {
       return (
         <View>
           <View style={[styles.inline, { paddingLeft: 20 }]}>
@@ -144,13 +134,13 @@ class ItemDetail extends React.Component {
           </View>
 
           <View style={styles.submit}>
-            <Button title={"Confirm item return (as borrower)"}
+            <Button title={"Confirm item return (as renter)"}
                     onPress={this.handleReturn.bind(this)} />
           </View>
         </View>
       )
     }
-    if (!isFetching && transactions.length && transactions[0].lender_approved && transactions[0].borrower_approved) {
+    if (item.rented && transactions.length && !isFetching && transactions[0].lender_confirmed && transactions[0].renter_confirmed) {
       return (
         <View>
           <View style={[styles.inline, { paddingLeft: 20 }]}>

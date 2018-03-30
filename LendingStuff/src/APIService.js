@@ -132,20 +132,27 @@ export const createTransactionService = (item_id, owner, renter, duration) => {
       renter: renter,
       duration: duration,
       lender_confirmed: false,
-      borrower_confirmed: false
+      renter_confirmed: false
     })
   })
 };
 
 export const returnTransactionService = (item_id) => {
   return new Promise((resolve, reject) => {
-    firebase.database().ref('transactions/' + item_id + '/borrower_confirmed').set(true);
+    firebase.database().ref('transactions/' + item_id + '/renter_confirmed').set(true);
   })
 };
 
 export const gotbackTransactionService = (item_id) => {
   return new Promise((resolve, reject) => {
     firebase.database().ref('transactions/' + item_id + '/lender_confirmed').set(true);
+  })
+};
+
+export const closeItemService = (item_id) => {
+  return new Promise((resolve, reject) => {
+    firebase.database().ref('items/' + item_id).set({});
+    firebase.database().ref('transactions/' + item_id).set({});
   })
 };
 
