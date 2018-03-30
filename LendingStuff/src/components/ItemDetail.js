@@ -47,11 +47,17 @@ class ItemDetail extends React.Component {
 
     const hoursLeft = moment().diff(moment(item.postedOn), 'hours');
 
+    let imgSource;
+    if (item.imgUrl)
+      imgSource = { uri: item.imgUrl };
+    else
+      imgSource = require('../image/boo.png');
+
     return (
       <View style={styles.container} >
         <ScrollView showsVerticalScrollIndicator={false}>
           <View style={{paddingBottom: 20, alignItems: 'center'}}>
-            <Image source={{ uri: item.imgUrl }}
+            <Image source={imgSource}
                    style={{ height: 400, width:300 }} />
           </View>
 
