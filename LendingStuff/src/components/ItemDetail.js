@@ -45,7 +45,8 @@ class ItemDetail extends React.Component {
       <View style={styles.container} >
         <ScrollView showsVerticalScrollIndicator={false}>
           <View style={{paddingBottom: 20, alignItems: 'center'}}>
-            <Image source={require('../image/boo.png')} />
+            <Image source={{ uri: item.imgUrl }}
+                   style={{ height: 400, width:300 }} />
           </View>
 
           {renderInline('Name', item.name)}

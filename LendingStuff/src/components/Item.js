@@ -13,8 +13,7 @@ export default class Item extends React.Component {
 
   render() {
     const {
-      item,
-      view,
+      imgUrl,
       title,
       description,
       infoBox1,
@@ -23,11 +22,16 @@ export default class Item extends React.Component {
       onPress
     } = this.props;
 
+    let imgSource;
+    if (imgUrl)
+      imgSource = { uri: imgUrl };
+    else
+      imgSource = require('../image/boo.png');
     return (
       <TouchableOpacity style={styles.container}
                         onPress={onPress}>
         <Image style={styles.image}
-               source={require('../image/boo.png')} />
+               source={imgSource} />
         <View style={styles.info}>
 
           <View style={styles.info__text}>
