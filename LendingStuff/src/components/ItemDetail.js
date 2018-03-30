@@ -68,14 +68,14 @@ class ItemDetail extends React.Component {
 
 
           <View style={styles.review}>
-            <View style={{height: 250}}>
-              <ReviewList reviews={reviews} limit={true}/>
+            <View>
+              <ReviewList reviews={reviews} limit={true} item_id={item.id}/>
             </View>
             <View style={styles.review__button}>
               <Button title={"Write a review"}
                       onPress={() => { Actions.push("submitReview", {item_id: item.id}); }} />
-              {/*<Button title={"See All"}*/}
-                      {/*onPress={() => { Actions.push("reviewList", {reviews: Object.values(reviews)}); }} />*/}
+              <Button title={"See All"}
+                      onPress={() => { Actions.push("reviewList", {reviews: reviews, limit: false, item_id: item.id}); }} />
             </View>
           </View>
 
@@ -159,9 +159,9 @@ const styles = StyleSheet.create({
   review__button: {
     flexDirection: 'row',
     justifyContent: 'space-between',
+    marginTop: '-5%',
     marginLeft: '5%',
     marginRight: '5%',
-    // marginTop: 15
   }
 });
 

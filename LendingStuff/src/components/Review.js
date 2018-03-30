@@ -75,7 +75,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#dcd6e4',
     borderRadius: 15,
     padding: 15,
-    marginBottom: 10,
+    marginTop: 10,
   },
   review : {
     marginTop: 10,

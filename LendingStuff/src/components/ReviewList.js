@@ -1,17 +1,24 @@
 import React from 'react';
-import { Text, View, ScrollView, StyleSheet } from 'react-native';
+import { Text, View, ScrollView, TouchableOpacity, Button, StyleSheet } from 'react-native';
 import Review from "./Review";
+import { Actions } from 'react-native-router-flux';
 
 export default class ReviewList extends React.Component {
 
   renderReviews(reviews, limit) {
     if (reviews.length > 0) {
       if (limit) {
-        return <Review review={reviews[0]} />
+        return (
+          <View>
+            <Review review={reviews[0]} />
+          </View>
+        )
       } else {
         return (
-          <ScrollView style={styles.container}>
-            {reviews.map(this.renderReview)}
+          <ScrollView contentContainerStyle={styles.container}>
+            <View style={{flex: 1}}>
+              {reviews.map(this.renderReview)}
+            </View>
           </ScrollView>
         )
       }
@@ -30,21 +37,33 @@ export default class ReviewList extends React.Component {
 
   render() {
 
-    const { reviews, limit } = this.props;
+    const { reviews, limit, item_id } = this.props;
     const renderReviews = this.renderReviews(reviews, limit);
 
     const average = (!reviews.length) ? 0 :
       this.calculateRating(reviews.map(((review) => (review.rating))));
 
+    const ratingStyle = (!limit) ?
+      {fontSize: 50, fontWeight: 'bold'} :
+      {fontSize: 25, fontWeight: 'bold'};
+
     return (
-      <View style={{backgroundColor: '#fff', padding: '5%'}}>
+      <View style={{backgroundColor: '#fff', padding: '5%', flex: 1}}>
         <View style={styles.textContainer}>
-          <Text style={{fontSize: 25}}>Reviews</Text>
+          <View>
+            <Text style={{fontSize: 20, fontWeight: 'bold'}}>Reviews</Text>
+            <Text style={{color: 'lightgrey'}}>{reviews.length} Reviews</Text>
+            {!limit &&
+              <TouchableOpacity onPress={() => { Actions.push("submitReview", {item_id: item_id}) }}>
+                <Text style={styles.button}>Write a review</Text>
+              </TouchableOpacity>}
+          </View>
           <View style={styles.rating}>
-            <Text style={styles.average}>{average.toFixed(1)}</Text>
+            <Text style={ratingStyle}>{average.toFixed(1)}</Text>
             <Text style={{color: 'grey'}}>/5</Text>
           </View>
         </View>
+
         {renderReviews}
       </View>
     )
@@ -64,25 +83,26 @@ ReviewList.defaultProps = {
 const styles = StyleSheet.create({
   container: {
     backgroundColor: '#fff',
-    height: '100%',
+    flexGrow: 1,
   },
   textContainer: {
     flexDirection: 'row',
-    alignItems: 'baseline',
+    alignItems: 'center',
     justifyContent: 'space-between',
-    marginBottom: 10,
   },
   rating: {
     flexDirection: 'row',
     alignItems: 'baseline'
   },
-  average: {
-    fontSize: 25,
-    fontWeight: 'bold'
-  },
   noReviews: {
     color: 'grey',
     textAlign: 'center',
     marginTop: 10,
+  },
+  button: {
+    color: '#007AFF',
+    paddingTop: 8,
+    paddingBottom: 8,
+    fontSize: 18,
   }
 });
