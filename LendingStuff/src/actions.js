@@ -8,6 +8,7 @@ import {
   fetchRentedItemsService,
   updateRentedItemService,
   updateRequestedItemService,
+  refuseRequestedItemService,
   postItemsService,
   createTransactionService,
   fetchReviewsService,
@@ -107,6 +108,13 @@ export function updateRentedItem(item_id){
 export function updateRequestedItem(item_id){
   return (dispatch) => {
     updateRequestedItemService(item_id);
+    dispatch(fetchItems());
+  };
+}
+
+export function refuseRequestedItem(item_id){
+  return (dispatch) => {
+    refuseRequestedItemService(item_id);
     dispatch(fetchItems());
   };
 }

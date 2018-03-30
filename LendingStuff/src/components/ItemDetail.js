@@ -13,6 +13,7 @@ import {
   returnTransaction,
   gotbackTransaction,
   closeItem,
+  refuseRequestedItem,
   updateRequestedItem
 } from '../actions';
 
@@ -48,6 +49,13 @@ class ItemDetail extends React.Component {
 
     dispatch(updateRentedItem(item.id));
     dispatch(createTransaction(item.id, "lender", "renter", this.state.duration));
+    Actions.popTo('itemList');
+  }
+
+  handleRefuse() {
+    const { item, dispatch } = this.props;
+
+    dispatch(refuseRequestedItem(item.id));
     Actions.popTo('itemList');
   }
 
@@ -93,6 +101,8 @@ class ItemDetail extends React.Component {
           <View style={styles.submit}>
             <Button title={"Rent out this item: $" + item.rate + " per hour"}
                     onPress={this.handleRent.bind(this)} />
+            <Button title={"Look for another renter"}
+                    onPress={this.handleRefuse.bind(this)} />
           </View>
         </View>
       )

@@ -124,6 +124,15 @@ export const updateRequestedItemService = (item_id) => {
   })
 };
 
+export const refuseRequestedItemService = (item_id) => {
+  return new Promise((resolve, reject) => {
+    firebase.database().ref('items/' + item_id + '/requested').set(false);
+    firebase.database().ref('items/' + item_id + '/rented').set(false);
+    firebase.database().ref('items/' + item_id + '/requester').set(null);
+    firebase.database().ref('items/' + item_id + '/renter').set(null);
+  })
+};
+
 export const createTransactionService = (item_id, owner, renter, duration) => {
   return new Promise((resolve, reject) => {
     firebase.database().ref('transactions/' + item_id).set({
