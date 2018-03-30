@@ -132,16 +132,32 @@ export const postItemsService = (item) => {
   });
 };
 
+export const fetchReviewsService = (item_id) => {
+  return new Promise((resolve, reject) => {
+    var ref = firebase.database().ref('reviews/');
+    ref.orderByChild('item_id').equalTo(item_id).once('value').then(snapshot => {
+      if (!snapshot.val()) return resolve([]);
+
+      const array = Object.values(snapshot.val());
+      const sortedByTime = array.sort((a, b) => a.postedOn < b.postedOn)
+      return resolve(sortedByTime)
+    })
+  })
+};
+
 export const postReviewService = (data) => {
   return new Promise((resolve, reject) => {
     var { username, item_id } = data;
 
     confirmRenter(username, item_id)
       .then(() => {
-        var newRef = firebase.database().ref('items/'+ item_id + '/reviews').push();
-        newRef.set(data)
-          .then(() => { resolve(); })
-          .catch((err) => { reject(err); })
+        var newKey = firebase.database().ref('reviews/').push().key;
+        firebase.database().ref('reviews/' + newKey).set({
+          ...data,
+          id: newKey
+        })
+          .then(() => { resolve() })
+          .catch((err) => { reject(err) })
       })
       .catch(() => { reject(true); });
   });
@@ -160,6 +176,6 @@ const confirmRenter = (username, item_id) => {
         });
         return reject();
       })
-      .catch(() => reject(true));
+      .catch(() => reject());
   })
 };

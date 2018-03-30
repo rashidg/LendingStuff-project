@@ -7,6 +7,7 @@ import {
 } from 'react-native';
 import StarRating from 'react-native-star-rating';
 import Modal from 'react-native-modal';
+import moment from 'moment';
 
 export default class Review extends React.Component {
 
@@ -36,7 +37,7 @@ export default class Review extends React.Component {
                         containerStyle={{justifyContent: 'center'}}/>
           </View>
           <Text style={{color: 'grey'}}>{username}</Text>
-          <Text style={{color: 'grey'}}>{postedOn}</Text>
+          <Text style={{color: 'grey'}}>{moment(postedOn).format("MMM Do YYYY")}</Text>
 
           {!modal ?
             <Text style={styles.review} numberOfLines={4}>{review}</Text> :
@@ -73,10 +74,8 @@ const styles = StyleSheet.create({
     height: 180,
     backgroundColor: '#dcd6e4',
     borderRadius: 15,
-    marginTop: 15,
-    marginLeft: 15,
-    marginRight: 15,
     padding: 15,
+    marginBottom: 10,
   },
   review : {
     marginTop: 10,

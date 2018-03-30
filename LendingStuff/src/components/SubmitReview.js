@@ -1,11 +1,11 @@
 import React from 'react';
 import {
-	Text,
-	TextInput,
+  Text,
+  TextInput,
   Button,
-	StyleSheet,
-	View,
-  KeyboardAvoidingView
+  StyleSheet,
+  View,
+  KeyboardAvoidingView, Keyboard
 } from 'react-native';
 import StarRating from 'react-native-star-rating';
 import moment from 'moment';
@@ -25,21 +25,26 @@ class SubmitReview extends React.Component {
     }
   }
 
+  componentWillUnmount() {
+    Keyboard.dismiss();
+  }
+
 	onStarRatingPress(rating) {
     this.setState({ rating: rating });
   }
 
   onSubmit() {
-    const cur = moment().format("MMM Do YYYY");
+    const cur = moment();
 
     const data = {
       username: "renter",
       review: this.state.review,
       rating: this.state.rating,
       item_id: this.props.item_id,
-      postedOn: cur
+      postedOn: cur.format()
     };
 
+    console.log(data);
     if (data.review === "") {
       alert("Please fill in the review")
     } else {

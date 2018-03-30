@@ -4,9 +4,7 @@ import { Text, View, Button, TextInput, Image, StyleSheet, ScrollView, Slider, L
 import moment from 'moment';
 import { Actions } from 'react-native-router-flux';
 
-import Review from './Review';
-
-import { updateRentedItem, createTransaction } from '../actions';
+import { updateRentedItem, createTransaction, fetchReviews } from '../actions';
 import ReviewList from "./ReviewList";
 
 
@@ -17,6 +15,11 @@ class ItemDetail extends React.Component {
     this.state = { duration: 1 };
   }
 
+  componentDidMount() {
+    const { item, dispatch } = this.props;
+    dispatch(fetchReviews(item.id))
+  }
+
   handleRent() {
     const { item, dispatch } = this.props;
     dispatch(updateRentedItem(item.id));
@@ -25,8 +28,7 @@ class ItemDetail extends React.Component {
   }
 
   render() {
-    const { item } = this.props;
-    const { reviews } = item;
+    const { item, reviews } = this.props;
 
     //URL which stores google maps location of item
     const locationurl = "https://www.google.com/maps/search/?api=1&query=" + item.location.latitude + "," + item.location.longitude;
@@ -65,23 +67,19 @@ class ItemDetail extends React.Component {
           {renderInline('Expiry', moment().to(moment(item.expiresOn)))}
 
 
-          <View style={{flexDirection: 'column', borderTopWidth: 1, borderBottomWidth: 1, borderColor: 'grey', marginTop: 15}}>
-            <Text style={{fontSize: 20, marginTop: 15}}>Reviews</Text>
-            { reviews &&
-              <View style={{height: 200}}>
-                <ReviewList reviews={Object.values(reviews)}/>
-              </View>
-            }
-            { !reviews &&
-              <Text style={{color: 'grey', textAlign: 'center', marginTop: 10}}>No reviews have been submitted.</Text>
-            }
-            <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
+          <View style={styles.review}>
+            <View style={{height: 250}}>
+              <ReviewList reviews={reviews} limit={true}/>
+            </View>
+            <View style={styles.review__button}>
               <Button title={"Write a review"}
                       onPress={() => { Actions.push("submitReview", {item_id: item.id}); }} />
-              <Button title={"See All"}
-                      onPress={() => { Actions.push("reviewList", {reviews: Object.values(reviews)}); }} />
+              {/*<Button title={"See All"}*/}
+                      {/*onPress={() => { Actions.push("reviewList", {reviews: Object.values(reviews)}); }} />*/}
             </View>
           </View>
+
+
           
         </ScrollView>
 
@@ -148,8 +146,26 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     borderColor: 'white',
     justifyContent: 'center'
+  },
+  review: {
+    flexDirection: 'column',
+    borderTopWidth: 1,
+    borderBottomWidth: 1,
+    borderColor: 'grey',
+    marginTop: 10,
+    marginRight: '-5%',
+    marginLeft: '-5%'
+  },
+  review__button: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginLeft: '5%',
+    marginRight: '5%',
+    // marginTop: 15
   }
 });
 
-
-export default connect()(ItemDetail);
+const mapStateToProps = (state) => ({
+  reviews: state.items.reviews
+})
+export default connect(mapStateToProps)(ItemDetail);

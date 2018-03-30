@@ -8,6 +8,7 @@ import {
   updateRentedItemService,
   postItemsService,
   createTransactionService,
+  fetchReviewsService,
   postReviewService
 } from './APIService';
 
@@ -15,6 +16,9 @@ import {
 export const fetchItemsRequest = createAction('FETCH_ITEMS_REQUEST');
 export const fetchItemsSuccess = createAction('FETCH_ITEMS_SUCCESS');
 export const fetchItemsError = createAction('FETCH_ITEMS_ERROR');
+
+export const fetchReviewsSuccess = createAction('FETCH_REVIEWS_SUCCESS');
+export const fetchReviewsError = createAction('FETCH_REVIEWS_ERROR');
 
 
 export function fetchItems(query) {
@@ -87,10 +91,28 @@ export function postItem(item, successCB, errorCB) {
   }
 }
 
+export function fetchReviews(item_id) {
+  return (dispatch) => {
+    fetchReviewsService(item_id)
+      .then((payload) => {
+        if (payload != null) {
+          dispatch(fetchReviewsSuccess(payload))
+        } else {
+          dispatch(fetchReviewsSuccess([]))
+        }
+      })
+      .catch(() => {
+        dispatch(fetchReviewsError())});
+  }
+}
+
 export function postReview(data, successCB, errorCB) {
   return (dispatch) => {
     postReviewService(data)
-      .then(successCB)
+      .then(() => {
+        dispatch(fetchReviews(data.item_id));
+        successCB();
+      })
       .catch(errorCB);
   }
 }
