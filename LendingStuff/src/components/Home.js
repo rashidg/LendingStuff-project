@@ -17,6 +17,17 @@ class Home extends React.Component {
     };
   }
 
+  onSubmit(){
+    const { dispatch } = this.props;
+    if(this.state.email == ""){
+      alert("Please fill in the email");
+    } else if(this.state.password == ""){
+      alert("Please fill in the password");
+    } else{
+      dispatch(login(this.state));
+    }
+  }
+
   render() {
     const { dispatch } = this.props;
 
@@ -45,7 +56,7 @@ class Home extends React.Component {
                        secureTextEntry={true}
                        onChangeText={(text) => this.setState({password: text})}/>
         <Button title="Login!"
-                onPress={ () => dispatch(login(this.state)) } />
+                onPress={ () => this.onSubmit() } />
         <Button title="Register!"
                 onPress={ () => Actions.push("Register", {}) } />
       </KeyboardAvoidingView>
