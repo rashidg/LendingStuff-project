@@ -105,9 +105,9 @@ export function updateRentedItem(item_id){
   };
 }
 
-export function updateRequestedItem(item_id){
+export function updateRequestedItem(item_id, user){
   return (dispatch) => {
-    updateRequestedItemService(item_id)
+    updateRequestedItemService(item_id, user)
       .then(() => dispatch(fetchItems()));
   };
 }

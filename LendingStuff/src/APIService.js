@@ -130,13 +130,13 @@ export const updateRentedItemService = (item_id) => {
   })
 };
 
-export const updateRequestedItemService = (item_id) => {
+export const updateRequestedItemService = (item_id, user) => {
   return new Promise((resolve, reject) => {
     firebase.database().ref('items/' + item_id).update({
       requested: true,
       rented: false,
       renter: null,
-      requester: 'renter'
+      requester: user.email
     }).then(() => { resolve() });
   })
 };

@@ -14,7 +14,8 @@ import {
   gotbackTransaction,
   closeItem,
   refuseRequestedItem,
-  updateRequestedItem
+  updateRequestedItem,
+  fetchItems
 } from '../actions';
 
 
@@ -34,13 +35,9 @@ class ItemDetail extends React.Component {
     dispatch(fetchReviews(item.id));
   }
 
-  shouldComponentUpdate(nextProps, nextState) {
-    return this.props.value !== nextProps.value;
-  }
-
   handleRequest() {
-    const { item, dispatch } = this.props;
-    dispatch(updateRequestedItem(item.id));
+    const { item, dispatch, user } = this.props;
+    dispatch(updateRequestedItem(item.id, user));
     Actions.popTo('itemList');
   }
 
@@ -80,18 +77,44 @@ class ItemDetail extends React.Component {
   }
 
   optionsList() {
-    const { transactions, isFetching, item } = this.props;
+    const { transactions, isFetching, item, user } = this.props;
 
-    const renderInline = (title, text) => (
-      <View style={styles.inline}>
-        <Text style={styles.heading}>{title}:</Text>
-        <Text>{text}</Text>
-      </View>
-    );
+    if (item.owner !== user.email && !item.requested && !item.rented) {
+      const hoursLeft = moment(item.expiresOn).diff(moment(), 'hours');
+      return (
+        <View>
+          <View style={[styles.inline, { paddingLeft: 20 }]}>
+            <Text style={styles.heading}>Duration: </Text>
+            <Slider style={{ width: 150 }}
+                    step={0.5}
+                    minimumValue={0}
+                    maximumValue={hoursLeft}
+                    onValueChange={(hours) => this.setState({duration: hours}) }/>
 
-    const hoursLeft = moment().diff(moment(item.postedOn), 'hours');
+            <Text style={{ paddingLeft: 15 }}>
+              {this.state.duration + ' hours'}
+            </Text>
+          </View>
 
-    if (item.requested && item.owner === "lender") {
+          <View style={styles.submit}>
+            <Button title={"Request this item: $" + item.rate + " per hour"}
+                    onPress={this.handleRequest.bind(this)}/>
+          </View>
+        </View>
+      );
+    }
+    if (item.owner !== user.email && item.requested && !item.rented && item.requester === user.email) {
+      return (
+        <Text style={{ontSize: 16,
+                      paddingTop: 10,
+                      color: 'grey',
+                      textAlign: 'center'}}>
+          Waiting for owner's response...
+        </Text>
+      );
+    }
+
+    if (item.requested && item.owner === user.email) {
       return (
         <View>
           <View style={[styles.inline, { paddingLeft: 20 }]}>
@@ -101,6 +124,8 @@ class ItemDetail extends React.Component {
           <View style={styles.submit}>
             <Button title={"Rent out this item: $" + item.rate + " per hour"}
                     onPress={this.handleRent.bind(this)} />
+          </View>
+          <View style={styles.submit}>
             <Button title={"Look for another renter"}
                     onPress={this.handleRefuse.bind(this)} />
           </View>
@@ -108,29 +133,6 @@ class ItemDetail extends React.Component {
       )
     }
 
-    if (!item.requested && !item.rented) {
-      return (
-        <View>
-          <View style={[styles.inline, { paddingLeft: 20 }]}>
-            <Text style={styles.heading}>Duration: </Text>
-            <Slider style={{ width: 150 }}
-                    step={1}
-                    minimumValue={0}
-                    maximumValue={hoursLeft}
-                    onSlidingComplete={(hours) => this.setState({duration: hours})} />
-
-            <Text style={{ paddingLeft: 15 }}>
-              {moment.duration(this.state.duration, 'hours').humanize()}
-            </Text>
-          </View>
-
-          <View style={styles.submit}>
-            <Button title={"Request this item: $" + item.rate + " per hour"}
-                    onPress={this.handleRequest.bind(this)} />
-          </View>
-        </View>
-      )
-    }
     if (item.rented && transactions.length && !isFetching && transactions[0].lender_confirmed == false && transactions[0].owner === "lender") {
       return (
         <View>
@@ -196,7 +198,6 @@ class ItemDetail extends React.Component {
       </View>
     );
 
-    const hoursLeft = moment().diff(moment(item.postedOn), 'hours');
 
     let imgSource;
     if (item.imgUrl)
@@ -296,6 +297,7 @@ const styles = StyleSheet.create({
 });
 
 const mapStateToProps = (state) => ({
+  user: state.auth.user,
   reviews: state.items.reviews,
   transactions: state.transactions.data
 });
