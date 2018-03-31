@@ -78,12 +78,12 @@ export function fetchItemTransaction(item_id) {
   };
 }
 
-export function fetchRentedItems(renter) {
+export function fetchRentedItems(email) {
   return (dispatch) => {
 
     dispatch(fetchItemsRequest());
 
-    fetchRentedItemsService(renter)
+    fetchRentedItemsService(email)
       .then((payload) =>
         {
           if (payload != null) {
@@ -100,22 +100,22 @@ export function fetchRentedItems(renter) {
 
 export function updateRentedItem(item_id){
   return (dispatch) => {
-    updateRentedItemService(item_id);
-    dispatch(fetchItems());
+    updateRentedItemService(item_id)
+      .then(() => dispatch(fetchItems()));
   };
 }
 
 export function updateRequestedItem(item_id){
   return (dispatch) => {
-    updateRequestedItemService(item_id);
-    dispatch(fetchItems());
+    updateRequestedItemService(item_id)
+      .then(() => dispatch(fetchItems()));
   };
 }
 
 export function refuseRequestedItem(item_id){
   return (dispatch) => {
-    refuseRequestedItemService(item_id);
-    dispatch(fetchItems());
+    refuseRequestedItemService(item_id)
+      .then(() => dispatch(fetchItems()));
   };
 }
 

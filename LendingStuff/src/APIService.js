@@ -78,13 +78,24 @@ export const fetchItemsService = (query={}) => {
 
 export const fetchMyItemsService = (email) => {
   return new Promise((resolve, reject) => {
-    var ref = firebase.database().ref('items');
-    ref.orderByChild('owner').equalTo(email).once('value').then(snapshot => {
-      if (!snapshot)
-        return resolve([]);
-      else
-        return resolve(Object.values(snapshot.val()));
-    });
+    getLocationAsync()
+      .then(location => {
+        var ref = firebase.database().ref('items');
+        ref.orderByChild('owner').equalTo(email).once('value').then(snapshot => {
+          if (!snapshot.val())
+            return resolve([]);
+
+          const array = Object.values(snapshot.val());
+
+          const withDistances = array.map(item => ({
+            ...item,
+            distance: Math.round(calcDistance(item.location, location.coords) * 10) / 10
+          }));
+
+          const sortedByDistance = withDistances.sort((a, b) => a.distance > b.distance);
+          resolve(sortedByDistance);
+        });
+      })
   })
 };
 
@@ -97,10 +108,12 @@ export const fetchItemTransactionService = (item_id) => {
   })
 };
 
-export const fetchRentedItemsService = (username) => {
+export const fetchRentedItemsService = (email) => {
   return new Promise((resolve, reject) => {
     var ref = firebase.database().ref('items');
-    ref.orderByChild('renter').equalTo(username).once('value').then(snapshot => {
+    ref.orderByChild('renter').equalTo(email).once('value').then(snapshot => {
+      if (!snapshot.val())
+        return resolve([]);
       return resolve(Object.values(snapshot.val()));
     });
   })
@@ -108,28 +121,34 @@ export const fetchRentedItemsService = (username) => {
 
 export const updateRentedItemService = (item_id) => {
   return new Promise((resolve, reject) => {
-    firebase.database().ref('items/' + item_id + '/requested').set(false);
-    firebase.database().ref('items/' + item_id + '/rented').set(true);
-    firebase.database().ref('items/' + item_id + '/renter').set("renter");
-    firebase.database().ref('items/' + item_id + '/requester').set(null);
+    firebase.database().ref('items/' + item_id).update({
+      requested: false,
+      rented: true,
+      renter: 'renter',
+      requester: null
+    }).then(() => { resolve() });
   })
 };
 
 export const updateRequestedItemService = (item_id) => {
   return new Promise((resolve, reject) => {
-    firebase.database().ref('items/' + item_id + '/requested').set(true);
-    firebase.database().ref('items/' + item_id + '/rented').set(false);
-    firebase.database().ref('items/' + item_id + '/requester').set("renter");
-    firebase.database().ref('items/' + item_id + '/renter').set(null);
+    firebase.database().ref('items/' + item_id).update({
+      requested: true,
+      rented: false,
+      renter: null,
+      requester: 'renter'
+    }).then(() => { resolve() });
   })
 };
 
 export const refuseRequestedItemService = (item_id) => {
   return new Promise((resolve, reject) => {
-    firebase.database().ref('items/' + item_id + '/requested').set(false);
-    firebase.database().ref('items/' + item_id + '/rented').set(false);
-    firebase.database().ref('items/' + item_id + '/requester').set(null);
-    firebase.database().ref('items/' + item_id + '/renter').set(null);
+    firebase.database().ref('items/' + item_id).update({
+      requested: false,
+      rented: false,
+      renter: null,
+      requester: null
+    }).then(() => { resolve() });
   })
 };
 

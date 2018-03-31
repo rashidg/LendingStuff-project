@@ -8,8 +8,8 @@ import { Actions } from 'react-native-router-flux';
 
 class RentedItems extends React.Component {
   componentDidMount(){
-    const { dispatch, username } = this.props;
-    dispatch(fetchRentedItems(username));
+    const { dispatch, user } = this.props;
+    dispatch(fetchRentedItems(user.email));
   }
 
   renderItem(item, idx){
@@ -26,14 +26,14 @@ class RentedItems extends React.Component {
   }
 
   render() {
-    const { items, isFetching, username } = this.props;
+    const { items, isFetching, user } = this.props;
 
     const renderItems = items.map(this.renderItem);
 
     if (!renderItems.length && !isFetching) {
       return (
         <View style={{backgroundColor: 'white', height: '100%'}}>
-          <Text>You ({username}) have not posted any items.</Text>
+          <Text>You ({user.email}) have not posted any items.</Text>
         </View>
       );
     }
@@ -59,6 +59,7 @@ class RentedItems extends React.Component {
 }
 
 const mapStateToProps = (state) => ({
+  user: state.auth.user,
   items: state.items.data,
   isFetching: state.items.isFetching
 });

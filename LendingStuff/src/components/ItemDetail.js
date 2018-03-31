@@ -296,7 +296,8 @@ const styles = StyleSheet.create({
 });
 
 const mapStateToProps = (state) => ({
-  reviews: state.items.reviews
+  reviews: state.items.reviews,
+  transactions: state.transactions.data
 });
 
 export default connect(mapStateToProps)(ItemDetail);
