@@ -51,7 +51,7 @@ class SideBar extends React.Component {
 
           <TouchableOpacity style={styles.nav_item}
                             onPress={ () => {
-                              Actions.rentedItems({username: 'renter'});
+                              Actions.rentedItems({username: displayName});
                             }
                           }>
             <Text style={styles.nav_title}>Rented Items</Text>
