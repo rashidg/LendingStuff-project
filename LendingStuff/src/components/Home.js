@@ -47,7 +47,7 @@ class Home extends React.Component {
         <Button title="Login!"
                 onPress={ () => dispatch(login(this.state)) } />
         <Button title="Register!"
-                onPress={ () => Actions.popTo('Register') } />
+                onPress={ () => Actions.push("Register", {}) } />
       </KeyboardAvoidingView>
     );
   }

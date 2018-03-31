@@ -5,7 +5,7 @@ import { Button, Text, TextInput, KeyboardAvoidingView } from 'react-native';
 import { register, login } from '../actions';
 
 
-class Home extends React.Component {
+class Register extends React.Component {
 
   constructor() {
     super();
