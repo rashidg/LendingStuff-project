@@ -199,7 +199,12 @@ export const registerService = (data) => {
   return new Promise((resolve, reject) => {
     const { email, password } = data;
     firebase.auth().createUserWithEmailAndPassword(email, password)
-      .then((user) => { resolve(user) })
+      .then((user) => {
+        user.updateProfile({
+            username: data.username
+          }).then(function(){console.log(user)}).catch(function(error){console.log(error)}); 
+        resolve(user);
+      })
       .catch((err) => { reject(err) })
   })
 };
