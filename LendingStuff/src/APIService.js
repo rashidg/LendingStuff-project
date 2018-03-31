@@ -76,11 +76,14 @@ export const fetchItemsService = (query={}) => {
   });
 };
 
-export const fetchMyItemsService = (username) => {
+export const fetchMyItemsService = (email) => {
   return new Promise((resolve, reject) => {
     var ref = firebase.database().ref('items');
-    ref.orderByChild('owner').equalTo(username).once('value').then(snapshot => {
-      return resolve(Object.values(snapshot.val()));
+    ref.orderByChild('owner').equalTo(email).once('value').then(snapshot => {
+      if (!snapshot)
+        return resolve([]);
+      else
+        return resolve(Object.values(snapshot.val()));
     });
   })
 };

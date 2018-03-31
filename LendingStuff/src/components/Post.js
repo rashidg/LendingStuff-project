@@ -57,7 +57,8 @@ class Post extends React.Component {
       ...rest,
       postedOn: cur.format(),
       expiresOn: cur.add(dur, 'h').format(),
-      category: categories[categoryIdx]
+      category: categories[categoryIdx],
+      owner: this.props.user.email
     };
   }
 
@@ -177,4 +178,8 @@ const styles = StyleSheet.create({
   }
 });
 
-export default connect()(Post);
+const mapStateToProps = (state) => ({
+  user: state.auth.user
+});
+
+export default connect(mapStateToProps)(Post);

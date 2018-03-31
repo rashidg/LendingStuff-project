@@ -35,11 +35,11 @@ export function fetchItems(query) {
   };
 }
 
-export function fetchMyItems(lender) {
+export function fetchMyItems(email) {
   return (dispatch) => {
     dispatch(fetchItemsRequest());
 
-    fetchMyItemsService(lender)
+    fetchMyItemsService(email)
       .then((payload) =>
         {
           if (payload != null) {

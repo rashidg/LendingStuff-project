@@ -174,5 +174,6 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = (state) => ({
   reviews: state.items.reviews
-})
+});
+
 export default connect(mapStateToProps)(ItemDetail);
