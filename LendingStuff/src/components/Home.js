@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Button, Text, TextInput, KeyboardAvoidingView } from 'react-native';
-
+import { Actions } from 'react-native-router-flux';
 import { register, login } from '../actions';
 
 
@@ -47,7 +47,7 @@ class Home extends React.Component {
         <Button title="Login!"
                 onPress={ () => dispatch(login(this.state)) } />
         <Button title="Register!"
-                onPress={ () => dispatch(register(this.state)) } />
+                onPress={ () => Actions.popTo('Register') } />
       </KeyboardAvoidingView>
     );
   }
