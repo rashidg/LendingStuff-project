@@ -33,6 +33,7 @@ export default () => (
     <Router>
         <Stack key="root">
           <Scene key="home" component={Home} title="Home"/>
+          <Scene key="Register" component={Register} title="Registration"/>
           <Drawer hideNavBar
                   key="drawer"
                   contentComponent={SideBar}
@@ -46,7 +47,6 @@ export default () => (
             <Scene key="rentedItems" component={RentedItems} title="Rented Items"/>
             <Scene key="submitReview" component={SubmitReview} title="Submit Review"/>
             <Scene key="reviewList" component={ReviewList} title="Reviews" />
-            <Scene key="Register" component={Register} title="Registration" />
           </Drawer>
         </Stack>
     </Router>
