@@ -19,6 +19,7 @@ class Register extends React.Component {
   }
 
   onSubmit(){
+    const { dispatch } = this.props;
     if (this.state.username === "") {
       alert("Please fill in the username");
     } else if(this.state.email == ""){
@@ -31,6 +32,7 @@ class Register extends React.Component {
   }
 
   render() {
+
     const { dispatch } = this.props;
 
     const style = {
