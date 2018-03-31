@@ -76,11 +76,14 @@ export const fetchItemsService = (query={}) => {
   });
 };
 
-export const fetchMyItemsService = (username) => {
+export const fetchMyItemsService = (email) => {
   return new Promise((resolve, reject) => {
     var ref = firebase.database().ref('items');
-    ref.orderByChild('owner').equalTo(username).once('value').then(snapshot => {
-      return resolve(Object.values(snapshot.val()));
+    ref.orderByChild('owner').equalTo(email).once('value').then(snapshot => {
+      if (!snapshot)
+        return resolve([]);
+      else
+        return resolve(Object.values(snapshot.val()));
     });
   })
 };
@@ -143,6 +146,7 @@ export const postItemsService = (item) => {
   });
 };
 
+
 export const fetchReviewsService = (item_id) => {
   return new Promise((resolve, reject) => {
     var ref = firebase.database().ref('reviews/');
@@ -188,5 +192,23 @@ const confirmRenter = (username, item_id) => {
         return reject();
       })
       .catch(() => reject());
+  })
+};
+
+export const registerService = (data) => {
+  return new Promise((resolve, reject) => {
+    const { email, password } = data;
+    firebase.auth().createUserWithEmailAndPassword(email, password)
+      .then((user) => { resolve(user) })
+      .catch((err) => { reject(err) })
+  })
+};
+
+export const logInService = (data) => {
+  return new Promise((resolve, reject) => {
+    const { email, password } = data;
+    firebase.auth().signInWithEmailAndPassword(email, password)
+      .then((user) => resolve(user))
+      .catch((err) => reject(err));
   })
 };

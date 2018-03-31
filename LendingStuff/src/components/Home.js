@@ -1,11 +1,25 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import { Button, Text, TextInput, KeyboardAvoidingView } from 'react-native';
-import { Actions } from 'react-native-router-flux';
+
+import { register, login } from '../actions';
 
 
-export default class Home extends React.Component {
+class Home extends React.Component {
+
+  constructor() {
+    super();
+
+    this.state = {
+      email: "",
+      password: "",
+      loggedIn: ""
+    };
+  }
 
   render() {
+    const { dispatch } = this.props;
+
     const style = {
       flex: 1,
       backgroundColor: '#fff',
@@ -20,16 +34,23 @@ export default class Home extends React.Component {
       <KeyboardAvoidingView behavior='padding'
                             keyboardVerticalOffset={70}
                             style={style}>
-        <Text style={textStyle}>Username</Text>
+        <Text style={textStyle}>Email</Text>
             <TextInput style={{height: 50, width: 300, textAlign: 'center'}}
-                       placeholder="Username" />
+                       autoCapitalize="none"
+                       placeholder="Email"
+                       onChangeText={(text) => this.setState({email: text})}/>
         <Text style={textStyle}>Password</Text>
             <TextInput style={{height: 50, width: 300, textAlign: 'center'}}
                        placeholder="Passowrd"
-                       secureTextEntry={true}/>
+                       secureTextEntry={true}
+                       onChangeText={(text) => this.setState({password: text})}/>
         <Button title="Login!"
-                onPress={ () => {Actions.itemList();}} />
+                onPress={ () => dispatch(login(this.state)) } />
+        <Button title="Register!"
+                onPress={ () => dispatch(register(this.state)) } />
       </KeyboardAvoidingView>
     );
   }
 }
+
+export default connect(null)(Home);
