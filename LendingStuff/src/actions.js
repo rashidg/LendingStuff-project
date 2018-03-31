@@ -127,6 +127,7 @@ export function register(data, successCB, errorCB) {
     registerService(data)
       .then((payload) => {
         alert('registration successful');
+        Actions.Home();
       })
       .catch((err) => alert(err));
   }
