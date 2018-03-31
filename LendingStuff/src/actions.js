@@ -129,7 +129,10 @@ export function register(data, successCB, errorCB) {
         alert('registration successful');
         Actions.Home();
       })
-      .catch((err) => alert(err));
+      .catch((err) => {
+        alert(err + "\nPlease try again briefly.");
+        Actions.Home();        
+      });
   }
 }
 
