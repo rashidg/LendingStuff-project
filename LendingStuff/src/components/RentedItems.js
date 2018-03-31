@@ -47,7 +47,7 @@ class RentedItems extends React.Component {
 
     return (
       <View style={{backgroundColor: 'white', height: '100%'}}>
-        <ScrollView>
+        <ScrollView showsVerticalScrollIndicator={true}>
           {renderItems}
         </ScrollView>
       </View>

@@ -4,7 +4,8 @@ import { Text, View, Button, TextInput, Image, StyleSheet, ScrollView, Slider, L
 import moment from 'moment';
 import { Actions } from 'react-native-router-flux';
 
-import { updateRentedItem, createTransaction } from '../actions';
+import { updateRentedItem, createTransaction, fetchReviews } from '../actions';
+import ReviewList from "./ReviewList";
 
 
 class ItemDetail extends React.Component {
@@ -12,6 +13,11 @@ class ItemDetail extends React.Component {
   constructor(props) {
     super(props);
     this.state = { duration: 1 };
+  }
+
+  componentDidMount() {
+    const { item, dispatch } = this.props;
+    dispatch(fetchReviews(item.id))
   }
 
   handleRent() {
@@ -22,7 +28,7 @@ class ItemDetail extends React.Component {
   }
 
   render() {
-    const { item } = this.props;
+    const { item, reviews } = this.props;
 
     //URL which stores google maps location of item
     const locationurl = "https://www.google.com/maps/search/?api=1&query=" + item.location.latitude + "," + item.location.longitude;
@@ -41,11 +47,17 @@ class ItemDetail extends React.Component {
 
     const hoursLeft = moment().diff(moment(item.postedOn), 'hours');
 
+    let imgSource;
+    if (item.imgUrl)
+      imgSource = { uri: item.imgUrl };
+    else
+      imgSource = require('../image/boo.png');
+
     return (
       <View style={styles.container} >
         <ScrollView showsVerticalScrollIndicator={false}>
           <View style={{paddingBottom: 20, alignItems: 'center'}}>
-            <Image source={{ uri: item.imgUrl }}
+            <Image source={imgSource}
                    style={{ height: 400, width:300 }} />
           </View>
 
@@ -60,8 +72,24 @@ class ItemDetail extends React.Component {
           {renderInline('Owner', item.owner)}
           {renderInline('Posted', moment().to(moment(item.postedOn)))}
           {renderInline('Expiry', moment().to(moment(item.expiresOn)))}
+
+
+          <View style={styles.review}>
+            <View>
+              <ReviewList reviews={reviews} limit={true} item_id={item.id}/>
+            </View>
+            <View style={styles.review__button}>
+              <Button title={"Write a review"}
+                      onPress={() => { Actions.push("submitReview", {item_id: item.id}); }} />
+              <Button title={"See All"}
+                      onPress={() => { Actions.push("reviewList", {reviews: reviews, limit: false, item_id: item.id}); }} />
+            </View>
+          </View>
+
+
           
         </ScrollView>
+
         { !item.rented &&
           <View>
             <View style={[styles.inline, { paddingLeft: 20 }]}>
@@ -125,8 +153,26 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     borderColor: 'white',
     justifyContent: 'center'
+  },
+  review: {
+    flexDirection: 'column',
+    borderTopWidth: 1,
+    borderBottomWidth: 1,
+    borderColor: 'grey',
+    marginTop: 10,
+    marginRight: '-5%',
+    marginLeft: '-5%'
+  },
+  review__button: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginTop: '-5%',
+    marginLeft: '5%',
+    marginRight: '5%',
   }
 });
 
-
-export default connect()(ItemDetail);
+const mapStateToProps = (state) => ({
+  reviews: state.items.reviews
+})
+export default connect(mapStateToProps)(ItemDetail);

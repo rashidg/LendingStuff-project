@@ -1,13 +1,14 @@
 import { createReducer } from 'redux-act';
 
-import { fetchItemsRequest, fetchItemsSuccess, fetchItemsError } from '../actions';
+import {fetchItemsRequest, fetchItemsSuccess, fetchItemsError, fetchReviewsSuccess, fetchReviewsError} from '../actions';
 
 const initialState = {
   data: [],
   dataFetched: false,
   isFetching: false,
   error: false,
-  errorMessage: ''
+  errorMessage: '',
+  reviews: []
 };
 
 export const itemsReducer = createReducer({
@@ -25,5 +26,15 @@ export const itemsReducer = createReducer({
     data: [],
     isFetching: false,
     errorMessage: error
+  }),
+
+  [fetchReviewsSuccess]: (state, payload) => ({
+    ...state,
+    reviews: payload
+  }),
+
+  [fetchReviewsError] : (state) => ({
+    ...state,
+    reviews: []
   })
 }, initialState);
