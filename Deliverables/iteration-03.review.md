@@ -10,6 +10,10 @@
 #### Decisions that turned out well
  * Using YouTrack priority settings for each ticket
     * This helped the code reviews to be done in order of priority. Also, if someone completed the assigned ticket earlier, he/she took the unassigned ticket with the highest priority.
+    * Screenshots:
+    	* [March 23](https://github.com/csc301-winter-2018/project-team-22/blob/master/Deliverables/ScreenShots/YouTrack_2018-03-23.png)
+    	* [March 29](https://github.com/csc301-winter-2018/project-team-22/blob/master/Deliverables/ScreenShots/YouTrack_2018-03-29.png)
+    	* [March 31](https://github.com/csc301-winter-2018/project-team-22/blob/master/Deliverables/ScreenShots/YouTrack_2018-03-31.png)
  * Opening branches for WIP code
     * This allowed us to catch errors and discuss code design early on.
     * This improved code review, as it was more helpful to receive comments from other members as functionality was being implemented. 
