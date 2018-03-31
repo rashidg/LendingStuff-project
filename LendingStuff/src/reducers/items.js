@@ -11,7 +11,7 @@ const initialState = {
   reviews: []
 };
 
-export const itemsReducer = createReducer({
+export default itemsReducer = createReducer({
   [fetchItemsRequest]: (state) => ({ ...state, isFetching: true }),
 
   [fetchItemsSuccess]: (state, payload) => ({

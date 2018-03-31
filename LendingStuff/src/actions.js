@@ -1,4 +1,5 @@
 import { createAction } from 'redux-act';
+import { Actions } from 'react-native-router-flux';
 
 
 import {
@@ -11,7 +12,6 @@ import {
   fetchReviewsService,
   postReviewService,
   registerService,
-  createUserService,
   logInService
 } from './APIService';
 
@@ -23,7 +23,6 @@ export const fetchReviewsSuccess = createAction('FETCH_REVIEWS_SUCCESS');
 export const fetchReviewsError = createAction('FETCH_REVIEWS_ERROR');
 export const logInRequest = createAction('LOG_IN');
 export const logOutRequest = createAction('LOG_OUT');
-export const registerRequest = createAction('REGISTER_REQUEST');
 
 
 export function fetchItems(query) {
@@ -127,30 +126,19 @@ export function register(data, successCB, errorCB) {
 
     registerService(data)
       .then((payload) => {
-        successCB(payload);
-        dispatch(registerRequest(payload));
+        alert('registration successful');
       })
-      .catch((err) => errorCB(err))
-
+      .catch((err) => alert(err));
   }
 }
 
-/*export function createUser(data, successCB, errorCB) {
+export function login(data) {
   return (dispatch) => {
-    createUserService(data)
-      .then((user) => successCB(user))
-      .catch((err) => errorCB(err))
-  }
-}*/
-
-export function login(data, successCB, errorCB) {
-  return (dispatch) => {
-
     logInService(data)
-      .then((payload) => {
-        successCB(payload);
-        dispatch(logInRequest(payload));
+      .then((user) => {
+        dispatch(logInRequest(user));
+        Actions.itemList();
       })
-      .catch((err) => errorCB(err))
+      .catch((err) => alert(err))
   }
 }
