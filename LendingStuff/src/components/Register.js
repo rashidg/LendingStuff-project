@@ -64,7 +64,7 @@ class Register extends React.Component {
                        secureTextEntry={true}
                        onChangeText={(text) => this.setState({password: text})}/>
         <Button title="Register!"
-                onPress={ () => onSubmit() } />
+                onPress={ () => this.onSubmit() } />
         <Button title="or login!"
                 onPress={ () => Actions.pop() } />
       </KeyboardAvoidingView>
