@@ -19,8 +19,12 @@ class Register extends React.Component {
   }
 
   onSubmit(){
-    if (data.username === "") {
+    if (this.state.username === "") {
       alert("Please fill in the username");
+    } else if(this.state.email == ""){
+      alert("Please fill in the email");
+    } else if(this.state.password == ""){
+      alert("Please fill in the password");
     } else {
       dispatch(register(this.state));
     }
