@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Button, Text, TextInput, KeyboardAvoidingView } from 'react-native';
-
+import { Actions } from 'react-native-router-flux';
 import { register, login } from '../actions';
 
 
@@ -52,6 +52,8 @@ class Register extends React.Component {
                        onChangeText={(text) => this.setState({password: text})}/>
         <Button title="Register!"
                 onPress={ () => dispatch(register(this.state)) } />
+        <Button title="or login!"
+                onPress={ () => Actions.pop() } />
       </KeyboardAvoidingView>
     );
   }
