@@ -13,7 +13,8 @@ class Home extends React.Component {
     this.state = {
       email: "",
       password: "",
-      loggedIn: ""
+      loggedIn: "",
+      username: ""
     };
   }
 
