@@ -127,11 +127,11 @@ export function register(data, successCB, errorCB) {
     registerService(data)
       .then((payload) => {
         alert('registration successful');
-        Actions.Home();
+        Actions.push("home", {});
       })
       .catch((err) => {
         alert(err + "\nPlease try again briefly.");
-        Actions.Home();        
+        Actions.push("home", {});        
       });
   }
 }
