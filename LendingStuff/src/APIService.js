@@ -201,7 +201,7 @@ export const registerService = (data) => {
     firebase.auth().createUserWithEmailAndPassword(email, password)
       .then((user) => {
         user.updateProfile({
-            username: data.username
+            displayName: data.username
           }).then(function(){console.log(user)}).catch(function(error){console.log(error)}); 
         resolve(user);
       })
