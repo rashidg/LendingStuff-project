@@ -18,6 +18,14 @@ class Register extends React.Component {
     };
   }
 
+  onSubmit(){
+    if (data.username === "") {
+      alert("Please fill in the username");
+    } else {
+      dispatch(register(this.state));
+    }
+  }
+
   render() {
     const { dispatch } = this.props;
 
@@ -39,6 +47,7 @@ class Register extends React.Component {
             <TextInput style={{height: 50, width: 300, textAlign: 'center'}}
                        autoCapitalize="none"
                        placeholder="Username"
+                       r
                        onChangeText={(text) => this.setState({username: text})}/>
         <Text style={textStyle}>Email</Text>
             <TextInput style={{height: 50, width: 300, textAlign: 'center'}}
@@ -51,7 +60,7 @@ class Register extends React.Component {
                        secureTextEntry={true}
                        onChangeText={(text) => this.setState({password: text})}/>
         <Button title="Register!"
-                onPress={ () => dispatch(register(this.state)) } />
+                onPress={ () => onSubmit() } />
         <Button title="or login!"
                 onPress={ () => Actions.pop() } />
       </KeyboardAvoidingView>
