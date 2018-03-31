@@ -63,7 +63,7 @@ class Post extends React.Component {
 
   onSuccess() {
     alert("Posting successful!");
-    Actions.popTo("test");
+    Actions.pop();
   }
 
   onError(message) {
@@ -137,9 +137,9 @@ class Post extends React.Component {
                          this.setState({rate: parseFloat(text).toFixed(2)});
                        }
                      }}/>
+          <Button title="Post this item!"
+                  onPress={() => this.onSubmit()}/>
         </KeyboardAwareScrollView>
-        <Button title="Post this item!"
-                onPress={() => this.onSubmit()}/>
       </View>
     );
   }
