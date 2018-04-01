@@ -105,7 +105,7 @@ class ItemDetail extends React.Component {
                       paddingTop: 10,
                       color: 'grey',
                       textAlign: 'center'}}>
-          Waiting for owner's response...
+          Waiting for owners response...
         </Text>
       );
     }
@@ -128,7 +128,7 @@ class ItemDetail extends React.Component {
         </View>
       )
     }
-    
+
     if (item.rented && transactions && !isFetching && !transactions.renter_confirmed && transactions.renter === user.email) {
       return (
         <View>
@@ -143,7 +143,7 @@ class ItemDetail extends React.Component {
         </View>
       )
     }
-    if (item.rented && transactions && !isFetching && transactions.renter_confirmed && transactions.owner === user.email) {
+    if (item.rented && transactions && !isFetching && !transactions.renter_confirmed && transactions.owner === user.email) {
       return (
         <View>
           <View style={[styles.inline, { paddingLeft: 20 }]}>
@@ -157,7 +157,7 @@ class ItemDetail extends React.Component {
         </View>
       )
     }
-    
+
     if (false && item.rented && transactions && !isFetching && transactions.lender_confirmed && transactions.renter_confirmed) {
       return (
         <View>

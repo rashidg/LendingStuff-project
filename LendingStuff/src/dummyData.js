@@ -21,11 +21,41 @@ export const itemList = [
     postedOn: "2018-03-02",
     expiresOn: "2018-04-04",
     rate: 15,
-    owner: "lender",
+    owner: "josh@gmail.com",
+    image: "resource/boo.png",
+    requested: false,
+    renter: null,
+    requester: null
+  },
+  {
+    category: "chargers",
+    name: "Macbook 85W Charger",
+    desc: "It is compatible with 15 inch Macbooks",
+    rented: false,
+    location: robarts,
+    postedOn: "2018-03-02",
+    expiresOn: "2018-04-04",
+    rate: 15,
+    owner: "josh@gmail.com",
     image: "resource/boo.png",
     requested: true,
     renter: null,
-    requester: "renter"
+    requester: "john@gmail.com"
+  },
+  {
+    category: "chargers",
+    name: "Macbook 85W Charger",
+    desc: "It is compatible with 15 inch Macbooks",
+    rented: true,
+    location: robarts,
+    postedOn: "2018-03-02",
+    expiresOn: "2018-04-04",
+    rate: 15,
+    owner: "josh@gmail.com",
+    image: "resource/boo.png",
+    requested: false,
+    renter: "john@gmail.com",
+    requester: null
   },
   {
     category: "chargers",
@@ -36,11 +66,11 @@ export const itemList = [
     postedOn: "2018-03-02",
     expiresOn: "2018-04-04",
     rate: 15,
-    owner: "lender",
+    owner: "josh",
     image: "resource/boo.png",
-    requested: false,
+    requested: true,
     renter: null,
-    requester: null
+    requester: "john"
   },
   {
     category: "home products",
