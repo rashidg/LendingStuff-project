@@ -98,9 +98,9 @@ export function fetchRentedItems(email) {
   };
 }
 
-export function updateRentedItem(item_id){
+export function updateRentedItem(item_id, user){
   return (dispatch) => {
-    updateRentedItemService(item_id)
+    updateRentedItemService(item_id, user)
       .then(() => dispatch(fetchItems()));
   };
 }
@@ -134,6 +134,7 @@ export function returnTransaction(item_id){
 export function gotbackTransaction(item_id){
   return (dispatch) => {
     gotbackTransactionService(item_id);
+    dispatch(fetchItems())
   };
 }
 
@@ -195,7 +196,7 @@ export function login(data) {
     logInService(data)
       .then((user) => {
         dispatch(logInRequest(user));
-        Actions.itemList();
+        Actions.reset('itemList');
       })
       .catch((err) => alert(err))
   }

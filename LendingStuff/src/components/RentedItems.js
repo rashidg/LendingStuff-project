@@ -20,6 +20,8 @@ class RentedItems extends React.Component {
     return <Item key={"item" + idx}
                  title={item.name}
                  description={item.desc}
+                 imgUrl={item.imgUrl}
+                 infoBox1={item.distance + "km"}
                  infoBox2={"$" + item.rate}
                  statusBox={status}
                  onPress={() => {Actions.itemDetail({item})}} />;
@@ -33,7 +35,7 @@ class RentedItems extends React.Component {
     if (!renderItems.length && !isFetching) {
       return (
         <View style={{backgroundColor: 'white', height: '100%'}}>
-          <Text>You ({user.email}) have not posted any items.</Text>
+          <Text>You ({user.email}) have not rented any item.</Text>
         </View>
       );
     }

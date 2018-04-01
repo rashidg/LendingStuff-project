@@ -37,16 +37,14 @@ export default () => (
               drawerPosition="right">
         <Stack key="root">
           <Scene key="home" component={Home} title="Home"/>
-
-            <Scene key="post" component={Post} title="Post an Item"/>
-            <Scene key="search" component={Search} title="Search"/>
-            <Scene key="itemDetail" component={ItemDetail} title="Item Detail"/>
-            <Scene key="itemList" component={ItemList} title="Item List"/>
-            <Scene key="myItems" component={MyItems} title="My Items"/>
-            <Scene key="rentedItems" component={RentedItems} title="Rented Items"/>
-            <Scene key="submitReview" component={SubmitReview} title="Submit Review"/>
-            <Scene key="reviewList" component={ReviewList} title="Reviews" />
-
+          <Scene key="post" component={Post} title="Post an Item"/>
+          <Scene key="search" component={Search} title="Search"/>
+          <Scene key="itemDetail" component={ItemDetail} title="Item Detail"/>
+          <Scene key="itemList" component={ItemList} title="Item List"/>
+          <Scene key="myItems" component={MyItems} title="My Items"/>
+          <Scene key="rentedItems" component={RentedItems} title="Rented Items"/>
+          <Scene key="submitReview" component={SubmitReview} title="Submit Review"/>
+          <Scene key="reviewList" component={ReviewList} title="Reviews" />
         </Stack>
       </Drawer>
     </Router>

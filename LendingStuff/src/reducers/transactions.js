@@ -3,7 +3,7 @@ import { createReducer } from 'redux-act';
 import { fetchTransactionsRequest, fetchTransactionsSuccess, fetchTransactionsError } from '../actions';
 
 const initialState = {
-  data: [],
+  data: null,
   dataFetched: false,
   isFetching: false,
   error: false,
@@ -22,7 +22,7 @@ export const transactionsReducer = createReducer({
 
   [fetchTransactionsError]: (state, error) => ({
     ...state,
-    data: [],
+    data: null,
     isFetching: false,
     errorMessage: error
   })

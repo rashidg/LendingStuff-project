@@ -9,7 +9,6 @@ import {
   fetchItemTransaction,
   fetchReviews,
   createTransaction,
-  approveTransaction,
   returnTransaction,
   gotbackTransaction,
   closeItem,
@@ -27,12 +26,9 @@ class ItemDetail extends React.Component {
   }
 
   componentDidMount() {
-    this.props.dispatch(fetchItemTransaction(this.props.item.id));
-  }
-
-  componentDidMount() {
-    const {item, dispatch} = this.props;
+    const { item, dispatch } = this.props;
     dispatch(fetchReviews(item.id));
+    dispatch(fetchItemTransaction(this.props.item.id));
   }
 
   handleRequest() {
@@ -42,10 +38,10 @@ class ItemDetail extends React.Component {
   }
 
   handleRent() {
-    const { item, dispatch } = this.props;
+    const { item, dispatch, user } = this.props;
 
-    dispatch(updateRentedItem(item.id));
-    dispatch(createTransaction(item.id, "lender", "renter", this.state.duration));
+    dispatch(updateRentedItem(item.id, item.requester));
+    dispatch(createTransaction(item.id, item.owner, item.requester, this.state.duration));
     Actions.popTo('itemList');
   }
 
@@ -105,7 +101,7 @@ class ItemDetail extends React.Component {
     }
     if (item.owner !== user.email && item.requested && !item.rented && item.requester === user.email) {
       return (
-        <Text style={{ontSize: 16,
+        <Text style={{fontSize: 16,
                       paddingTop: 10,
                       color: 'grey',
                       textAlign: 'center'}}>
@@ -117,7 +113,7 @@ class ItemDetail extends React.Component {
     if (item.requested && item.owner === user.email) {
       return (
         <View>
-          <View style={[styles.inline, { paddingLeft: 20 }]}>
+          <View style={[styles.inline, { paddingLeft: 20, fontSize: 16, }]}>
             <Text>{item.requester} wants to borrow this item!</Text>
           </View>
 
@@ -125,29 +121,15 @@ class ItemDetail extends React.Component {
             <Button title={"Rent out this item: $" + item.rate + " per hour"}
                     onPress={this.handleRent.bind(this)} />
           </View>
-          <View style={styles.submit}>
+          <View style={[styles.submit, {marginTop: 5, backgroundColor: '#f48342'}]}>
             <Button title={"Look for another renter"}
                     onPress={this.handleRefuse.bind(this)} />
           </View>
         </View>
       )
     }
-
-    if (item.rented && transactions.length && !isFetching && transactions[0].lender_confirmed == false && transactions[0].owner === "lender") {
-      return (
-        <View>
-          <View style={[styles.inline, { paddingLeft: 20 }]}>
-            <Text>You have rented out this item.</Text>
-          </View>
-
-          <View style={styles.submit}>
-            <Button title={"Confirm item return (as lender)"}
-                    onPress={this.handleGotback.bind(this)} />
-          </View>
-        </View>
-      )
-    }
-    if (item.rented && transactions.length && !isFetching && transactions[0].renter_confirmed == false && transactions[0].renter === "renter") {
+    
+    if (item.rented && transactions && !isFetching && !transactions.renter_confirmed && transactions.renter === user.email) {
       return (
         <View>
           <View style={[styles.inline, { paddingLeft: 20 }]}>
@@ -161,7 +143,22 @@ class ItemDetail extends React.Component {
         </View>
       )
     }
-    if (item.rented && transactions.length && !isFetching && transactions[0].lender_confirmed && transactions[0].renter_confirmed) {
+    if (item.rented && transactions && !isFetching && transactions.renter_confirmed && transactions.owner === user.email) {
+      return (
+        <View>
+          <View style={[styles.inline, { paddingLeft: 20 }]}>
+            <Text>You have rented out this item.</Text>
+          </View>
+
+          <View style={styles.submit}>
+            <Button title={"Confirm item return (as lender)"}
+                    onPress={this.handleGotback.bind(this)} />
+          </View>
+        </View>
+      )
+    }
+    
+    if (false && item.rented && transactions && !isFetching && transactions.lender_confirmed && transactions.renter_confirmed) {
       return (
         <View>
           <View style={[styles.inline, { paddingLeft: 20 }]}>
@@ -175,9 +172,19 @@ class ItemDetail extends React.Component {
         </View>
       )
     }
-    return (
-      <View></View>
-    )
+
+    if (item.owner === user.email && item.rented) {
+      return (
+        <Text style={{fontSize: 16,
+                      paddingTop: 10,
+                      color: 'grey',
+                      textAlign: 'center'}}>
+          Item rented by {item.renter}
+        </Text>
+      );
+    }
+
+    return null;
   }
 
   render() {

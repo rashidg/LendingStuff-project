@@ -26,10 +26,8 @@ export default class SideBar extends React.Component {
 
         <ScrollView>
           <TouchableOpacity style={styles.nav_item}
-                            onPress={ () => {Actions.search();}}>
-            <Image style={styles.nav_icon}
-                   source={require('../image/search.png')} />
-            <Text style={styles.nav_title}>Search</Text>
+                            onPress={ () => {Actions.itemList();}}>
+            <Text style={styles.nav_title}>Available Items</Text>
           </TouchableOpacity>
 
           <TouchableOpacity style={styles.nav_item}
