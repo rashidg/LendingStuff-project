@@ -7,13 +7,22 @@ import {
   StyleSheet,
   ScrollView,
 } from 'react-native';
+
+import { connect } from 'react-redux'
+
 import {Actions} from "react-native-router-flux";
 
 const username = "lender";
 
-export default class SideBar extends React.Component {
+class SideBar extends React.Component {
 
   render() {
+    const { user } = this.props;
+    if(user != null){
+      displayName = user.displayName;
+    } else{
+      displayName = "Not logged in";
+    }
     return (
       <View style={styles.container}>
           <View style={styles.profile}>
@@ -21,7 +30,7 @@ export default class SideBar extends React.Component {
               <Image style={styles.image}
                      source={require('../image/man.png')} />
             </View>
-            <Text style={styles.username}>{username}</Text>
+            <Text style={styles.username}>{displayName}</Text>
           </View>
 
         <ScrollView>
@@ -32,7 +41,7 @@ export default class SideBar extends React.Component {
 
           <TouchableOpacity style={styles.nav_item}
                             onPress={ () => {
-                              Actions.myItems({username});
+                              Actions.myItems({user});
                             }
                           }>
             <Text style={styles.nav_title}>My Items</Text>
@@ -40,7 +49,7 @@ export default class SideBar extends React.Component {
 
           <TouchableOpacity style={styles.nav_item}
                             onPress={ () => {
-                              Actions.rentedItems({username: 'renter'});
+                              Actions.rentedItems();
                             }
                           }>
             <Text style={styles.nav_title}>Rented Items</Text>
@@ -125,3 +134,7 @@ const styles = StyleSheet.create({
     resizeMode: 'contain',
   }
 });
+const mapStateToProps = (state) => ({
+  user: state.auth.user
+});
+export default connect(mapStateToProps)(SideBar);

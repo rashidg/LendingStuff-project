@@ -35,7 +35,7 @@ class RentedItems extends React.Component {
     if (!renderItems.length && !isFetching) {
       return (
         <View style={{backgroundColor: 'white', height: '100%'}}>
-          <Text>You ({user.email}) have not rented any item.</Text>
+          <Text>You ({user.displayName}) have not rented any items.</Text>
         </View>
       );
     }
@@ -63,7 +63,8 @@ class RentedItems extends React.Component {
 const mapStateToProps = (state) => ({
   user: state.auth.user,
   items: state.items.data,
-  isFetching: state.items.isFetching
+  isFetching: state.items.isFetching,
+  user: state.auth.user
 });
 
 export default connect(mapStateToProps)(RentedItems);

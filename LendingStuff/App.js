@@ -19,6 +19,7 @@ import MyItems from './src/components/MyItems.js';
 import RentedItems from './src/components/RentedItems.js';
 import SubmitReview from './src/components/SubmitReview.js';
 import ReviewList from './src/components/ReviewList.js';
+import Register from './src/components/Register.js';
 
 const reduxStore = createStore(indexReducer, applyMiddleware(thunk));
 
@@ -37,14 +38,21 @@ export default () => (
               drawerPosition="right">
         <Stack key="root">
           <Scene key="home" component={Home} title="Home"/>
-          <Scene key="post" component={Post} title="Post an Item"/>
-          <Scene key="search" component={Search} title="Search"/>
-          <Scene key="itemDetail" component={ItemDetail} title="Item Detail"/>
-          <Scene key="itemList" component={ItemList} title="Item List"/>
-          <Scene key="myItems" component={MyItems} title="My Items"/>
-          <Scene key="rentedItems" component={RentedItems} title="Rented Items"/>
-          <Scene key="submitReview" component={SubmitReview} title="Submit Review"/>
-          <Scene key="reviewList" component={ReviewList} title="Reviews" />
+          <Scene key="Register" component={Register} title="Registration"/>
+          <Drawer hideNavBar
+                  key="drawer"
+                  contentComponent={SideBar}
+                  drawerWidth={280}
+                  drawerPosition="right">
+            <Scene key="post" component={Post} title="Post an Item"/>
+            <Scene key="search" component={Search} title="Search"/>
+            <Scene key="itemDetail" component={ItemDetail} title="Item Detail"/>
+            <Scene key="itemList" component={ItemList} title="Item List"/>
+            <Scene key="myItems" component={MyItems} title="My Items"/>
+            <Scene key="rentedItems" component={RentedItems} title="Rented Items"/>
+            <Scene key="submitReview" component={SubmitReview} title="Submit Review"/>
+            <Scene key="reviewList" component={ReviewList} title="Reviews" />
+          </Drawer>
         </Stack>
       </Drawer>
     </Router>

@@ -5,29 +5,34 @@ import { Actions } from 'react-native-router-flux';
 import { register, login } from '../actions';
 
 
-class Home extends React.Component {
+class Register extends React.Component {
 
   constructor() {
     super();
 
     this.state = {
       email: "",
-      password: ""
+      password: "",
+      loggedIn: "",
+      username: ""
     };
   }
 
   onSubmit(){
     const { dispatch } = this.props;
-    if(this.state.email == ""){
+    if (this.state.username === "") {
+      alert("Please fill in the username");
+    } else if(this.state.email == ""){
       alert("Please fill in the email");
     } else if(this.state.password == ""){
       alert("Please fill in the password");
-    } else{
-      dispatch(login(this.state));
+    } else {
+      dispatch(register(this.state));
     }
   }
 
   render() {
+
     const { dispatch } = this.props;
 
     const style = {
@@ -44,6 +49,12 @@ class Home extends React.Component {
       <KeyboardAvoidingView behavior='padding'
                             keyboardVerticalOffset={70}
                             style={style}>
+        <Text style={textStyle}>Username</Text>
+            <TextInput style={{height: 50, width: 300, textAlign: 'center'}}
+                       autoCapitalize="none"
+                       placeholder="Username"
+                       r
+                       onChangeText={(text) => this.setState({username: text})}/>
         <Text style={textStyle}>Email</Text>
             <TextInput style={{height: 50, width: 300, textAlign: 'center'}}
                        autoCapitalize="none"
@@ -51,16 +62,16 @@ class Home extends React.Component {
                        onChangeText={(text) => this.setState({email: text})}/>
         <Text style={textStyle}>Password</Text>
             <TextInput style={{height: 50, width: 300, textAlign: 'center'}}
-                       placeholder="Password"
+                       placeholder="Passowrd"
                        secureTextEntry={true}
                        onChangeText={(text) => this.setState({password: text})}/>
-        <Button title="Login!"
-                onPress={ () => this.onSubmit() } />
         <Button title="Register!"
-                onPress={ () => Actions.push("Register", {}) } />
+                onPress={ () => this.onSubmit() } />
+        <Button title="or login!"
+                onPress={ () => Actions.pop() } />
       </KeyboardAvoidingView>
     );
   }
 }
 
-export default connect(null)(Home);
+export default connect(null)(Register);
