@@ -43,7 +43,7 @@ class SideBar extends React.Component {
 
           <TouchableOpacity style={styles.nav_item}
                             onPress={ () => {
-                              Actions.myItems({displayName});
+                              Actions.myItems({user});
                             }
                           }>
             <Text style={styles.nav_title}>My Items</Text>
@@ -51,7 +51,7 @@ class SideBar extends React.Component {
 
           <TouchableOpacity style={styles.nav_item}
                             onPress={ () => {
-                              Actions.rentedItems({displayName});
+                              Actions.rentedItems();
                             }
                           }>
             <Text style={styles.nav_title}>Rented Items</Text>

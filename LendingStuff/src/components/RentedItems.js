@@ -8,8 +8,12 @@ import { Actions } from 'react-native-router-flux';
 
 class RentedItems extends React.Component {
   componentDidMount(){
-    const { dispatch, username, user } = this.props;
-    dispatch(fetchRentedItems(user.email));
+    const { dispatch, user } = this.props;
+    const username = user.email;
+    console.log("This is componentDidMount");
+    console.log("this is username " + username);
+    console.log("This was user.email " + user.email);
+    dispatch(fetchRentedItems(username));
   }
 
   renderItem(item, idx){
@@ -36,6 +40,7 @@ class RentedItems extends React.Component {
     }
 
     if (isFetching) {
+      console.log("isFetching");
       return (
         <View style={{backgroundColor: 'white', height: '100%'}}>
           <ActivityIndicator size='large'

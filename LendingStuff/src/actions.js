@@ -38,12 +38,12 @@ export function fetchItems(query) {
 export function fetchMyItems(email) {
   return (dispatch) => {
     dispatch(fetchItemsRequest());
-
     fetchMyItemsService(email)
       .then((payload) =>
         {
           if (payload != null) {
             dispatch(fetchItemsSuccess(payload));
+            console.log(email);
           }
           else {
             dispatch(fetchItemsSuccess([]));
@@ -56,21 +56,26 @@ export function fetchMyItems(email) {
 
 export function fetchRentedItems(renter) {
   return (dispatch) => {
-    
+    console.log("renter: " + renter);
     dispatch(fetchItemsRequest());
-
+    console.log("before fetch service");
     fetchRentedItemsService(renter)
       .then((payload) =>
         {
           if (payload != null) {
+            console.log("Not null");
             dispatch(fetchItemsSuccess(payload));
           }
           else {
+            console.log("null");
             dispatch(fetchItemsSuccess([]));
           }
         }
       )
-      .catch((err) => dispatch(fetchItemsError(err)));
+      .catch((err) => {
+        dispatch(fetchItemsError(err));
+        console.log("Error");
+      });
   };
 }
 

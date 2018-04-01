@@ -9,7 +9,8 @@ import { Actions } from 'react-native-router-flux';
 class MyItems extends React.Component {
   componentDidMount(){
     const { dispatch, user } = this.props;
-    dispatch(fetchMyItems(user.email));
+    console.log(user);
+    dispatch(fetchMyItems(user.displayName));
   }
 
   renderItem(item, idx){
@@ -56,7 +57,6 @@ class MyItems extends React.Component {
 }
 
 const mapStateToProps = (state) => ({
-  user: state.auth.user,
   items: state.items.data,
   isFetching: state.items.isFetching
 });
