@@ -90,7 +90,6 @@ export const fetchMyItemsService = (username) => {
 };
 
 export const fetchRentedItemsService = (username) => {
-  console.log("In fetchRentedItemsService " + username);
   return new Promise((resolve, reject) => {
     var ref = firebase.database().ref('items');
     ref.orderByChild('renter').equalTo(username).once('value').then(snapshot => {

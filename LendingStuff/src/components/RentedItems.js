@@ -10,9 +10,6 @@ class RentedItems extends React.Component {
   componentDidMount(){
     const { dispatch, user } = this.props;
     const username = user.email;
-    console.log("This is componentDidMount");
-    console.log("this is username " + username);
-    console.log("This was user.email " + user.email);
     dispatch(fetchRentedItems(username));
   }
 
@@ -34,13 +31,12 @@ class RentedItems extends React.Component {
     if (!renderItems.length && !isFetching) {
       return (
         <View style={{backgroundColor: 'white', height: '100%'}}>
-          <Text>You ({user.displayName}) have not posted any items.</Text>
+          <Text>You ({user.displayName}) have not rented any items.</Text>
         </View>
       );
     }
 
     if (isFetching) {
-      console.log("isFetching");
       return (
         <View style={{backgroundColor: 'white', height: '100%'}}>
           <ActivityIndicator size='large'

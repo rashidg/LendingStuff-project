@@ -9,7 +9,6 @@ import { Actions } from 'react-native-router-flux';
 class MyItems extends React.Component {
   componentDidMount(){
     const { dispatch, user } = this.props;
-    console.log(user);
     dispatch(fetchMyItems(user.displayName));
   }
 
