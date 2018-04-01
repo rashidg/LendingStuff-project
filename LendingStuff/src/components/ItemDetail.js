@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Text, View, Button, TextInput, Image, StyleSheet, ScrollView, Slider, ActivityIndicator } from 'react-native';
+import { Text, View, Button, TextInput, Image, StyleSheet, ScrollView, Slider, ActivityIndicator, Linking } from 'react-native';
 import moment from 'moment';
 import { Actions } from 'react-native-router-flux';
 import ReviewList from "./ReviewList";
@@ -231,7 +231,14 @@ class ItemDetail extends React.Component {
           {renderInline('Owner', item.owner)}
           {renderInline('Posted', moment().to(moment(item.postedOn)))}
           {renderInline('Expiry', moment().to(moment(item.expiresOn)))}
+          {renderInline('Location', item.locationText)}
 
+          <View style={styles.location}>
+            <Button title="Show location" style={styles.submit}
+                    onPress={ () => goToUrl(locationurl)} />
+            <Button title="Show directions" style={styles.submit}
+                    onPress={ () => goToUrl(directionsurl)} />
+          </View>
 
           <View style={styles.review}>
             <View>
@@ -300,6 +307,13 @@ const styles = StyleSheet.create({
     marginTop: '-5%',
     marginLeft: '5%',
     marginRight: '5%',
+  },
+  location: {
+    flexDirection: 'row',
+    borderRadius: 10,
+    borderWidth: 2,
+    borderColor: 'white',
+    justifyContent: 'center'
   }
 });
 

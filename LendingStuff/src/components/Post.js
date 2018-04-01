@@ -126,7 +126,7 @@ class Post extends React.Component {
           <TextInput style={styles.textInput}
                      multiline={false}
                      placeholder="Enter the meeting location:"
-                     onChangeText={(text) => this.setState({location: text})} />
+                     onChangeText={(text) => this.setState({locationText: text})} />
 
           <Text style={styles.heading}>Hourly rate</Text>
           <TextInput style={styles.textInput}
