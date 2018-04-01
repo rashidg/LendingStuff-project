@@ -47,19 +47,15 @@ export function fetchItems(query) {
 export function fetchMyItems(email) {
   return (dispatch) => {
     dispatch(fetchItemsRequest());
-    console.log("Fetch My Items "  + email);
     fetchMyItemsService(email)
       .then((payload) =>
         {
           if (payload != null) {
             dispatch(fetchItemsSuccess(payload));
-            console.log(email);
           }
           else {
             dispatch(fetchItemsSuccess([]));
-            console.log(email + "EMPTY FUCK");
           }
-          console.log("MATE PAYLOAD")
         }
       ).catch((err) => dispatch(fetchItemsError(err)));
   };
@@ -89,18 +85,15 @@ export function fetchRentedItems(email) {
       .then((payload) =>
         {
           if (payload != null) {
-            console.log("Not null");
             dispatch(fetchItemsSuccess(payload));
           }
           else {
-            console.log("null");
             dispatch(fetchItemsSuccess([]));
           }
         }
       )
       .catch((err) => {
         dispatch(fetchItemsError(err));
-        console.log("Error");
       });
   };
 }
@@ -208,7 +201,7 @@ export function login(data) {
     logInService(data)
       .then((user) => {
         dispatch(logInRequest(user));
-        Actions.reset('itemList');
+        Actions.itemList();
       })
       .catch((err) => alert(err))
   }
