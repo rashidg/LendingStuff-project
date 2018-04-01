@@ -12,7 +12,10 @@ class ItemList extends React.Component {
   }
 
   renderItem(item){
-    const status = item.rented ? "Rented" : "Available";
+    if (item.rented) status = "Rented";
+    else if (item.requested) status = "Requested";
+    else status = "Available";
+
     return <Item key={item.id}
                  title={item.name}
                  description={item.desc}

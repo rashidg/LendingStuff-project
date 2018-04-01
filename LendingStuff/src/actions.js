@@ -7,15 +7,21 @@ import {
   fetchMyItemsService,
   fetchRentedItemsService,
   updateRentedItemService,
+  updateRequestedItemService,
+  refuseRequestedItemService,
   postItemsService,
   createTransactionService,
   fetchReviewsService,
   postReviewService,
   registerService,
-  logInService
+  logInService,
+  returnTransactionService,
+  gotbackTransactionService,
+  closeItemService,
+  fetchItemTransactionService
 } from './APIService';
 
- 
+
 export const fetchItemsRequest = createAction('FETCH_ITEMS_REQUEST');
 export const fetchItemsSuccess = createAction('FETCH_ITEMS_SUCCESS');
 export const fetchItemsError = createAction('FETCH_ITEMS_ERROR');
@@ -24,6 +30,9 @@ export const fetchReviewsError = createAction('FETCH_REVIEWS_ERROR');
 export const logInRequest = createAction('LOG_IN');
 export const logOutRequest = createAction('LOG_OUT');
 
+export const fetchTransactionsRequest = createAction('FETCH_TRANSACTIONS_REQUEST');
+export const fetchTransactionsSuccess = createAction('FETCH_TRANSACTIONS_SUCCESS');
+export const fetchTransactionsError = createAction('FETCH_TRANSACTIONS_ERROR');
 
 export function fetchItems(query) {
   return (dispatch) => {
@@ -54,12 +63,27 @@ export function fetchMyItems(email) {
   };
 }
 
-export function fetchRentedItems(renter) {
+export function fetchItemTransaction(item_id) {
   return (dispatch) => {
-    
+    dispatch(fetchTransactionsRequest());
+    fetchItemTransactionService(item_id)
+      .then((payload) =>
+        {
+          if (payload != null)
+            dispatch(fetchTransactionsSuccess(payload));
+          else
+            dispatch(fetchTransactionsSuccess([]));
+        })
+      .catch((err) => dispatch(fetchTransactionsError(err)));
+  };
+}
+
+export function fetchRentedItems(email) {
+  return (dispatch) => {
+
     dispatch(fetchItemsRequest());
 
-    fetchRentedItemsService(renter)
+    fetchRentedItemsService(email)
       .then((payload) =>
         {
           if (payload != null) {
@@ -74,15 +98,50 @@ export function fetchRentedItems(renter) {
   };
 }
 
-export function updateRentedItem(item_id){
+export function updateRentedItem(item_id, user){
   return (dispatch) => {
-    updateRentedItemService(item_id);
+    updateRentedItemService(item_id, user)
+      .then(() => dispatch(fetchItems()));
   };
 }
 
-export function createTransaction(item_id, renter, duration){
+export function updateRequestedItem(item_id, user){
   return (dispatch) => {
-    createTransactionService(item_id, renter, duration);
+    updateRequestedItemService(item_id, user)
+      .then(() => dispatch(fetchItems()));
+  };
+}
+
+export function refuseRequestedItem(item_id){
+  return (dispatch) => {
+    refuseRequestedItemService(item_id)
+      .then(() => dispatch(fetchItems()));
+  };
+}
+
+export function createTransaction(item_id, lender, renter, duration){
+  return (dispatch) => {
+    createTransactionService(item_id, lender, renter, duration);
+  };
+}
+
+export function returnTransaction(item_id){
+  return (dispatch) => {
+    returnTransactionService(item_id);
+  };
+}
+
+export function gotbackTransaction(item_id){
+  return (dispatch) => {
+    gotbackTransactionService(item_id);
+    dispatch(fetchItems())
+  };
+}
+
+
+export function closeItem(item_id) {
+  return (dispatch) => {
+    closeItemService(item_id);
     dispatch(fetchItems());
   };
 }
@@ -137,7 +196,7 @@ export function login(data) {
     logInService(data)
       .then((user) => {
         dispatch(logInRequest(user));
-        Actions.itemList();
+        Actions.reset('itemList');
       })
       .catch((err) => alert(err))
   }

@@ -12,8 +12,7 @@ class Home extends React.Component {
 
     this.state = {
       email: "",
-      password: "",
-      loggedIn: ""
+      password: ""
     };
   }
 
@@ -41,7 +40,7 @@ class Home extends React.Component {
                        onChangeText={(text) => this.setState({email: text})}/>
         <Text style={textStyle}>Password</Text>
             <TextInput style={{height: 50, width: 300, textAlign: 'center'}}
-                       placeholder="Passowrd"
+                       placeholder="Password"
                        secureTextEntry={true}
                        onChangeText={(text) => this.setState({password: text})}/>
         <Button title="Login!"

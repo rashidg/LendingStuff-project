@@ -13,10 +13,15 @@ class MyItems extends React.Component {
   }
 
   renderItem(item, idx){
-    const status = item.rented ? "Rented" : "Available";
+    if (item.rented) status = "Rented";
+    else if (item.requested) status = "Requested";
+    else status = "Available";
+
     return <Item key={"item" + idx}
                  title={item.name}
                  description={item.desc}
+                 imgUrl={item.imgUrl}
+                 infoBox1={item.distance + "km"}
                  infoBox2={"$" + item.rate}
                  statusBox={status}
                  onPress={ () => {Actions.itemDetail({item})} } />;

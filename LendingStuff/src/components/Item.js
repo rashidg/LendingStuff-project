@@ -127,7 +127,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#2f3699',
-    borderRadius: 20,
+    borderRadius: 30,
     borderWidth: 2,
     borderColor: 'transparent',
     margin: 1,
@@ -135,6 +135,6 @@ const styles = StyleSheet.create({
   },
   badge__text: {
     color: '#fff',
-    fontSize: 18,
+    fontSize: 10,
   }
 });
