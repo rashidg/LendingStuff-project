@@ -38,6 +38,7 @@ export function fetchItems(query) {
 export function fetchMyItems(email) {
   return (dispatch) => {
     dispatch(fetchItemsRequest());
+    console.log("Fetch My Items "  + email);
     fetchMyItemsService(email)
       .then((payload) =>
         {
@@ -47,10 +48,11 @@ export function fetchMyItems(email) {
           }
           else {
             dispatch(fetchItemsSuccess([]));
+            console.log(email + "EMPTY FUCK");
           }
+          console.log("MATE PAYLOAD")
         }
-      )
-      .catch((err) => dispatch(fetchItemsError(err)));
+      ).catch((err) => dispatch(fetchItemsError(err)));
   };
 }
 
@@ -94,6 +96,7 @@ export function createTransaction(item_id, renter, duration){
 
 export function postItem(item, successCB, errorCB) {
   return (dispatch) => {
+    console.log(item.owner + " owner");
     postItemsService(item)
       .then(successCB)
       .catch(errorCB);

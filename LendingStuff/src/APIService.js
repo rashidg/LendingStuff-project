@@ -78,14 +78,20 @@ export const fetchItemsService = (query={}) => {
 
 export const fetchMyItemsService = (username) => {
   return new Promise((resolve, reject) => {
-    var ref = firebase.database().ref('items');
-    ref.orderByChild('owner').equalTo(username).once('value').then(snapshot => {
+    console.log("Before API call");
+    console.log("Fetch My Items Service"  + username);
+    firebase.database().ref.child('items').orderByChild("owner").equalTo("hello@hi.com").once("value").then(snapshot => {
+      console.log("habibi");
       if (snapshot.val() == null){
+        console.log(userData);
         return resolve([]);
       }
-      else
+      else{
+        console.log(userData + " 2 ");
         return resolve(Object.values(snapshot.val()));
+      }
     }).catch((err) => {alert(err)});
+    console.log("Helloasas");
   })
 };
 
