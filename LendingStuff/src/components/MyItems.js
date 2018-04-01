@@ -30,7 +30,7 @@ class MyItems extends React.Component {
     if (!renderItems.length && !isFetching) {
       return (
         <View style={{backgroundColor: 'white', height: '100%'}}>
-          <Text>You ({user.email}) have not posted any items.</Text>
+          <Text>You ({user.displayName}) have not posted any items.</Text>
         </View>
       );
     }

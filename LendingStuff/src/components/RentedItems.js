@@ -8,8 +8,8 @@ import { Actions } from 'react-native-router-flux';
 
 class RentedItems extends React.Component {
   componentDidMount(){
-    const { dispatch, username } = this.props;
-    dispatch(fetchRentedItems(username));
+    const { dispatch, username, user } = this.props;
+    dispatch(fetchRentedItems(user.email));
   }
 
   renderItem(item, idx){
