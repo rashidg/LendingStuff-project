@@ -78,53 +78,141 @@ export const fetchItemsService = (query={}) => {
 
 export const fetchMyItemsService = (username) => {
   return new Promise((resolve, reject) => {
-    console.log("Before API call");
-    console.log("Fetch My Items Service"  + username);
-    firebase.database().ref.child('items').orderByChild("owner").equalTo("hello@hi.com").once("value").then(snapshot => {
-      console.log("habibi");
-      if (snapshot.val() == null){
-        console.log(userData);
-        return resolve([]);
-      }
-      else{
-        console.log(userData + " 2 ");
-        return resolve(Object.values(snapshot.val()));
-      }
-    }).catch((err) => {alert(err)});
-    console.log("Helloasas");
+    getLocationAsync()
+      .then(location => {
+        var ref = firebase.database().ref('items');
+        ref.orderByChild('owner').equalTo(users).once('value').then(snapshot => {
+          if (!snapshot.val())
+            return resolve([]);
+
+          const array = Object.values(snapshot.val());
+
+          const withDistances = array.map(item => ({
+            ...item,
+            distance: Math.round(calcDistance(item.location, location.coords) * 10) / 10
+          }));
+
+          const sortedByDistance = withDistances.sort((a, b) => a.distance > b.distance);
+          resolve(sortedByDistance);
+        });
+      })
   })
 };
 
-export const fetchRentedItemsService = (username) => {
+export const fetchItemTransactionService = (item_id) => {
   return new Promise((resolve, reject) => {
-    var ref = firebase.database().ref('items');
-    ref.orderByChild('renter').equalTo(username).once('value').then(snapshot => {
-      if(snapshot.val() == null){
-        return resolve([]);
-      }
-      return resolve(Object.values(snapshot.val()));
-    }).catch((err) => {alert(err);});
+    var ref = firebase.database().ref('transactions');
+    ref.orderByChild('item_id').equalTo(item_id).once('value').then(snapshot => {
+      if (!snapshot.val())
+        return resolve(null);
+
+      const array = Object.values(snapshot.val());
+      return resolve(array[array.length - 1]);
+    });
   })
 };
 
-export const updateRentedItemService = (item_id) => {
+export const fetchRentedItemsService = (email) => {
   return new Promise((resolve, reject) => {
-    firebase.database().ref('items/' + item_id + '/rented').set(true);
-    firebase.database().ref('items/' + item_id + '/renter').set("renter");
+    getLocationAsync()
+      .then(location => {
+        var ref = firebase.database().ref('items');
+        ref.orderByChild('renter').equalTo(email).once('value').then(snapshot => {
+          if (!snapshot.val())
+            return resolve([]);
+
+          const array = Object.values(snapshot.val());
+
+          const withDistances = array.map(item => ({
+            ...item,
+            distance: Math.round(calcDistance(item.location, location.coords) * 10) / 10
+          }));
+
+          const sortedByDistance = withDistances.sort((a, b) => a.distance > b.distance);
+          return resolve(sortedByDistance);
+        });
+      })
   })
 };
 
-export const createTransactionService = (item_id, renter, duration) => {
+export const updateRentedItemService = (item_id, user) => {
+  return new Promise((resolve, reject) => {
+    firebase.database().ref('items/' + item_id).update({
+      requested: false,
+      rented: true,
+      renter: user,
+      requester: null
+    }).then(() => { resolve() });
+  })
+};
+
+export const updateRequestedItemService = (item_id, user) => {
+  return new Promise((resolve, reject) => {
+    firebase.database().ref('items/' + item_id).update({
+      requested: true,
+      rented: false,
+      renter: null,
+      requester: user.email
+    }).then(() => { resolve() });
+  })
+};
+
+export const refuseRequestedItemService = (item_id) => {
+  return new Promise((resolve, reject) => {
+    firebase.database().ref('items/' + item_id).update({
+      requested: false,
+      rented: false,
+      renter: null,
+      requester: null
+    }).then(() => { resolve() });
+  })
+};
+
+export const createTransactionService = (item_id, owner, renter, duration) => {
   return new Promise((resolve, reject) => {
     var newKey = firebase.database().ref('transactions/').push().key;
 
     firebase.database().ref('transactions/' + newKey).set({
-      id: newKey,
       item_id: item_id,
+      owner: owner,
       renter: renter,
-      duration: duration
+      duration: duration,
+      lender_confirmed: false,
+      renter_confirmed: false
     })
+  })
+};
 
+export const returnTransactionService = (item_id) => {
+  return new Promise((resolve, reject) => {
+    firebase.database().ref('transactions').orderByChild('item_id').equalTo(item_id).limitToLast(1).once('value')
+      .then(sn => {
+        const key = Object.keys(sn.val())[0];
+        firebase.database().ref('transactions/' + key + '/renter_confirmed').set(true);
+      });
+  })
+};
+
+export const gotbackTransactionService = (item_id) => {
+  return new Promise((resolve, reject) => {
+    firebase.database().ref('transactions').orderByChild('item_id').equalTo(item_id).limitToLast(1).once('value')
+      .then(sn => {
+        const key = Object.keys(sn.val())[0];
+        firebase.database().ref('transactions/' + key + '/lender_confirmed').set(true);
+      });
+    firebase.database().ref('items/' + item_id).update({
+      requested: false,
+      rented: false,
+      renter: null,
+      requester: null
+    });
+  })
+};
+
+export const closeItemService = (item_id) => {
+  return new Promise((resolve, reject) => {
+    firebase.database().ref('items/' + item_id).set({});
+    firebase.database().ref('transactions/' + item_id).set({});
   })
 };
 

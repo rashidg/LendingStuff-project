@@ -1,11 +1,21 @@
 import React from 'react';
-import { connect } from 'react-redux'
-import { Text, View, Button, TextInput, Image, StyleSheet, ScrollView, Slider, Linking } from 'react-native';
+import { connect } from 'react-redux';
+import { Text, View, Button, TextInput, Image, StyleSheet, ScrollView, Slider, ActivityIndicator } from 'react-native';
 import moment from 'moment';
 import { Actions } from 'react-native-router-flux';
-
-import { updateRentedItem, createTransaction, fetchReviews } from '../actions';
 import ReviewList from "./ReviewList";
+import {
+  updateRentedItem,
+  fetchItemTransaction,
+  fetchReviews,
+  createTransaction,
+  returnTransaction,
+  gotbackTransaction,
+  closeItem,
+  refuseRequestedItem,
+  updateRequestedItem,
+  fetchItems
+} from '../actions';
 
 
 class ItemDetail extends React.Component {
@@ -17,18 +27,168 @@ class ItemDetail extends React.Component {
 
   componentDidMount() {
     const { item, dispatch } = this.props;
-    dispatch(fetchReviews(item.id))
+    dispatch(fetchReviews(item.id));
+    dispatch(fetchItemTransaction(this.props.item.id));
   }
 
-  handleRent() {
-    const { item, dispatch } = this.props;
-    dispatch(updateRentedItem(item.id));
-    dispatch(createTransaction(item.id, "renter", this.state.duration));
+  handleRequest() {
+    const { item, dispatch, user } = this.props;
+    dispatch(updateRequestedItem(item.id, user));
     Actions.popTo('itemList');
   }
 
+  handleRent() {
+    const { item, dispatch, user } = this.props;
+
+    dispatch(updateRentedItem(item.id, item.requester));
+    dispatch(createTransaction(item.id, item.owner, item.requester, this.state.duration));
+    Actions.popTo('itemList');
+  }
+
+  handleRefuse() {
+    const { item, dispatch } = this.props;
+
+    dispatch(refuseRequestedItem(item.id));
+    Actions.popTo('itemList');
+  }
+
+  handleReturn() {
+    const { item, dispatch } = this.props;
+
+    dispatch(returnTransaction(item.id));
+    Actions.popTo('itemList');
+  }
+
+  handleGotback() {
+    const { item, dispatch } = this.props;
+
+    dispatch(gotbackTransaction(item.id));
+    Actions.popTo('itemList');
+  }
+
+  handleClose() {
+    const { item, dispatch } = this.props;
+    dispatch(closeItem(item.id));
+    Actions.popTo('itemList');
+  }
+
+  optionsList() {
+    const { transactions, isFetching, item, user } = this.props;
+
+    if (item.owner !== user.email && !item.requested && !item.rented) {
+      const hoursLeft = moment(item.expiresOn).diff(moment(), 'hours');
+      return (
+        <View>
+          <View style={[styles.inline, { paddingLeft: 20 }]}>
+            <Text style={styles.heading}>Duration: </Text>
+            <Slider style={{ width: 150 }}
+                    step={0.5}
+                    minimumValue={0}
+                    maximumValue={hoursLeft}
+                    onValueChange={(hours) => this.setState({duration: hours}) }/>
+
+            <Text style={{ paddingLeft: 15 }}>
+              {this.state.duration + ' hours'}
+            </Text>
+          </View>
+
+          <View style={styles.submit}>
+            <Button title={"Request this item: $" + item.rate + " per hour"}
+                    onPress={this.handleRequest.bind(this)}/>
+          </View>
+        </View>
+      );
+    }
+    if (item.owner !== user.email && item.requested && !item.rented && item.requester === user.email) {
+      return (
+        <Text style={{fontSize: 16,
+                      paddingTop: 10,
+                      color: 'grey',
+                      textAlign: 'center'}}>
+          Waiting for owner's response...
+        </Text>
+      );
+    }
+
+    if (item.requested && item.owner === user.email) {
+      return (
+        <View>
+          <View style={[styles.inline, { paddingLeft: 20, fontSize: 16, }]}>
+            <Text>{item.requester} wants to borrow this item!</Text>
+          </View>
+
+          <View style={styles.submit}>
+            <Button title={"Rent out this item: $" + item.rate + " per hour"}
+                    onPress={this.handleRent.bind(this)} />
+          </View>
+          <View style={[styles.submit, {marginTop: 5, backgroundColor: '#f48342'}]}>
+            <Button title={"Look for another renter"}
+                    onPress={this.handleRefuse.bind(this)} />
+          </View>
+        </View>
+      )
+    }
+    
+    if (item.rented && transactions && !isFetching && !transactions.renter_confirmed && transactions.renter === user.email) {
+      return (
+        <View>
+          <View style={[styles.inline, { paddingLeft: 20 }]}>
+            <Text>You have borrowed this item.</Text>
+          </View>
+
+          <View style={styles.submit}>
+            <Button title={"Confirm item return (as renter)"}
+                    onPress={this.handleReturn.bind(this)} />
+          </View>
+        </View>
+      )
+    }
+    if (item.rented && transactions && !isFetching && transactions.renter_confirmed && transactions.owner === user.email) {
+      return (
+        <View>
+          <View style={[styles.inline, { paddingLeft: 20 }]}>
+            <Text>You have rented out this item.</Text>
+          </View>
+
+          <View style={styles.submit}>
+            <Button title={"Confirm item return (as lender)"}
+                    onPress={this.handleGotback.bind(this)} />
+          </View>
+        </View>
+      )
+    }
+    
+    if (false && item.rented && transactions && !isFetching && transactions.lender_confirmed && transactions.renter_confirmed) {
+      return (
+        <View>
+          <View style={[styles.inline, { paddingLeft: 20 }]}>
+            <Text>This item has been returned.</Text>
+          </View>
+
+          <View style={styles.submit}>
+            <Button title={"Close this item"}
+                    onPress={this.handleClose.bind(this)} />
+          </View>
+        </View>
+      )
+    }
+
+    if (item.owner === user.email && item.rented) {
+      return (
+        <Text style={{fontSize: 16,
+                      paddingTop: 10,
+                      color: 'grey',
+                      textAlign: 'center'}}>
+          Item rented by {item.renter}
+        </Text>
+      );
+    }
+
+    return null;
+  }
+
   render() {
-    const { item, reviews } = this.props;
+    const { item, reviews, transactions, isFetching } = this.props;
 
     //URL which stores google maps location of item
     const locationurl = "https://www.google.com/maps/search/?api=1&query=" + item.location.latitude + "," + item.location.longitude;
@@ -45,7 +205,6 @@ class ItemDetail extends React.Component {
       </View>
     );
 
-    const hoursLeft = moment().diff(moment(item.postedOn), 'hours');
 
     let imgSource;
     if (item.imgUrl)
@@ -86,36 +245,8 @@ class ItemDetail extends React.Component {
             </View>
           </View>
 
-
-          
         </ScrollView>
-
-        { !item.rented &&
-          <View>
-            <View style={[styles.inline, { paddingLeft: 20 }]}>
-              <Text style={styles.heading}>Duration: </Text>
-              <Slider style={{ width: 150 }}
-                      step={1}
-                      minimumValue={0}
-                      maximumValue={hoursLeft}
-                      onSlidingComplete={(hours) => this.setState({duration: hours})} />
-
-              <Text style={{ paddingLeft: 15 }}>
-                {moment.duration(this.state.duration, 'hours').humanize()}
-              </Text>
-            </View>
-            <View style={styles.location}>
-              <Button title="Show location" style={styles.submit}
-                      onPress={ () => goToUrl(locationurl)} />
-              <Button title="Show directions" style={styles.submit}
-                      onPress={ () => goToUrl(directionsurl)} />
-            </View>
-            <View style={styles.submit}>
-              <Button title={"Rent this item: $" + item.rate + "hour"}
-                      onPress={this.handleRent.bind(this)} />
-            </View>
-          </View>
-        }
+        { this.optionsList() }
       </View>
     );
   }
@@ -173,7 +304,9 @@ const styles = StyleSheet.create({
 });
 
 const mapStateToProps = (state) => ({
-  reviews: state.items.reviews
+  user: state.auth.user,
+  reviews: state.items.reviews,
+  transactions: state.transactions.data
 });
 
 export default connect(mapStateToProps)(ItemDetail);

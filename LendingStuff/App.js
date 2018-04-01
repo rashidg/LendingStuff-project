@@ -31,6 +31,11 @@ console.disableYellowBox = true;
 export default () => (
   <Provider store={reduxStore}>
     <Router>
+      <Drawer hideNavBar
+              key="drawer"
+              contentComponent={SideBar}
+              drawerWidth={280}
+              drawerPosition="right">
         <Stack key="root">
           <Scene key="home" component={Home} title="Home"/>
           <Scene key="Register" component={Register} title="Registration"/>
@@ -49,6 +54,7 @@ export default () => (
             <Scene key="reviewList" component={ReviewList} title="Reviews" />
           </Drawer>
         </Stack>
+      </Drawer>
     </Router>
   </Provider>
 );

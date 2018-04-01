@@ -9,22 +9,26 @@ import { Actions } from 'react-native-router-flux';
 class RentedItems extends React.Component {
   componentDidMount(){
     const { dispatch, user } = this.props;
-    const username = user.email;
-    dispatch(fetchRentedItems(username));
+    dispatch(fetchRentedItems(user.email));
   }
 
   renderItem(item, idx){
-    const status = item.rented ? "Rented" : "Available";
+    if (item.rented) status = "Rented";
+    else if (item.requested) status = "Requested";
+    else status = "Available";
+
     return <Item key={"item" + idx}
                  title={item.name}
                  description={item.desc}
+                 imgUrl={item.imgUrl}
+                 infoBox1={item.distance + "km"}
                  infoBox2={"$" + item.rate}
                  statusBox={status}
                  onPress={() => {Actions.itemDetail({item})}} />;
   }
 
   render() {
-    const { items, isFetching, username, user } = this.props;
+    const { items, isFetching, user } = this.props;
 
     const renderItems = items.map(this.renderItem);
 
@@ -57,6 +61,7 @@ class RentedItems extends React.Component {
 }
 
 const mapStateToProps = (state) => ({
+  user: state.auth.user,
   items: state.items.data,
   isFetching: state.items.isFetching,
   user: state.auth.user
