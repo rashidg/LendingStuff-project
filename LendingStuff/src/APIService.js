@@ -81,7 +81,7 @@ export const fetchMyItemsService = (username) => {
     getLocationAsync()
       .then(location => {
         var ref = firebase.database().ref('items');
-        ref.orderByChild('owner').equalTo(users).once('value').then(snapshot => {
+        ref.orderByChild('owner').equalTo(username).once('value').then(snapshot => {
           if (!snapshot.val())
             return resolve([]);
 
@@ -94,7 +94,7 @@ export const fetchMyItemsService = (username) => {
 
           const sortedByDistance = withDistances.sort((a, b) => a.distance > b.distance);
           resolve(sortedByDistance);
-        });
+        }).catch((err) => {alert(err);});
       })
   })
 };
@@ -130,7 +130,7 @@ export const fetchRentedItemsService = (email) => {
 
           const sortedByDistance = withDistances.sort((a, b) => a.distance > b.distance);
           return resolve(sortedByDistance);
-        });
+        }).catch((err) => {alert(err);});
       })
   })
 };
