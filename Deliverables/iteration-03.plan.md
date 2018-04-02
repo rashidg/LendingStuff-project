@@ -96,7 +96,7 @@ List/describe the artifacts you will produce in order to organize your team.
     * improve the styling of Item Detail scene
 
 #### Artifacts  
-* Video demo: On Google Drive (with the link in Github)
+* Video demo: On Youtube (with the link in Github)
     * briefly go over the use cases of the new functionality of the app
     * show the new and improved user workflow
     * This artifact is useful because it shows the potential users how they are going to use the app, which is necessary to make sense of the features of the app and show how it fixes the problems of the persona included in the beginning.
