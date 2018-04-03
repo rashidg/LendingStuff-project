@@ -35,9 +35,10 @@ class SubmitReview extends React.Component {
 
   onSubmit() {
     const cur = moment();
+    const email = this.props.user.email;
 
     const data = {
-      username: "renter",
+      username: email,
       review: this.state.review,
       rating: this.state.rating,
       item_id: this.props.item_id,
@@ -121,4 +122,8 @@ const styles = StyleSheet.create({
   }
 });
 
-export default connect(null, { postReview })(SubmitReview);
+const mapStateToProps = (state) => ({
+  user: state.auth.user,
+});
+
+export default connect(mapStateToProps, { postReview })(SubmitReview);
